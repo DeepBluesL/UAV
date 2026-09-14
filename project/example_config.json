@@ -1,0 +1,28 @@
+{
+  "environment": {
+    "max_steps": 100,
+    "uav_goal_positions": [
+      [
+        150,
+        70,
+        90
+      ],
+      [
+        120,
+        -30,
+        30
+      ]
+    ],
+    "imperfect_csi_beta": 0.1
+  },
+  "reward": {
+    "sensing": 0.2,
+    "rho_ref": 0.01
+  },
+  "ppo": {
+    "epochs": 100,
+    "steps_per_epoch": 2048,
+    "seed": 7,
+    "device": "cuda"
+  }
+}
