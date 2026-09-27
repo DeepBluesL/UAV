@@ -15,6 +15,8 @@ python -B -m unittest discover -s project/tests -v
 - [使用指南](docs/GUIDE.md)：训练、评估、配置、输出与实现口径
 - [物理公式迁移](docs/PHYSICS_MIGRATION.md)：旧公式到包内模块的对应关系
 - [验证记录](docs/VERIFICATION.md)：迁移测试、历史硬件与实验结果
+- [对比实验指南](docs/BASELINES.md)：规则基线、MPC、冻结 MAPPO 的统一评估
+- [对比结果与结论](docs/BASELINE_RESULTS.md)：实际运行结果与适用边界
 - [Spinning Up 许可证](LICENSE-spinningup.txt)
 
 ## 模块与修改入口
@@ -27,6 +29,7 @@ python -B -m unittest discover -s project/tests -v
 | 估计与界 | `measurements.py`, `crb.py`, `pcrb.py` | 测量模型、CRB 与 PCRB |
 | MAPPO | `core.py`, `ppo.py` | Actor/Critic、Buffer、GAE 与更新 |
 | 结果与绘图 | `artifacts.py`, `metrics.py`, `plot.py`, `plot_trajectory.py`, `replot.py` | 保存、统计和可视化 |
+| 对比实验 | `benchmark.py`, `benchmark_setup.py`, `baselines.py`, `mpc.py`, `benchmark_metrics.py`, `benchmark_plots.py`, `benchmark_report.py` | 场景、控制器、统计与报告 |
 | 验证 | `tests/`, `formula_demo.py` | 单元/集成测试与公式演示 |
 
 示例配置位于 [example_config.json](example_config.json)，默认输出目录为 `project/output/`。

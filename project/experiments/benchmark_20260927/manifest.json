@@ -1,0 +1,1039 @@
+{
+  "status": "complete",
+  "base_config": {
+    "environment": {
+      "max_steps": 100,
+      "slot_duration": 1.0,
+      "max_uav_speed": 5.0,
+      "max_uav_acceleration": 5.0,
+      "min_uav_distance": 5.0,
+      "goal_tolerance": 5.0,
+      "uav_initial": [
+        [
+          30.0,
+          10.0,
+          70.0
+        ],
+        [
+          30.0,
+          -10.0,
+          70.0
+        ]
+      ],
+      "uav_initial_velocities": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "uav_goal_positions": [
+        [
+          150.0,
+          70.0,
+          90.0
+        ],
+        [
+          120.0,
+          -30.0,
+          30.0
+        ]
+      ],
+      "world_low": [
+        -20.0,
+        -80.0,
+        20.0
+      ],
+      "world_high": [
+        150.0,
+        80.0,
+        120.0
+      ],
+      "bs_position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "target_initial_state": [
+        60.0,
+        0.0,
+        60.0,
+        -1.0,
+        1.0,
+        -1.0
+      ],
+      "target_acceleration": [
+        0.02,
+        -0.02,
+        0.02
+      ],
+      "antenna_x": 8,
+      "antenna_y": 8,
+      "total_power": 5.0,
+      "bandwidth": 100000000.0,
+      "rician_k": 10.0,
+      "beta0_c": 1e-05,
+      "beta0_s": 1e-05,
+      "alpha_target": 0.9,
+      "alpha_uav": 0.9,
+      "awgn_power": 1e-11,
+      "residual_noise": 1e-10,
+      "gamma_min": 3.1622776601683795,
+      "kappa_d": 1.0,
+      "kappa_theta": 1e-06,
+      "kappa_phi": 1e-06,
+      "kappa_v": 1e-06,
+      "process_noise_intensity": 0.1,
+      "initial_covariance": 1.0,
+      "imperfect_csi_beta": 0.1,
+      "csi_position_std": 10.0,
+      "csi_velocity_std": 1.0,
+      "csi_beta_jitter": 0.02,
+      "position_scale": 150.0,
+      "velocity_scale": 10.0,
+      "sinr_log_scale": 10.0,
+      "covariance_position_std": 1.0,
+      "covariance_velocity_std": 1.0
+    },
+    "reward": {
+      "progress": 5.0,
+      "distance": 0.5,
+      "time": 0.2,
+      "energy": 0.05,
+      "communication": 0.5,
+      "sensing": 0.2,
+      "arrival": 80.0,
+      "completion": 80.0,
+      "timeout": 100.0,
+      "collision": 20.0,
+      "boundary": 2.0,
+      "distance_ref": 100.0,
+      "rho_ref": 0.01
+    },
+    "ppo": {
+      "hidden_sizes": [
+        128,
+        128
+      ],
+      "gamma": 0.99,
+      "lam": 0.95,
+      "clip_ratio": 0.2,
+      "pi_lr": 0.0003,
+      "vf_lr": 0.001,
+      "train_pi_iters": 4,
+      "train_v_iters": 4,
+      "target_kl": 0.01,
+      "entropy_coef": 0.0,
+      "max_grad_norm": 0.5,
+      "steps_per_epoch": 2048,
+      "epochs": 300,
+      "seed": 7,
+      "device": "cpu"
+    }
+  },
+  "checkpoint": {
+    "filename": "policy.pt",
+    "sha256": "ccd57ea2eeb089df4718add2be4e4450adaaab0687e19b91a3623300531dc696",
+    "training_seed": 7,
+    "training_environment_steps": 614400,
+    "note": "One frozen checkpoint; no training-seed uncertainty estimate."
+  },
+  "suite": {
+    "description": "Frozen policies; parameters fixed before evaluation. Non-nominal cases are stress tests.",
+    "prefix_steps": 10,
+    "scenarios": {
+      "nominal": {
+        "description": "Training scenario, unchanged.",
+        "environment": {}
+      },
+      "noisy_csi": {
+        "description": "CSI error beta increases from 0.1 to 0.3.",
+        "environment": {
+          "imperfect_csi_beta": 0.3
+        }
+      },
+      "tight_deadline": {
+        "description": "Same geometry with a 30-second deadline (30 one-second steps).",
+        "environment": {
+          "max_steps": 30
+        }
+      },
+      "crossing": {
+        "description": "Equal-altitude intersecting paths; unseen start and goal geometry.",
+        "environment": {
+          "uav_initial": [
+            [
+              30,
+              -25,
+              70
+            ],
+            [
+              30,
+              25,
+              70
+            ]
+          ],
+          "uav_goal_positions": [
+            [
+              130,
+              25,
+              70
+            ],
+            [
+              130,
+              -25,
+              70
+            ]
+          ]
+        }
+      },
+      "shifted_goals": {
+        "description": "Unseen, closer goals within the same flight volume.",
+        "environment": {
+          "uav_goal_positions": [
+            [
+              120,
+              55,
+              90
+            ],
+            [
+              100,
+              -40,
+              45
+            ]
+          ]
+        }
+      }
+    },
+    "methods": {
+      "random": {},
+      "goal": {},
+      "pd": {},
+      "apf": {},
+      "mpc": {}
+    }
+  },
+  "evaluation_seeds": [
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026,
+    2027,
+    2028,
+    2029,
+    2030,
+    2031,
+    2032,
+    2033,
+    2034,
+    2035,
+    2036,
+    2037,
+    2038,
+    2039,
+    2040,
+    2041,
+    2042,
+    2043,
+    2044,
+    2045,
+    2046,
+    2047,
+    2048,
+    2049,
+    2050,
+    2051,
+    2052,
+    2053,
+    2054,
+    2055,
+    2056,
+    2057,
+    2058,
+    2059,
+    2060,
+    2061,
+    2062,
+    2063,
+    2064,
+    2065,
+    2066,
+    2067,
+    2068,
+    2069,
+    2070,
+    2071,
+    2072,
+    2073,
+    2074,
+    2075,
+    2076,
+    2077,
+    2078,
+    2079,
+    2080,
+    2081,
+    2082,
+    2083,
+    2084,
+    2085,
+    2086,
+    2087,
+    2088,
+    2089,
+    2090,
+    2091,
+    2092,
+    2093,
+    2094,
+    2095,
+    2096,
+    2097,
+    2098,
+    2099,
+    2100
+  ],
+  "methods": [
+    "random",
+    "goal",
+    "pd",
+    "apf",
+    "mpc",
+    "mappo"
+  ],
+  "prefix_steps": 10,
+  "scenarios": {
+    "nominal": {
+      "max_steps": 100,
+      "slot_duration": 1.0,
+      "max_uav_speed": 5.0,
+      "max_uav_acceleration": 5.0,
+      "min_uav_distance": 5.0,
+      "goal_tolerance": 5.0,
+      "uav_initial": [
+        [
+          30.0,
+          10.0,
+          70.0
+        ],
+        [
+          30.0,
+          -10.0,
+          70.0
+        ]
+      ],
+      "uav_initial_velocities": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "uav_goal_positions": [
+        [
+          150.0,
+          70.0,
+          90.0
+        ],
+        [
+          120.0,
+          -30.0,
+          30.0
+        ]
+      ],
+      "world_low": [
+        -20.0,
+        -80.0,
+        20.0
+      ],
+      "world_high": [
+        150.0,
+        80.0,
+        120.0
+      ],
+      "bs_position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "target_initial_state": [
+        60.0,
+        0.0,
+        60.0,
+        -1.0,
+        1.0,
+        -1.0
+      ],
+      "target_acceleration": [
+        0.02,
+        -0.02,
+        0.02
+      ],
+      "antenna_x": 8,
+      "antenna_y": 8,
+      "total_power": 5.0,
+      "bandwidth": 100000000.0,
+      "rician_k": 10.0,
+      "beta0_c": 1e-05,
+      "beta0_s": 1e-05,
+      "alpha_target": 0.9,
+      "alpha_uav": 0.9,
+      "awgn_power": 1e-11,
+      "residual_noise": 1e-10,
+      "gamma_min": 3.1622776601683795,
+      "kappa_d": 1.0,
+      "kappa_theta": 1e-06,
+      "kappa_phi": 1e-06,
+      "kappa_v": 1e-06,
+      "process_noise_intensity": 0.1,
+      "initial_covariance": 1.0,
+      "imperfect_csi_beta": 0.1,
+      "csi_position_std": 10.0,
+      "csi_velocity_std": 1.0,
+      "csi_beta_jitter": 0.02,
+      "position_scale": 150.0,
+      "velocity_scale": 10.0,
+      "sinr_log_scale": 10.0,
+      "covariance_position_std": 1.0,
+      "covariance_velocity_std": 1.0
+    },
+    "noisy_csi": {
+      "max_steps": 100,
+      "slot_duration": 1.0,
+      "max_uav_speed": 5.0,
+      "max_uav_acceleration": 5.0,
+      "min_uav_distance": 5.0,
+      "goal_tolerance": 5.0,
+      "uav_initial": [
+        [
+          30.0,
+          10.0,
+          70.0
+        ],
+        [
+          30.0,
+          -10.0,
+          70.0
+        ]
+      ],
+      "uav_initial_velocities": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "uav_goal_positions": [
+        [
+          150.0,
+          70.0,
+          90.0
+        ],
+        [
+          120.0,
+          -30.0,
+          30.0
+        ]
+      ],
+      "world_low": [
+        -20.0,
+        -80.0,
+        20.0
+      ],
+      "world_high": [
+        150.0,
+        80.0,
+        120.0
+      ],
+      "bs_position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "target_initial_state": [
+        60.0,
+        0.0,
+        60.0,
+        -1.0,
+        1.0,
+        -1.0
+      ],
+      "target_acceleration": [
+        0.02,
+        -0.02,
+        0.02
+      ],
+      "antenna_x": 8,
+      "antenna_y": 8,
+      "total_power": 5.0,
+      "bandwidth": 100000000.0,
+      "rician_k": 10.0,
+      "beta0_c": 1e-05,
+      "beta0_s": 1e-05,
+      "alpha_target": 0.9,
+      "alpha_uav": 0.9,
+      "awgn_power": 1e-11,
+      "residual_noise": 1e-10,
+      "gamma_min": 3.1622776601683795,
+      "kappa_d": 1.0,
+      "kappa_theta": 1e-06,
+      "kappa_phi": 1e-06,
+      "kappa_v": 1e-06,
+      "process_noise_intensity": 0.1,
+      "initial_covariance": 1.0,
+      "imperfect_csi_beta": 0.3,
+      "csi_position_std": 10.0,
+      "csi_velocity_std": 1.0,
+      "csi_beta_jitter": 0.02,
+      "position_scale": 150.0,
+      "velocity_scale": 10.0,
+      "sinr_log_scale": 10.0,
+      "covariance_position_std": 1.0,
+      "covariance_velocity_std": 1.0
+    },
+    "tight_deadline": {
+      "max_steps": 30,
+      "slot_duration": 1.0,
+      "max_uav_speed": 5.0,
+      "max_uav_acceleration": 5.0,
+      "min_uav_distance": 5.0,
+      "goal_tolerance": 5.0,
+      "uav_initial": [
+        [
+          30.0,
+          10.0,
+          70.0
+        ],
+        [
+          30.0,
+          -10.0,
+          70.0
+        ]
+      ],
+      "uav_initial_velocities": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "uav_goal_positions": [
+        [
+          150.0,
+          70.0,
+          90.0
+        ],
+        [
+          120.0,
+          -30.0,
+          30.0
+        ]
+      ],
+      "world_low": [
+        -20.0,
+        -80.0,
+        20.0
+      ],
+      "world_high": [
+        150.0,
+        80.0,
+        120.0
+      ],
+      "bs_position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "target_initial_state": [
+        60.0,
+        0.0,
+        60.0,
+        -1.0,
+        1.0,
+        -1.0
+      ],
+      "target_acceleration": [
+        0.02,
+        -0.02,
+        0.02
+      ],
+      "antenna_x": 8,
+      "antenna_y": 8,
+      "total_power": 5.0,
+      "bandwidth": 100000000.0,
+      "rician_k": 10.0,
+      "beta0_c": 1e-05,
+      "beta0_s": 1e-05,
+      "alpha_target": 0.9,
+      "alpha_uav": 0.9,
+      "awgn_power": 1e-11,
+      "residual_noise": 1e-10,
+      "gamma_min": 3.1622776601683795,
+      "kappa_d": 1.0,
+      "kappa_theta": 1e-06,
+      "kappa_phi": 1e-06,
+      "kappa_v": 1e-06,
+      "process_noise_intensity": 0.1,
+      "initial_covariance": 1.0,
+      "imperfect_csi_beta": 0.1,
+      "csi_position_std": 10.0,
+      "csi_velocity_std": 1.0,
+      "csi_beta_jitter": 0.02,
+      "position_scale": 150.0,
+      "velocity_scale": 10.0,
+      "sinr_log_scale": 10.0,
+      "covariance_position_std": 1.0,
+      "covariance_velocity_std": 1.0
+    },
+    "crossing": {
+      "max_steps": 100,
+      "slot_duration": 1.0,
+      "max_uav_speed": 5.0,
+      "max_uav_acceleration": 5.0,
+      "min_uav_distance": 5.0,
+      "goal_tolerance": 5.0,
+      "uav_initial": [
+        [
+          30.0,
+          -25.0,
+          70.0
+        ],
+        [
+          30.0,
+          25.0,
+          70.0
+        ]
+      ],
+      "uav_initial_velocities": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "uav_goal_positions": [
+        [
+          130.0,
+          25.0,
+          70.0
+        ],
+        [
+          130.0,
+          -25.0,
+          70.0
+        ]
+      ],
+      "world_low": [
+        -20.0,
+        -80.0,
+        20.0
+      ],
+      "world_high": [
+        150.0,
+        80.0,
+        120.0
+      ],
+      "bs_position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "target_initial_state": [
+        60.0,
+        0.0,
+        60.0,
+        -1.0,
+        1.0,
+        -1.0
+      ],
+      "target_acceleration": [
+        0.02,
+        -0.02,
+        0.02
+      ],
+      "antenna_x": 8,
+      "antenna_y": 8,
+      "total_power": 5.0,
+      "bandwidth": 100000000.0,
+      "rician_k": 10.0,
+      "beta0_c": 1e-05,
+      "beta0_s": 1e-05,
+      "alpha_target": 0.9,
+      "alpha_uav": 0.9,
+      "awgn_power": 1e-11,
+      "residual_noise": 1e-10,
+      "gamma_min": 3.1622776601683795,
+      "kappa_d": 1.0,
+      "kappa_theta": 1e-06,
+      "kappa_phi": 1e-06,
+      "kappa_v": 1e-06,
+      "process_noise_intensity": 0.1,
+      "initial_covariance": 1.0,
+      "imperfect_csi_beta": 0.1,
+      "csi_position_std": 10.0,
+      "csi_velocity_std": 1.0,
+      "csi_beta_jitter": 0.02,
+      "position_scale": 150.0,
+      "velocity_scale": 10.0,
+      "sinr_log_scale": 10.0,
+      "covariance_position_std": 1.0,
+      "covariance_velocity_std": 1.0
+    },
+    "shifted_goals": {
+      "max_steps": 100,
+      "slot_duration": 1.0,
+      "max_uav_speed": 5.0,
+      "max_uav_acceleration": 5.0,
+      "min_uav_distance": 5.0,
+      "goal_tolerance": 5.0,
+      "uav_initial": [
+        [
+          30.0,
+          10.0,
+          70.0
+        ],
+        [
+          30.0,
+          -10.0,
+          70.0
+        ]
+      ],
+      "uav_initial_velocities": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "uav_goal_positions": [
+        [
+          120.0,
+          55.0,
+          90.0
+        ],
+        [
+          100.0,
+          -40.0,
+          45.0
+        ]
+      ],
+      "world_low": [
+        -20.0,
+        -80.0,
+        20.0
+      ],
+      "world_high": [
+        150.0,
+        80.0,
+        120.0
+      ],
+      "bs_position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "target_initial_state": [
+        60.0,
+        0.0,
+        60.0,
+        -1.0,
+        1.0,
+        -1.0
+      ],
+      "target_acceleration": [
+        0.02,
+        -0.02,
+        0.02
+      ],
+      "antenna_x": 8,
+      "antenna_y": 8,
+      "total_power": 5.0,
+      "bandwidth": 100000000.0,
+      "rician_k": 10.0,
+      "beta0_c": 1e-05,
+      "beta0_s": 1e-05,
+      "alpha_target": 0.9,
+      "alpha_uav": 0.9,
+      "awgn_power": 1e-11,
+      "residual_noise": 1e-10,
+      "gamma_min": 3.1622776601683795,
+      "kappa_d": 1.0,
+      "kappa_theta": 1e-06,
+      "kappa_phi": 1e-06,
+      "kappa_v": 1e-06,
+      "process_noise_intensity": 0.1,
+      "initial_covariance": 1.0,
+      "imperfect_csi_beta": 0.1,
+      "csi_position_std": 10.0,
+      "csi_velocity_std": 1.0,
+      "csi_beta_jitter": 0.02,
+      "position_scale": 150.0,
+      "velocity_scale": 10.0,
+      "sinr_log_scale": 10.0,
+      "covariance_position_std": 1.0,
+      "covariance_velocity_std": 1.0
+    }
+  },
+  "runtime": {
+    "python": "3.12.14",
+    "numpy": "2.5.2",
+    "torch": "2.14.0+cu130",
+    "evaluation_device": "cpu",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "torch_threads": 1
+  },
+  "statistics": {
+    "confidence": 0.95,
+    "success": "Wilson",
+    "mean": "percentile bootstrap",
+    "bootstrap_samples": 2000,
+    "paired_reference": "goal"
+  },
+  "protocol": [
+    "Same scenarios, constraints, team reward and paired evaluation seeds for all methods.",
+    "Environment RNG consumption can diverge after different active-source histories.",
+    "No tuning on evaluation outcomes; non-nominal cases are specified stress tests.",
+    "MPC is a centralized finite-candidate navigation planner, not an ISAC optimizer.",
+    "Fixed-prefix rho excludes t=0; episodes shorter than the prefix remain missing.",
+    "Timing covers warmed policy.act wall time only; environment and plotting are excluded.",
+    "Figures use the first listed evaluation seed, without selecting a favorable trajectory."
+  ],
+  "source_commit": "540962b6a9d49a43efb64b54246946d0ae642a88",
+  "source_tree_dirty": true,
+  "source_sha256": {
+    "__init__.py": "923eac41ba428438cbb58357b51f7173c1befdbb51109313eb924a98b6ba801a",
+    "artifacts.py": "0adba4c10fab6bfbd85f247bf2584da26c71a45c563aa1da2d6ffc4dd92a91a3",
+    "baselines.py": "2db8855317c471088de1759b15cd585c71a485535b3f2698c2085cc0cd4e60c3",
+    "benchmark.py": "3f1e3ba08efbb687147fffde3873ddcc2659fcb9b03d6b7572e5ee9f0dac4915",
+    "benchmark_metrics.py": "5ab28c1d049f99d6f0c366e97b3a4669a0af210ab65fe70c9ec36c7e3c682382",
+    "benchmark_plots.py": "e9b473b9dd6cbe8a31b6c412c42f0f129d4dbf28faf46cc74551d659c31833d3",
+    "benchmark_report.py": "c218c6da643f488fff0161478b95cb0fddcad32e660ceb707473e0a172d8d930",
+    "benchmark_setup.py": "49632d685a33463cc16eb49e5c9f6e9389c9890e23a23a3ff785117ea4fb1735",
+    "channels.py": "11e94a1ded7da6aac42d936b01050a6db8a357342c9bbfae721858b4d9af2672",
+    "communication.py": "af9b94ee63852faa59f957c56846f22e3bc01f7381ec53df3a2a4eed47fec5e2",
+    "config.py": "f9f537398240ff97d4fc44e183a6a51d3caa0e3b9a4eb4b879ee03c9e709874a",
+    "core.py": "0ce056d163d735d01e24de6ed3de495ea8a03fa15440b0a4b36491f9cd30245f",
+    "crb.py": "45b3021264e8c1ae8f2c0fe5e3a75a574276016d1e6603e3c3e33a4c0b3f2356",
+    "env.py": "0f5dbefbc21d1d4f9ada43d758a741732b0d7e35cf45d695ec280810f1d9f583",
+    "evaluate.py": "4b2572245d2fde210f6bcba23cf7dd29283d1544dcb99c4e53f10a1efd07fbd3",
+    "formula_demo.py": "69a9baeb9549dec53ada8f99be89e3a6a71cbbf9f8713c1e427d2f7a53c49683",
+    "measurements.py": "38c7e6601855bc107101595aabcad5ecff7a79259af1bc51ce3d7385179287e4",
+    "metrics.py": "242f5d41a034b0ed427caccd04ae08c090d580564129b269e179ea5a0d8071f6",
+    "mpc.py": "1c044139864987e593ab34d32c0419836626b85d413d5bacf326ecdba14e68e1",
+    "observations.py": "a23663bb404a79a3e32e903a836e8ca9cc286d0158d6c0fc2996247a06a3e01d",
+    "pcrb.py": "a606479e605192ab01d340eb38d06b8e942d59fa1478f5de52e7ad6c950f118b",
+    "physics.py": "ddfb58f5f0307a06a306cbb2fd3ddfcea66e4c08f791a6a131c90a581e4df8bb",
+    "plot.py": "d9c07aaa9ddd1f0609fdf69b7698e9db835941e78b09be632fc4c5eed85e015e",
+    "plot_trajectory.py": "2118f2e3347e620a1fd653ddaabf6667f019190808ae6739a343b27b18461a24",
+    "ppo.py": "925b8b8b843206f822103129c2e13a819d8f33b50576c0f6677824b7052c7b9b",
+    "replot.py": "ebbc21fad2fbae5c161c3a5470f4a2b44e409d29d78f492663b3a943f8cb332e",
+    "rewards.py": "612a62e2284bd973b1bebe966e9aa9dec42d340eba2c89fdb502e218505eec08",
+    "sensing.py": "23e0356c3747e5152babc622bd4b7ab4305d3ec06d7637742e59dd67a20afa00",
+    "train.py": "2c14de256181ab6895626255e75a834c45637b47e748b53163e43b5538362fc8"
+  },
+  "controller_settings": {
+    "nominal": {
+      "random": {
+        "seed": 0,
+        "raw_action_limit": 1.0
+      },
+      "goal": {},
+      "pd": {
+        "kp": 1.0,
+        "kd": 1.5,
+        "slow_radius": 15.0
+      },
+      "apf": {
+        "kp": 1.0,
+        "kd": 1.5,
+        "slow_radius": 15.0,
+        "teammate_gain": 18.0,
+        "influence_radius": 12.0,
+        "boundary_gain": 10.0,
+        "boundary_margin": 10.0
+      },
+      "mpc": {
+        "horizon": 3,
+        "effort_weight": 0.03,
+        "speed_weight": 0.02,
+        "clearance_weight": 8.0,
+        "terminal_weight": 2.0
+      },
+      "mappo": {}
+    },
+    "noisy_csi": {
+      "random": {
+        "seed": 0,
+        "raw_action_limit": 1.0
+      },
+      "goal": {},
+      "pd": {
+        "kp": 1.0,
+        "kd": 1.5,
+        "slow_radius": 15.0
+      },
+      "apf": {
+        "kp": 1.0,
+        "kd": 1.5,
+        "slow_radius": 15.0,
+        "teammate_gain": 18.0,
+        "influence_radius": 12.0,
+        "boundary_gain": 10.0,
+        "boundary_margin": 10.0
+      },
+      "mpc": {
+        "horizon": 3,
+        "effort_weight": 0.03,
+        "speed_weight": 0.02,
+        "clearance_weight": 8.0,
+        "terminal_weight": 2.0
+      },
+      "mappo": {}
+    },
+    "tight_deadline": {
+      "random": {
+        "seed": 0,
+        "raw_action_limit": 1.0
+      },
+      "goal": {},
+      "pd": {
+        "kp": 1.0,
+        "kd": 1.5,
+        "slow_radius": 15.0
+      },
+      "apf": {
+        "kp": 1.0,
+        "kd": 1.5,
+        "slow_radius": 15.0,
+        "teammate_gain": 18.0,
+        "influence_radius": 12.0,
+        "boundary_gain": 10.0,
+        "boundary_margin": 10.0
+      },
+      "mpc": {
+        "horizon": 3,
+        "effort_weight": 0.03,
+        "speed_weight": 0.02,
+        "clearance_weight": 8.0,
+        "terminal_weight": 2.0
+      },
+      "mappo": {}
+    },
+    "crossing": {
+      "random": {
+        "seed": 0,
+        "raw_action_limit": 1.0
+      },
+      "goal": {},
+      "pd": {
+        "kp": 1.0,
+        "kd": 1.5,
+        "slow_radius": 15.0
+      },
+      "apf": {
+        "kp": 1.0,
+        "kd": 1.5,
+        "slow_radius": 15.0,
+        "teammate_gain": 18.0,
+        "influence_radius": 12.0,
+        "boundary_gain": 10.0,
+        "boundary_margin": 10.0
+      },
+      "mpc": {
+        "horizon": 3,
+        "effort_weight": 0.03,
+        "speed_weight": 0.02,
+        "clearance_weight": 8.0,
+        "terminal_weight": 2.0
+      },
+      "mappo": {}
+    },
+    "shifted_goals": {
+      "random": {
+        "seed": 0,
+        "raw_action_limit": 1.0
+      },
+      "goal": {},
+      "pd": {
+        "kp": 1.0,
+        "kd": 1.5,
+        "slow_radius": 15.0
+      },
+      "apf": {
+        "kp": 1.0,
+        "kd": 1.5,
+        "slow_radius": 15.0,
+        "teammate_gain": 18.0,
+        "influence_radius": 12.0,
+        "boundary_gain": 10.0,
+        "boundary_margin": 10.0
+      },
+      "mpc": {
+        "horizon": 3,
+        "effort_weight": 0.03,
+        "speed_weight": 0.02,
+        "clearance_weight": 8.0,
+        "terminal_weight": 2.0
+      },
+      "mappo": {}
+    }
+  },
+  "total_episodes": 3000,
+  "postprocessing": {
+    "note": "Plot subtitle generalized for benchmarks without a checkpoint; episode data and statistics unchanged.",
+    "old_plot_source_sha256": "6a554cf25dcb9112d686a234f8377beb37f613e26c6ffefff10d74f1de1be772",
+    "new_plot_source_sha256": "e9b473b9dd6cbe8a31b6c412c42f0f129d4dbf28faf46cc74551d659c31833d3"
+  }
+}

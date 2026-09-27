@@ -108,6 +108,8 @@ python -m project.train --mode baseline --config project/example_config.json --e
 该模式使用 `GoalController`，不训练 PPO，也不生成 `policy.pt`。
 它用于核对场景可达性及指标口径；比较自定义场景时，baseline 应使用与训练相同的配置和任务期限。
 
+更多规则基线、人工势场和短时域 MPC 的统一对比见 [BASELINES.md](BASELINES.md)，实际结果见 [BASELINE_RESULTS.md](BASELINE_RESULTS.md)。
+
 ## 6. 修改场景、奖励和 PPO 参数
 
 **生效顺序：`config.py` 默认值 → JSON 中提供的字段 → 命令行覆盖。**

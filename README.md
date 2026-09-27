@@ -70,6 +70,16 @@ python -B -m unittest discover -s project/tests -v
 
 结果保存在指定的 `project/output/` 子目录，包括模型 `policy.pt`、训练/评估日志和 PNG 图表。轨迹图展示基站、两架 UAV，以及黑飞的真实/估计轨迹。**每次实验使用不同输出目录**，同名文件会被覆盖；当前不支持断点续训。
 
+## 对比实验
+
+统一比较随机动作、目标导航、PD、人工势场和短时域导航 MPC：
+
+```bat
+python -m project.benchmark --config project/example_config.json --seed-start 2001 --episodes 100 --output project/output/comparison_rules
+```
+
+加入已训练 MAPPO 的方式、场景与统计口径见 [对比实验指南](project/docs/BASELINES.md)；实际实验结论见 [结果分析](project/docs/BASELINE_RESULTS.md)。
+
 ## 从哪里修改
 
 | 内容 | 位置 |

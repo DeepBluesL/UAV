@@ -68,3 +68,12 @@ PPO 评估仍频繁请求越界，说明需要正式训练和多种子实验；�
 
 可查看 `project/output/smoke`、`project/output/smoke_reload` 和 `project/output/baseline` 中的 CSV、JSON、NPZ、PNG。
 物理模型局限、奖励口径、运行命令和修改入口见 [GUIDE.md](GUIDE.md)。
+
+## 2026-09-27：基线对比实验
+
+- 新增 Random、PD、APF、有限候选集中导航 MPC，与原 Goal 和冻结 MAPPO 统一评估。
+- project/tests 共58项测试通过（4.656秒），涵盖MPC预测与实际环境一致、到达冻结、随机策略每回合复现、前缀统计与完整benchmark产物。
+- 6种方法 × 5场景 × 100个连续评估种子（2001–2100），共3000回合完整完成；所有前缀指标均有100个有效样本。
+- 300轮、614400联合环境步、训练seed7的已有MAPPO权重保持不变；未根据正式结果调整控制器。
+- 已核对完整原始CSV、聚合统计、配对差、源码与模型哈希，以及结果图；实验快照保存在 [experiments/benchmark_20260927](../experiments/benchmark_20260927/REPORT.md)。
+- 原场景100%到达并不代表超过简单方法；MAPPO在交叉航线和改变终点场景0/100成功，详见 [BASELINE_RESULTS.md](BASELINE_RESULTS.md)。

@@ -1,0 +1,75 @@
+{
+  "description": "Frozen policies; parameters fixed before evaluation. Non-nominal cases are stress tests.",
+  "prefix_steps": 10,
+  "scenarios": {
+    "nominal": {
+      "description": "Training scenario, unchanged.",
+      "environment": {}
+    },
+    "noisy_csi": {
+      "description": "CSI error beta increases from 0.1 to 0.3.",
+      "environment": {
+        "imperfect_csi_beta": 0.3
+      }
+    },
+    "tight_deadline": {
+      "description": "Same geometry with a 30-second deadline (30 one-second steps).",
+      "environment": {
+        "max_steps": 30
+      }
+    },
+    "crossing": {
+      "description": "Equal-altitude intersecting paths; unseen start and goal geometry.",
+      "environment": {
+        "uav_initial": [
+          [
+            30,
+            -25,
+            70
+          ],
+          [
+            30,
+            25,
+            70
+          ]
+        ],
+        "uav_goal_positions": [
+          [
+            130,
+            25,
+            70
+          ],
+          [
+            130,
+            -25,
+            70
+          ]
+        ]
+      }
+    },
+    "shifted_goals": {
+      "description": "Unseen, closer goals within the same flight volume.",
+      "environment": {
+        "uav_goal_positions": [
+          [
+            120,
+            55,
+            90
+          ],
+          [
+            100,
+            -40,
+            45
+          ]
+        ]
+      }
+    }
+  },
+  "methods": {
+    "random": {},
+    "goal": {},
+    "pd": {},
+    "apf": {},
+    "mpc": {}
+  }
+}

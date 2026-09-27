@@ -70,6 +70,16 @@ The example configuration uses the GPU. To run on the CPU, add `--device cpu` to
 
 Results are saved in the specified subdirectory under `project/output/`, including the `policy.pt` model, training and evaluation logs, and PNG plots. Trajectory plots show the base station, both UAVs, and the rogue UAV's ground-truth and estimated trajectories. **Use a different output directory for each experiment**; files with the same name will be overwritten. Resuming training from a checkpoint is not currently supported.
 
+## Baseline Comparisons
+
+Compare random actions, goal seeking, PD, artificial potential fields, and short-horizon navigation MPC under the same evaluation protocol:
+
+```bat
+python -m project.benchmark --config project/example_config.json --seed-start 2001 --episodes 100 --output project/output/comparison_rules
+```
+
+See the [benchmark guide](project/docs/BASELINES.md) for adding a trained MAPPO checkpoint, scenarios, and statistics, and the [results analysis](project/docs/BASELINE_RESULTS.md) for measured findings (both in Chinese).
+
 ## Where to Make Changes
 
 | Content | Location |
