@@ -1,11 +1,13 @@
 # 物理公式迁移
 
-project 现在是自包含的 Python 包。运行新环境不需要上一级 test.py 或旧版环境文件。
-原 test.py 保留作历史对照，公式函数已经实质迁入下面六个模块，没有动态加载旧文件或 sys.path 补丁。
+本文所有命令都从仓库根目录执行，并按 Windows CMD 单行书写。
+
+project 现在是自包含的 Python 包。运行新环境不需要 `legacy/test.py` 或旧版环境文件。
+原脚本保留在 [`../../legacy/test.py`](../../legacy/test.py) 作历史对照，公式函数已经实质迁入下面六个模块，没有动态加载旧文件或 sys.path 补丁。
 
 ## 函数对应关系
 
-| 新文件 | 从原 test.py 迁入的函数 |
+| 新文件 | 从 `legacy/test.py` 迁入的函数 |
 | --- | --- |
 | channels.py | norm、db_to_linear、dbm_to_watt、abs2、abs2_scalar、normalize、rician_factor、beta_c_bs_uav、beta_s_bs_target、beta_s_two_hop、direction_cosines、steering_vector_upa、make_matched_beams |
 | communication.py | uav_comm_sinr_eq10_parts |
@@ -25,7 +27,7 @@ DIST_EPS、FLOAT_TINY 保留在 channels.py，其他模块按需显式导入。
 
 env.py → physics.py → 包内 channels / communication / sensing / crb / pcrb。
 pcrb.py → measurements.py；measurements.py 只从 channels.py 读取距离容差。
-所有内部依赖使用显式相对导入，没有重新导入旧 test.py 的兼容转发层。
+所有内部依赖使用显式相对导入，没有重新导入 `legacy/test.py` 的兼容转发层。
 
 physics.py 仍负责活动源和时序，不将这些环境规则混入单个 SINR/CRB 函数。
 两个 Actor、集中 Critic、奖励、到达退出和 GAE 逻辑沿用上一版。
@@ -46,20 +48,18 @@ physics.py 仍负责活动源和时序，不将这些环境规则混入单个 SI
 
 ## 使用与验证
 
-从 project 的父目录运行：
+从仓库根目录运行：
 
-~~~powershell
+~~~bat
 python -m project.formula_demo
 python -m unittest discover -s project/tests -v
 python -m project.train --config project/example_config.json
 ~~~
 
-本机请使用 D:/anaconda3/envs/uav/python.exe，或先激活对应 Conda 环境。
-
-- 临时只读对照脚本将新函数与原 test.py 按固定种子比较；这些旧文件引用不写入永久测试。
+- 临时只读对照脚本将新函数与 `legacy/test.py` 按固定种子比较；这些旧文件引用不写入永久测试。
 - 永久公式测试使用可手算值、协方差和功率约束，不依赖旧目录。
 - test_standalone.py 只复制 project 源码到空目录，阻断所有旧模块导入，执行公式演示、
   8 步短训练、模型保存和评估。临时文件在测试结束时清理。
 - 迁移后的 PPO 与导航对照评估，和迁移前已保存的各回合统计、奖励及全部轨迹字段逐项完全一致。
 
-具体最新测试数量和结果见 VERIFICATION.md。
+具体最新测试数量和结果见 [VERIFICATION.md](VERIFICATION.md)。

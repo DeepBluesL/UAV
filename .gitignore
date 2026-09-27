@@ -1,22 +1,26 @@
-# Python cache
+# Python caches and local environments
 __pycache__/
-*.pyc
-*.pyo
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
 
-# PyCharm
+# Editor and OS files
 .idea/
-
-# Temporary / generated files
-tmp/
-.chart-data-*/
-
-# Generated outputs
-output/
-
-# Environment / secrets
-.env
-.env.*
-
-# OS files
 .DS_Store
 Thumbs.db
+
+# Local temporary files and generated results (at any level)
+tmp/
+.chart-data-*/
+output/
+*.pt
+*.pth
+*.ckpt
+*.log
+
+# Local credentials and environment settings
+.env
+.env.*

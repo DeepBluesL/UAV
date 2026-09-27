@@ -1,5 +1,13 @@
 # 本轮验证记录
 
+本文涉及的命令均从仓库根目录执行，并按 Windows CMD 单行书写。以下环境与硬件信息是迁移时的历史验证记录，不是运行项目的固定要求。
+
+## 2026-09-27 结构整理
+
+- 仓库根目录的旧实现与 `2uav/` 已归档到 `legacy/`，旧源码没有逻辑修改。
+- 归档后的 14 项 legacy 回归测试全部通过。
+- `project/tests` 的 40 项测试全部通过，用时 4.813 秒。
+
 当前环境：Python 3.12.14、NumPy 2.5.2、PyTorch 2.14.0+cu130、Matplotlib 3.11.1。
 原迁移与性能诊断使用 CPU 构建；下方历史结果保留当时口径。
 使用 D:/anaconda3/envs/uav/python.exe；本轮为该环境补装了 Matplotlib 及其依赖。
@@ -19,7 +27,7 @@
 ## 已完成
 
 - project/tests 下 40 项 unittest 全通过，包含公式校验与独立目录运行测试。
-- 原 test_c_happo_hybrid_beamforming 的 4 项回归测试全通过。
+- 原 `legacy/test_c_happo_hybrid_beamforming.py` 的 4 项回归测试全通过。
 - 新增 Python 文件最长 186 行。
 - 完成 2 epoch × 128 联合环境交互的短训练；策略和价值更新数值有限。
 - policy.pt 可通过正式 evaluate 命令重新加载；相同评估种子下，逐回合指标和保存轨迹完全一致。
@@ -28,15 +36,15 @@
 
 ## 物理公式迁移验证
 
-- 原 test.py 的 32 个物理/数值函数已迁入 project 内六个模块，文件为 52～139 行。
+- 原 `legacy/test.py` 的 32 个物理/数值函数已迁入 project 内六个模块，文件为 52～139 行。
 - 逐函数对照完成 174 个数值结果的零容差比较，以及 19 项非法输入的异常类型和消息比较，全部一致。
 - 对照覆盖 1/2/3 架 UAV、通信直接感知干扰的两个分支、CI 默认/自定义权重，以及 PCRB 的两个信息矩阵输入分支。
-- 永久公式测试使用独立的手算值及功率、协方差约束，不导入原 test.py。
+- 永久公式测试使用独立的手算值及功率、协方差约束，不导入 `legacy/test.py`。
 - 独立目录测试只复制 project 源码，并阻断旧模块导入；公式演示、8 步短训练、模型保存和评估全部通过。
 - 使用迁移前保存的 PPO 模型及导航对照重新评估，逐回合统计和所有轨迹字段与原记录完全一致。
-- 原 test.py 未修改。运行新环境不再依赖上一级目录内的历史代码。
+- `legacy/test.py` 未修改。运行新环境不再依赖历史代码。
 
-函数映射、公式口径和独立运行方法见 PHYSICS_MIGRATION.md。
+函数映射、公式口径和独立运行方法见 [PHYSICS_MIGRATION.md](PHYSICS_MIGRATION.md)。
 以下 256 步训练结果来自迁移前的短训练；本次模块拆分没有改变其评估结果。
 
 ## 单行命令、设备诊断与轨迹图更新
@@ -58,5 +66,5 @@
 短训练的价值损失约从 9439.8 降至 7343.3，但只有两个更新批次，不能据此判断学习效果。
 PPO 评估仍频繁请求越界，说明需要正式训练和多种子实验；环境安全裁剪已记录这些请求。
 
-可查看 output/smoke、output/smoke_reload 和 output/baseline 中的 CSV、JSON、NPZ、PNG。
-物理模型局限、奖励口径、运行命令和修改入口见 README.md。
+可查看 `project/output/smoke`、`project/output/smoke_reload` 和 `project/output/baseline` 中的 CSV、JSON、NPZ、PNG。
+物理模型局限、奖励口径、运行命令和修改入口见 [GUIDE.md](GUIDE.md)。
