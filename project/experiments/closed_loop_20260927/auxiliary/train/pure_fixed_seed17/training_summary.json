@@ -1,0 +1,8 @@
+{
+  "environment_steps": 204800,
+  "completed_episodes": 2613,
+  "team_success_rate": 0.49866054343666283,
+  "unfinished_episode_steps": 31,
+  "training_distribution": "fixed",
+  "randomized_mixture": null
+}

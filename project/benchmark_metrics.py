@@ -11,7 +11,8 @@ METRICS = (
     "total_path_length", "total_energy_proxy", "goal_distance_mean",
     "communication_rate", "rho_pos_mean", "rho_prefix_mean",
     "safety_interventions", "collisions", "boundary_requests",
-    "policy_ms_per_step",
+    "policy_ms_per_step", "tracking_rmse", "tracking_prefix_rmse",
+    "prior_tracking_rmse", "measurement_updates",
 )
 PAIRED_METRICS = ("episode_return", "restricted_team_time", "rho_prefix_mean")
 
@@ -47,6 +48,11 @@ def enrich_episode(row, trace, config, prefix_steps=10):
     rho = np.asarray(trace["rho_pos"], dtype=float).reshape(-1)
     result["rho_prefix_mean"] = (
         float(np.mean(rho[1:prefix_steps + 1])) if rho.size - 1 >= prefix_steps else None)
+    if "estimated_target_positions" in trace:
+        error = trace["estimated_target_positions"][1:prefix_steps + 1] - trace["target_positions"][1:prefix_steps + 1]
+        result["tracking_prefix_rmse"] = (
+            float(np.sqrt(np.mean(np.sum(error ** 2, axis=1))))
+            if len(error) == prefix_steps else None)
     return result
 
 

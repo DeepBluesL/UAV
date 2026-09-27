@@ -1,0 +1,37 @@
+{
+  "metric": "tracking_prefix_rmse (t1..t10, m)",
+  "controller": "goal",
+  "bootstrap_seed": 20260927,
+  "bootstrap_resamples": 200000,
+  "sampling_unit": "paired evaluation seed",
+  "full_minus_bs_mean_m": -4.020511369952141,
+  "full_minus_bs_95_percentile_ci_m": [
+    -6.805388412044644,
+    -1.8350169585400047
+  ],
+  "improved_seeds": 30,
+  "episodes_per_setting": 30,
+  "settings": {
+    "nominal": {
+      "mean_m": 0.7056546762470239,
+      "median_m": 0.3308472418745437,
+      "sample_std_m": 0.971730325417598,
+      "min_m": 0.2126337451912046,
+      "max_m": 5.164997365758681
+    },
+    "bs_only": {
+      "mean_m": 4.7261660461991655,
+      "median_m": 1.2688553812709797,
+      "sample_std_m": 8.074924893934657,
+      "min_m": 0.5766745946910146,
+      "max_m": 37.515397381563254
+    },
+    "prediction_only": {
+      "mean_m": 19.46472754240153,
+      "median_m": 20.08002149365735,
+      "sample_std_m": 7.2289366083493825,
+      "min_m": 3.7235860250853907,
+      "max_m": 35.92305786864238
+    }
+  }
+}

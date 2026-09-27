@@ -58,7 +58,10 @@ def load_policy(path, device="cpu"):
     environment = EnvConfig(**config["environment"])
     reward = RewardConfig(**config["reward"])
     ppo = PPOConfig(**{**config["ppo"], "device": device})
-    ac = MAPPOActorCritic(saved["obs_dim"], saved["state_dim"], hidden_sizes=ppo.hidden_sizes)
+    ac = MAPPOActorCritic(
+        saved["obs_dim"], saved["state_dim"], hidden_sizes=ppo.hidden_sizes,
+        environment=environment, control_mode=ppo.control_mode,
+        residual_scale=ppo.residual_scale)
     ac.load_state_dict(saved["model"])
     ac.to(device).eval()
     return ac, environment, reward, ppo

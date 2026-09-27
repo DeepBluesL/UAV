@@ -4,13 +4,13 @@
 
 ## 运行
 
-已有模型时，以 checkpoint 中保存的环境和奖励作为共同基准，对比五种无训练方法与冻结 MAPPO：
+已有模型时，以 checkpoint 中保存的环境和奖励作为共同基准，对比六种无训练方法与冻结 MAPPO：
 
 ```bat
 python -m project.benchmark --checkpoint project/output/run_seed7_gpu/policy.pt --suite project/benchmark_config.json --seed-start 2001 --episodes 100 --device cpu --output project/output/comparison_seed7
 ```
 
-刚克隆仓库没有模型时，可以先跑五种规则方法；输出目录必须是 `project` 内尚不存在的目录：
+刚克隆仓库没有模型时，可以先跑六种规则方法；输出目录必须是 `project` 内尚不存在的目录：
 
 ```bat
 python -m project.benchmark --config project/example_config.json --suite project/benchmark_config.json --seed-start 2001 --episodes 100 --output project/output/comparison_rules
@@ -22,7 +22,7 @@ python -m project.benchmark --config project/example_config.json --suite project
 python -m project.benchmark --config project/example_config.json --methods goal pd apf mpc --scenarios nominal crossing --eval-seeds 1901 1902 --output project/output/comparison_quick
 ```
 
-`--episodes` 是**每个场景、每种方法**的回合数，默认 100；默认种子连续取 2001–2100。显式 `--eval-seeds` 会覆盖这组种子。全套五场景、六方法共 3000 回合。`--device` 只控制冻结神经网络的推理设备，本轮统一在 CPU 上评估，原有 GPU 训练配置不受影响。
+`--episodes` 是**每个场景、每种方法**的回合数，默认 100；默认种子连续取 2001–2100。显式 `--eval-seeds` 会覆盖这组种子。当前默认包含 SA：五场景、七方法共 3500 回合；历史归档没有 SA，为六方法 3000 回合。`--device` 只控制冻结神经网络的推理设备，本轮统一在 CPU 上评估，原有 GPU 训练配置不受影响。
 
 `--checkpoint` 和 `--config` 互斥：禁止在不知情时更换模型的基准场景。场景变化集中写在 [benchmark_config.json](../benchmark_config.json) 的 `scenarios`；`--scenarios` 可选择子集。`--reference` 指定配对比较基准，默认 `goal`，它必须包含在 `--methods` 中。
 
@@ -35,6 +35,7 @@ python -m project.benchmark --config project/example_config.json --methods goal 
 | `pd` | [baselines.py](../baselines.py)：a = kp·目标位移 + kd·(目标速度−当前速度)，kp=1，kd=1.5，减速半径15 m | 目标速度在近终点处降低；加速度及速度仍遵循环境限幅 |
 | `apf` | [baselines.py](../baselines.py)：PD 吸引项、队友间距排斥、边界排斥 | APF 风格基线；对称交叉路径可能出现局部极小或死锁，不含专门解困规则 |
 | `mpc` | [mpc.py](../mpc.py)：3步预测，每架活动机7种候选，最多49种联合组合 | 集中有限候选导航 MPC；候选加速度在预测窗内保持不变，只执行第一步；不是连续优化器或完整 ISAC 最优控制 |
+| `sa` | [annealing.py](../annealing.py)：4步时域、16次Metropolis搜索，含5个初始参考序列 | 集中在线导航SA，每步21次运动模型序列评估，不查询真实未来，不是全ISAC或全局最优解 |
 | `mappo` | [core.py](../core.py)：checkpoint 的两个独立 Actor，确定性执行 | 各 Actor 使用自己的观测；评估不调用 Critic，不训练、不微调 |
 
 APF 默认队友增益18、影响参数12 m、边界增益10、边界范围10 m；MPC 默认控制代价0.03、速度代价0.02、间距代价8、末端权重2。完整参数会写入每次实验的 `manifest.json`；在套件 JSON 的 `methods.pd/apf/mpc` 中覆盖构造参数即可，不需要改运行器。
@@ -89,3 +90,5 @@ MPC 预测包含加速度、速度和边界约束、整个时隙的两机最小�
 ## 方法来源
 
 APF 的吸引/排斥思路参考 [Khatib, 1986](https://khatib.stanford.edu/publications/pdfs/Khatib_1986_IJRR.pdf)；滚动有限时域控制思路参考 [Mayne et al., 2000](https://www.sciencedirect.com/science/article/pii/S0005109899002149)。本仓库采用针对现有运动模型的简化实现，不声称复现这些论文全部算法或其稳定性保证。
+
+新 EKF、多场景训练、纯／残差 RL 实验另见 [闭环实验指南](CLOSED_LOOP_STUDY.md)。历史实验的所有 PCRB 表述针对 `proxy`；新 `ekf` 模式同名rho字段表示滤波协方差迹，另报告相同前缀的实际跟踪RMSE。

@@ -13,8 +13,9 @@ def build_observations(env):
     flags = np.concatenate([env.active, env.arrived]).astype(float)
     comm = np.log1p(env.metrics["communication_sinrs"]) / cfg.sinr_log_scale
     sensing = np.log1p(env.metrics["sensing_sinrs"]) / cfg.sinr_log_scale
+    # 统一接口：proxy为PCRB，ekf为后验协方差；estimate在ekf模式同样是后验。
     uncertainty = np.log1p(np.diag(env.pcrb_matrix)[:3] / (env.reward_config.rho_ref / 3))
-    # 每步可靠、零时延交付的模拟 BS 消息；不代表已经实现测量滤波。
+    # 每步可靠、零时延交付的 BS 消息；EKF 模式下携带融合后的估计。
     estimate = env.estimated_target_state
     observations = []
     for i in range(2):

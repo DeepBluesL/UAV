@@ -13,6 +13,8 @@ import torch
 from torch import nn
 from torch.distributions import Normal
 
+from .control import ActionAdapter
+
 
 def combined_shape(length: int, shape=None) -> tuple[int, ...]:
     """构造经验缓存数组的形状。"""
@@ -114,6 +116,9 @@ class MAPPOActorCritic(nn.Module):
         state_dim: int,
         act_dim: int = 3,
         hidden_sizes: Iterable[int] = (128, 128),
+        environment=None,
+        control_mode: str = "pure",
+        residual_scale: float = .25,
     ) -> None:
         super().__init__()
         hidden_sizes = tuple(hidden_sizes)
@@ -122,13 +127,23 @@ class MAPPOActorCritic(nn.Module):
         )
         self.v = MLPCritic(state_dim, hidden_sizes)
         self.act_dim = act_dim
+        self.action_adapter = (
+            ActionAdapter(environment, control_mode, residual_scale)
+            if environment is not None else None)
+        self.control_mode = control_mode
+        if control_mode == "residual":
+            # Start exactly at the useful goal controller; PPO learns deviations.
+            for actor in self.pi:
+                output = actor.mu_net[-2]
+                nn.init.zeros_(output.weight)
+                nn.init.zeros_(output.bias)
 
     @property
     def device(self) -> torch.device:
         return next(self.parameters()).device
 
-    def act(self, obs, active, deterministic: bool = False):
-        """为活动智能体采样原始动作；非活动智能体保留全零占位。"""
+    def step(self, obs, active, deterministic: bool = False):
+        """Sample raw Gaussian actions retained unchanged for PPO log-probs."""
         if torch.is_tensor(active):
             active_flags = active.detach().cpu().numpy().astype(bool)
         else:
@@ -154,6 +169,18 @@ class MAPPOActorCritic(nn.Module):
                 actions[agent_index] = action.cpu().numpy()
                 logps[agent_index] = float(logp.item())
         return actions, logps
+
+    def act(self, obs, active, deterministic: bool = False):
+        """Return actions in the environment's raw-action coordinate system."""
+        raw, logps = self.step(obs, active, deterministic)
+        if self.action_adapter is None:
+            return raw, logps
+        return self.action_adapter.policy_action(raw, obs, active), logps
+
+    def set_environment(self, environment):
+        """Use scenario-specific dynamics and observation scales for action mapping."""
+        if self.action_adapter is not None:
+            self.action_adapter.set_environment(environment)
 
     def value(self, state) -> float:
         """在模型当前设备上计算单个全局状态的价值。"""

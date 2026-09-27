@@ -15,12 +15,20 @@ class EpisodeRecorder:
         self.collisions = 0
         self.boundary_requests = 0
         self.reward_parts = {}
+        self.tracking_squared_error = 0.
+        self.prior_squared_error = 0.
+        self.measurement_updates = 0
 
     def add(self, reward, info):
         self.last_info = info
         self.steps += 1
         self.total_reward += reward
         self.rho_sum += info["rho_pos"]
+        error = info["estimated_target_state"][:3] - info["target_state"][:3]
+        prior = info.get("prior_estimated_target_state", info["estimated_target_state"])[:3]
+        self.tracking_squared_error += float(error @ error)
+        self.prior_squared_error += float(np.sum((prior - info["target_state"][:3]) ** 2))
+        self.measurement_updates += int(np.sum(info.get("measurement_source_mask", [])))
         active = info["active_before"]
         self.comm_count += active
         self.comm_ok += active & info["communication_ok"]
@@ -40,6 +48,10 @@ class EpisodeRecorder:
             rho_pos_final=info["rho_pos"],
             safety_interventions=self.safety_interventions, collisions=self.collisions,
             boundary_requests=self.boundary_requests,
+            tracking_rmse=float(np.sqrt(self.tracking_squared_error / self.steps)) if self.steps else None,
+            prior_tracking_rmse=float(np.sqrt(self.prior_squared_error / self.steps)) if self.steps else None,
+            measurement_updates=self.measurement_updates,
+            uncertainty_kind=info.get("uncertainty_kind", "proxy_pcrb"),
         )
         for i in range(2):
             row.update({

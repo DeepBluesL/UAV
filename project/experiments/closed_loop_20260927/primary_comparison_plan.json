@@ -1,0 +1,17 @@
+{
+  "primary_variants": [
+    "pure_fixed_cpu",
+    "pure_randomized",
+    "residual_randomized"
+  ],
+  "training_seeds": [
+    7,
+    17,
+    27
+  ],
+  "rollout_device": "cpu",
+  "update_device": "cuda",
+  "steps_per_model": 204800,
+  "auxiliary_variant": "pure_fixed (CUDA rollout; not pooled with the primary fixed baseline)",
+  "reason": "Add a matched-device fixed baseline without terminating existing training."
+}

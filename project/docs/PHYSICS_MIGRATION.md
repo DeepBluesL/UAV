@@ -1,5 +1,8 @@
 # 物理公式迁移
 
+> 此文档保留原代理模式的说明与历史结果。新增仿真量测、EKF、SA、纯／残差 RL 和随机训练的接口见 [闭环实验指南](CLOSED_LOOP_STUDY.md)。
+
+
 本文所有命令都从仓库根目录执行，并按 Windows CMD 单行书写。
 
 project 现在是自包含的 Python 包。运行新环境不需要 `legacy/test.py` 或旧版环境文件。

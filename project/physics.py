@@ -7,6 +7,7 @@ from .communication import uav_comm_sinr_eq10_parts
 from .crb import ci_fusion_crb, crb_from_sensing_sinr, measurement_noise_cov_from_fused_crb
 from .pcrb import pcrb_eq24_to_eq28_parts
 from .sensing import bs_sensing_sinr_eq6_parts, uav_sensing_sinr_eq12_parts
+from .tracking import TrackingEKF
 
 EPS = 1.e-12
 
@@ -18,6 +19,19 @@ class ISACPhysics:
         self.config = config
         self.rng = rng
         self.num_antennas = config.antenna_x * config.antenna_y
+        # 跟踪量测使用独立子流，避免active改变信道抽样次数后量测噪声错位。
+        tracker_rng = (np.random.default_rng(rng.integers(0, 2 ** 63))
+                       if config.sensing_mode == "ekf" else None)
+        self.tracker = TrackingEKF(config, tracker_rng) if tracker_rng is not None else None
+
+    def initialize_belief(self, target_state):
+        """每回合只从真值采样一次有误差的EKF先验。"""
+        if self.tracker is None:
+            estimate = self.noisy_estimate(target_state)
+            covariance = self.config.initial_covariance * np.eye(6)
+        else:
+            estimate, covariance = self.tracker.initialize(target_state)
+        return estimate, covariance
 
     def noisy_estimate(self, target_state):
         """模拟 BS 广播消息；truth + noise 尚未和 PCRB 形成滤波闭环。"""
@@ -60,7 +74,12 @@ class ISACPhysics:
             "power": float(np.sum(np.abs(actual) ** 2)),
         }
 
-    def update(self, positions, target_state, estimate, active, previous_target_state, j_prev):
+    def update(self, positions, target_state, estimate, active, previous_target_state, j_prev,
+               source_velocities=None):
+        prior = None
+        if self.tracker is not None:
+            prior, _ = self.tracker.predict()
+            estimate = prior
         metrics = self.link_metrics(positions, target_state, estimate, active)
         cfg = self.config
         source_mask = metrics["sensing_source_mask"]
@@ -71,6 +90,9 @@ class ISACPhysics:
                 sensing_sinr=float(metrics["sensing_sinrs"][i]), bandwidth=cfg.bandwidth,
                 kappa_d=cfg.kappa_d, kappa_theta=cfg.kappa_theta,
                 kappa_phi=cfg.kappa_phi, kappa_v=cfg.kappa_v)
+        if self.tracker is not None:
+            return self._ekf_update(metrics, positions, source_velocities, target_state,
+                                    active, source_crbs, prior)
         # CI 对当前有效源重新等权；增加一个较差源未必改善结果。
         fused_crb = ci_fusion_crb(source_crbs[source_mask])
         psi = measurement_noise_cov_from_fused_crb(fused_crb)
@@ -83,7 +105,35 @@ class ISACPhysics:
         pcrb = parts["PCRB"]
         metrics.update(
             j=parts["J"], pcrb=pcrb, rho_pos=float(np.trace(pcrb[:3, :3])),
-            rho_all=float(np.trace(pcrb)), fused_crb=fused_crb, source_crbs=source_crbs)
+            rho_all=float(np.trace(pcrb)), fused_crb=fused_crb, source_crbs=source_crbs,
+            estimated_target_state=estimate.copy(),
+            prior_estimated_target_state=estimate.copy(),
+            measurement_source_mask=np.zeros(3, dtype=bool),
+            measurement_counts=np.zeros(3, dtype=int), measurement_count=0,
+            uncertainty_kind="proxy_pcrb")
+        return metrics
+
+    def _ekf_update(self, metrics, positions, velocities, target_state, active, source_crbs, prior):
+        """先验定波束后生成量测；UAV仅在活动且通信达标时上传。"""
+        # 固定抽取三源噪声，随后再mask；不同活动历史下量测噪声仍按源对齐。
+        standard_noise = self.tracker.rng.standard_normal((3, 4))
+        upload = np.r_[True, active & (metrics["communication_sinrs"] >= self.config.gamma_min)]
+        if not self.config.tracking_use_uav_measurements:
+            upload[1:] = False
+        if not self.config.collect_measurements:
+            upload[:] = False
+        velocities = np.zeros_like(positions) if velocities is None else velocities
+        estimate, covariance = self.tracker.update(
+            target_state, positions, velocities, source_crbs, upload, standard_noise)
+        metrics.update(
+            j=np.linalg.pinv(covariance), pcrb=covariance,
+            rho_pos=float(np.trace(covariance[:3, :3])), rho_all=float(np.trace(covariance)),
+            fused_crb=ci_fusion_crb(source_crbs[metrics["sensing_source_mask"]]),
+            source_crbs=source_crbs, estimated_target_state=estimate,
+            prior_estimated_target_state=prior, measurement_source_mask=upload,
+            measurement_counts=self.tracker.measurement_counts.copy(),
+            measurement_count=int(self.tracker.measurement_counts.sum()),
+            uncertainty_kind="ekf_covariance")
         return metrics
 
     def _matched_beams(self, positions, target, active):

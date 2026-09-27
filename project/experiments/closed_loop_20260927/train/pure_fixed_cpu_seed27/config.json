@@ -1,0 +1,148 @@
+{
+  "environment": {
+    "max_steps": 100,
+    "slot_duration": 1.0,
+    "max_uav_speed": 5.0,
+    "max_uav_acceleration": 5.0,
+    "min_uav_distance": 5.0,
+    "goal_tolerance": 5.0,
+    "uav_initial": [
+      [
+        30.0,
+        10.0,
+        70.0
+      ],
+      [
+        30.0,
+        -10.0,
+        70.0
+      ]
+    ],
+    "uav_initial_velocities": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "uav_goal_positions": [
+      [
+        150.0,
+        70.0,
+        90.0
+      ],
+      [
+        120.0,
+        -30.0,
+        30.0
+      ]
+    ],
+    "world_low": [
+      -20.0,
+      -80.0,
+      20.0
+    ],
+    "world_high": [
+      150.0,
+      80.0,
+      120.0
+    ],
+    "bs_position": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "target_initial_state": [
+      60.0,
+      0.0,
+      60.0,
+      -1.0,
+      1.0,
+      -1.0
+    ],
+    "target_acceleration": [
+      0.02,
+      -0.02,
+      0.02
+    ],
+    "antenna_x": 8,
+    "antenna_y": 8,
+    "total_power": 5.0,
+    "bandwidth": 100000000.0,
+    "rician_k": 10.0,
+    "beta0_c": 1e-05,
+    "beta0_s": 1e-05,
+    "alpha_target": 0.9,
+    "alpha_uav": 0.9,
+    "awgn_power": 1e-11,
+    "residual_noise": 1e-10,
+    "gamma_min": 3.1622776601683795,
+    "kappa_d": 1.0,
+    "kappa_theta": 1e-06,
+    "kappa_phi": 1e-06,
+    "kappa_v": 1e-06,
+    "process_noise_intensity": 0.1,
+    "initial_covariance": 1.0,
+    "imperfect_csi_beta": 0.1,
+    "csi_position_std": 10.0,
+    "csi_velocity_std": 1.0,
+    "csi_beta_jitter": 0.02,
+    "sensing_mode": "ekf",
+    "collect_measurements": true,
+    "tracking_use_uav_measurements": true,
+    "tracking_initial_position_std": 10.0,
+    "tracking_initial_velocity_std": 1.0,
+    "measurement_range_std_floor": 1.0,
+    "measurement_angle_std_floor": 0.008726646259971648,
+    "measurement_range_rate_std_floor": 0.5,
+    "position_scale": 150.0,
+    "velocity_scale": 10.0,
+    "sinr_log_scale": 10.0,
+    "covariance_position_std": 1.0,
+    "covariance_velocity_std": 1.0
+  },
+  "reward": {
+    "progress": 5.0,
+    "distance": 0.5,
+    "time": 0.2,
+    "energy": 0.05,
+    "communication": 0.5,
+    "sensing": 0.2,
+    "arrival": 80.0,
+    "completion": 80.0,
+    "timeout": 100.0,
+    "collision": 20.0,
+    "boundary": 2.0,
+    "distance_ref": 100.0,
+    "rho_ref": 1.0
+  },
+  "ppo": {
+    "hidden_sizes": [
+      128,
+      128
+    ],
+    "gamma": 0.99,
+    "lam": 0.95,
+    "clip_ratio": 0.2,
+    "pi_lr": 0.0003,
+    "vf_lr": 0.001,
+    "train_pi_iters": 4,
+    "train_v_iters": 4,
+    "target_kl": 0.01,
+    "entropy_coef": 0.0,
+    "max_grad_norm": 0.5,
+    "steps_per_epoch": 2048,
+    "epochs": 100,
+    "seed": 27,
+    "device": "cuda",
+    "rollout_device": "cpu",
+    "control_mode": "pure",
+    "residual_scale": 0.25,
+    "training_distribution": "fixed"
+  }
+}

@@ -49,6 +49,16 @@ class EnvConfig:
     csi_velocity_std: float = 1.0
     csi_beta_jitter: float = .02
 
+    # `proxy` 保留旧PCRB路径；`ekf`用实际量测递推状态估计。
+    sensing_mode: str = "proxy"
+    collect_measurements: bool = True
+    tracking_use_uav_measurements: bool = True
+    tracking_initial_position_std: float = 10.0       # m
+    tracking_initial_velocity_std: float = 1.0        # m/s
+    measurement_range_std_floor: float = 1.0          # m
+    measurement_angle_std_floor: float = np.deg2rad(.5)  # rad
+    measurement_range_rate_std_floor: float = .5      # m/s
+
     # 固定观测尺度，不随当前活动机数或当前回合改变。
     position_scale: float = 150.0
     velocity_scale: float = 10.0
@@ -73,6 +83,9 @@ class EnvConfig:
             "antenna_x", "antenna_y", "gamma_min", "initial_covariance",
             "process_noise_intensity", "position_scale", "velocity_scale",
             "sinr_log_scale", "covariance_position_std", "covariance_velocity_std",
+            "tracking_initial_position_std", "tracking_initial_velocity_std",
+            "measurement_range_std_floor", "measurement_angle_std_floor",
+            "measurement_range_rate_std_floor",
         )
         if any(getattr(self, key) <= 0 for key in positive):
             raise ValueError("Time, limits, power and normalization scales must be positive")
@@ -87,6 +100,8 @@ class EnvConfig:
             raise ValueError("Initial velocity exceeds max_uav_speed")
         if not 0 <= self.imperfect_csi_beta <= 1:
             raise ValueError("imperfect_csi_beta must be in [0, 1]")
+        if self.sensing_mode not in ("proxy", "ekf"):
+            raise ValueError("sensing_mode must be 'proxy' or 'ekf'")
 
 
 @dataclass
@@ -127,9 +142,19 @@ class PPOConfig:
     epochs: int = 100
     seed: int = 7
     device: str = "cpu"
+    rollout_device: str | None = None
+    control_mode: str = "pure"
+    residual_scale: float = .25
+    training_distribution: str = "fixed"
 
     def __post_init__(self):
         if min(self.steps_per_epoch, self.epochs, self.train_pi_iters, self.train_v_iters) < 1:
             raise ValueError("Rollout size, epochs and update counts must be positive")
         if not (0 <= self.gamma <= 1 and 0 <= self.lam <= 1):
             raise ValueError("gamma and lam must be in [0, 1]")
+        if self.control_mode not in {"pure", "residual"}:
+            raise ValueError("control_mode must be 'pure' or 'residual'")
+        if not 0 <= self.residual_scale <= 1:
+            raise ValueError("residual_scale must be in [0, 1]")
+        if self.training_distribution not in {"fixed", "randomized"}:
+            raise ValueError("training_distribution must be 'fixed' or 'randomized'")

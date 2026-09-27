@@ -1,0 +1,19 @@
+{
+  "environment": {
+    "sensing_mode": "ekf"
+  },
+  "reward": {
+    "sensing": 0.2,
+    "rho_ref": 1.0
+  },
+  "ppo": {
+    "epochs": 100,
+    "steps_per_epoch": 2048,
+    "seed": 27,
+    "device": "cuda",
+    "control_mode": "pure",
+    "training_distribution": "fixed",
+    "residual_scale": 0.25,
+    "rollout_device": "cpu"
+  }
+}

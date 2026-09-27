@@ -64,7 +64,9 @@ def plot_results(output, epochs, episodes, trace):
         axes[1, 0].plot(times[1:], comm, color=color, label=f"UAV {i + 1}")
     axes[0, 0].set(title="Distance to own goal", ylabel="m")
     axes[0, 1].semilogy(times, trace["rho_pos"], color="#7c3aed")
-    axes[0, 1].set(title="Position PCRB proxy", ylabel="trace(C_pp), m²")
+    kind = str(trace.get("uncertainty_kind", "proxy_pcrb"))
+    title = "EKF position covariance" if kind == "ekf_covariance" else "Position PCRB proxy"
+    axes[0, 1].set(title=title, ylabel="trace(C_pp), m²")
     axes[1, 0].set(title="Communication while active", ylabel="SINR (linear)")
     axes[1, 1].plot(times[1:], trace["rewards"], color="#111827", label="Total")
     for name in ("progress", "arrival", "completion", "sensing", "timeout"):
@@ -78,3 +80,7 @@ def plot_results(output, epochs, episodes, trace):
     axes[0, 0].legend()
     axes[1, 1].legend(fontsize=8)
     _save(fig, output / "evaluation_metrics.png")
+
+    if "prior_target_positions" in trace and str(trace.get("uncertainty_kind")) == "ekf_covariance":
+        from .plot_tracking import plot_tracking
+        plot_tracking(trace, output)

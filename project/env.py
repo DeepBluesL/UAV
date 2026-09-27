@@ -45,11 +45,21 @@ class DualUAVEnv:
         self.energy_proxies = np.zeros(2)
         self.active_steps = np.zeros(2, dtype=int)
         self.target_state = cfg.target_initial_state.copy()
-        self.estimated_target_state = self.physics.noisy_estimate(self.target_state)
-        self.pcrb_matrix = cfg.initial_covariance * np.eye(6)
-        self.j_prev = np.eye(6) / cfg.initial_covariance
+        self.estimated_target_state, self.pcrb_matrix = self.physics.initialize_belief(
+            self.target_state)
+        self.prior_estimated_target_state = self.estimated_target_state.copy()
+        self.j_prev = np.linalg.pinv(self.pcrb_matrix)
         self.metrics = self.physics.link_metrics(
             self.uav_positions, self.target_state, self.estimated_target_state, self.active)
+        self.metrics.update(
+            pcrb=self.pcrb_matrix.copy(), j=self.j_prev.copy(),
+            rho_pos=float(np.trace(self.pcrb_matrix[:3, :3])),
+            rho_all=float(np.trace(self.pcrb_matrix)),
+            estimated_target_state=self.estimated_target_state.copy(),
+            prior_estimated_target_state=self.prior_estimated_target_state.copy(),
+            measurement_source_mask=np.zeros(3, dtype=bool),
+            measurement_counts=np.zeros(3, dtype=int), measurement_count=0,
+            uncertainty_kind="ekf_covariance" if cfg.sensing_mode == "ekf" else "proxy_pcrb")
         self.unsafe = False
         self.terminated = bool(self.arrived.all())
         self.termination_reason = "success" if self.terminated else None
@@ -83,10 +93,16 @@ class DualUAVEnv:
         dt = cfg.slot_duration
         self.target_state[:3] += previous_target[3:] * dt + .5 * cfg.target_acceleration * dt ** 2
         self.target_state[3:] += cfg.target_acceleration * dt
-        self.estimated_target_state = self.physics.noisy_estimate(self.target_state)
+        if cfg.sensing_mode == "proxy":
+            self.estimated_target_state = self.physics.noisy_estimate(self.target_state)
         self.metrics = self.physics.update(
             self.uav_positions, self.target_state, self.estimated_target_state,
-            active_before, previous_target, self.j_prev)
+            active_before, previous_target, self.j_prev, movement_velocities)
+        if cfg.sensing_mode == "ekf":
+            self.prior_estimated_target_state = self.metrics["prior_estimated_target_state"].copy()
+            self.estimated_target_state = self.metrics["estimated_target_state"].copy()
+        else:
+            self.prior_estimated_target_state = self.estimated_target_state.copy()
         self.j_prev = self.metrics["j"]
         self.pcrb_matrix = self.metrics["pcrb"]
         self.step_count += 1
@@ -157,6 +173,13 @@ class DualUAVEnv:
             arrival_times=np.where(self.arrived, self.arrival_steps * self.config.slot_duration, np.nan),
             positions=self.uav_positions.copy(), velocities=self.uav_velocities.copy(),
             target_state=self.target_state.copy(), estimated_target_state=self.estimated_target_state.copy(),
+            prior_estimated_target_state=self.prior_estimated_target_state.copy(),
+            tracking_covariance=self.pcrb_matrix.copy(),
+            tracking_covariance_trace=float(np.trace(self.pcrb_matrix)),
+            tracking_position_error=float(np.linalg.norm(
+                self.estimated_target_state[:3] - self.target_state[:3])),
+            prior_tracking_position_error=float(np.linalg.norm(
+                self.prior_estimated_target_state[:3] - self.target_state[:3])),
             goal_distances=self.goal_distances, path_lengths=self.path_lengths.copy(),
             energy_proxies=self.energy_proxies.copy(), active_steps=self.active_steps.copy(),
             rho_pos=float(np.trace(self.pcrb_matrix[:3, :3])),

@@ -17,48 +17,25 @@ from .env import DualUAVEnv
 from .evaluate import GoalController, evaluate
 from .metrics import EpisodeRecorder
 from .ppo import MAPPOBuffer, PPOTrainer
-
-
-def collect_epoch(env, ac, buffer, obs, state, recorder):
-    """采样一个批次；个体到达不结束团队轨迹，批次截止不重置环境。"""
-    episodes, components, reward_sum = [], {}, 0.
-    for step in range(buffer.max_size):
-        active_before = env.active.copy()
-        actions, logp = ac.act(obs, active_before)
-        value = ac.value(state)
-        next_obs, next_state, reward, terminated, truncated, info = env.step(actions)
-        buffer.store(obs, state, actions, reward, value, logp, active_before)
-        recorder.add(reward, info)
-        reward_sum += reward
-        for key, contribution in info["reward_parts"].items():
-            components[key] = components.get(key, 0.) + contribution
-
-        obs, state = next_obs, next_state
-        cutoff = step == buffer.max_size - 1
-        if terminated or truncated or cutoff:
-            # 有限任务期限也属于 terminated；与批次边界重合时仍然取零。
-            last_value = 0. if terminated else ac.value(next_state)
-            buffer.finish_path(last_value)
-        if terminated or truncated:
-            if terminated:
-                episodes.append(recorder.summary())
-            # 外部截断的片段不计为一次完整任务；当前环境本身不产生 truncated。
-            obs, state, initial_info = env.reset()
-            recorder = EpisodeRecorder(initial_info)
-    stats = {"mean_step_reward": reward_sum / buffer.max_size}
-    stats.update({f"mean_reward_{k}": v / buffer.max_size for k, v in components.items()})
-    return obs, state, recorder, episodes, stats
+from .rollout import collect_epoch
+from .training_scenarios import TrainingScenarioSampler
 
 
 def train(environment, reward, config, output):
     torch.manual_seed(config.seed)
     np.random.seed(config.seed)
+    sampler = TrainingScenarioSampler(environment, config.training_distribution, config.seed)
+    initial_environment = sampler.sample()
     ac = MAPPOActorCritic(
-        DualUAVEnv.obs_dim, DualUAVEnv.state_dim, hidden_sizes=config.hidden_sizes)
+        DualUAVEnv.obs_dim, DualUAVEnv.state_dim, hidden_sizes=config.hidden_sizes,
+        environment=initial_environment, control_mode=config.control_mode,
+        residual_scale=config.residual_scale)
     trainer = PPOTrainer(ac, config)
-    print(f"device={next(ac.parameters()).device} torch_threads={torch.get_num_threads()} "
+    rollout_device = config.rollout_device or config.device
+    print(f"rollout_device={rollout_device} update_device={config.device} "
+          f"torch_threads={torch.get_num_threads()} "
           "environment=NumPy/CPU (one sequential environment)", flush=True)
-    env = DualUAVEnv(environment, reward, seed=config.seed)
+    env = DualUAVEnv(initial_environment, reward, seed=config.seed)
     obs, state, initial_info = env.reset(seed=config.seed)
     if env.terminated:
         raise ValueError("Training needs a nontrivial task; both UAVs already start at their goals")
@@ -67,16 +44,19 @@ def train(environment, reward, config, output):
         env.obs_dim, env.state_dim, env.action_dim, config.steps_per_epoch, config.gamma, config.lam)
     epochs, episodes = [], []
     for epoch in range(config.epochs):
+        ac.to(rollout_device)
         ac.train()
         rollout_start = perf_counter()
         obs, state, recorder, completed, stats = collect_epoch(
-            env, ac, buffer, obs, state, recorder)
+            env, ac, buffer, obs, state, recorder, sampler)
         rollout_seconds = perf_counter() - rollout_start
+        ac.to(config.device)
         update_start = perf_counter()
         stats.update(trainer.update(buffer.get()))
         stats.update(rollout_seconds=rollout_seconds,
                      update_seconds=perf_counter() - update_start,
-                     rollout_steps_per_second=config.steps_per_epoch / rollout_seconds)
+                     rollout_steps_per_second=config.steps_per_epoch / rollout_seconds,
+                     rollout_device=rollout_device, update_device=config.device)
         stats.update(epoch=epoch + 1, environment_steps=(epoch + 1) * config.steps_per_epoch)
         stats["completed_episodes"] = len(completed)
         for row in completed:
@@ -92,6 +72,9 @@ def train(environment, reward, config, output):
             f"rollout={stats['rollout_seconds']:.2f}s update={stats['update_seconds']:.2f}s "
             f"steps/s={stats['rollout_steps_per_second']:.0f}",
             flush=True)
+    # The returned/saved policy is evaluated on the requested base scenario.
+    ac.to(config.device)
+    ac.set_environment(environment)
     save_policy(output / "policy.pt", ac, environment, reward, config)
     # 最后未完成的片段不计入成功率；只保存已完成团队回合。
     write_json(output / "training_summary.json", {
@@ -99,6 +82,10 @@ def train(environment, reward, config, output):
         "completed_episodes": len(episodes),
         "team_success_rate": float(np.mean([r["team_success"] for r in episodes])) if episodes else None,
         "unfinished_episode_steps": recorder.steps,
+        "training_distribution": config.training_distribution,
+        "randomized_mixture": (
+            {"nominal": .25, "crossing": .25, "continuous": .50}
+            if config.training_distribution == "randomized" else None),
     })
     return ac, epochs, episodes
 
@@ -115,6 +102,10 @@ def parse_args():
     parser.add_argument("--hidden-size", type=int)
     parser.add_argument("--seed", type=int)
     parser.add_argument("--device")
+    parser.add_argument("--rollout-device")
+    parser.add_argument("--control-mode", choices=("pure", "residual"))
+    parser.add_argument("--residual-scale", type=float)
+    parser.add_argument("--training-distribution", choices=("fixed", "randomized"))
     parser.add_argument("--eval-seeds", "--eval-seed", type=int, nargs="+", default=[1001, 1002, 1003, 1004, 1005])
     parser.add_argument("--no-plots", action="store_true")
     args = parser.parse_args()
@@ -122,7 +113,9 @@ def parse_args():
         parser.error("--mode evaluate requires --checkpoint")
     if args.mode == "evaluate" and args.config is not None:
         parser.error("Evaluation reads configuration from --checkpoint; omit --config")
-    training_options = (args.hidden_size, args.epochs, args.steps_per_epoch, args.seed)
+    training_options = (args.hidden_size, args.epochs, args.steps_per_epoch, args.seed,
+                        args.rollout_device, args.control_mode, args.residual_scale,
+                        args.training_distribution)
     if args.mode == "evaluate" and any(value is not None for value in training_options):
         parser.error("Evaluation uses saved network/training settings; use --eval-seeds for its RNG seeds")
     return args
@@ -138,7 +131,9 @@ def main():
         reward = RewardConfig(**settings.get("reward", {}))
         ppo = PPOConfig(**settings.get("ppo", {}))
     overrides = {key: getattr(args, key) for key in
-                 ("epochs", "steps_per_epoch", "seed", "device") if getattr(args, key) is not None}
+                 ("epochs", "steps_per_epoch", "seed", "device", "control_mode",
+                  "residual_scale", "training_distribution", "rollout_device")
+                 if getattr(args, key) is not None}
     if args.hidden_size is not None:
         overrides["hidden_sizes"] = (args.hidden_size, args.hidden_size)
     ppo = replace(ppo, **overrides)

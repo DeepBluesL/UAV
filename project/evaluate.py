@@ -2,6 +2,7 @@
 
 import numpy as np
 
+from .control import goal_raw_action
 from .env import DualUAVEnv
 from .metrics import EpisodeRecorder
 
@@ -13,17 +14,7 @@ class GoalController:
         self.config = config
 
     def act(self, obs, active, deterministic=True):
-        cfg = self.config
-        velocity = obs[:, 3:6] * cfg.velocity_scale
-        relative_goal = obs[:, 6:9] * cfg.position_scale
-        distance = np.linalg.norm(relative_goal, axis=1, keepdims=True)
-        desired_speed = np.minimum(cfg.max_uav_speed, distance / cfg.slot_duration)
-        desired_velocity = relative_goal / np.maximum(distance, 1.e-12) * desired_speed
-        acceleration = (desired_velocity - velocity) / cfg.slot_duration
-        scaled = np.clip(acceleration / cfg.max_uav_acceleration, -.999, .999)
-        action = np.arctanh(scaled).astype(np.float32)
-        action[~active] = 0.
-        return action, np.zeros(2, dtype=np.float32)
+        return goal_raw_action(obs, active, self.config), np.zeros(2, dtype=np.float32)
 
 
 def rollout_policy(policy, env, seed):
@@ -35,6 +26,8 @@ def rollout_policy(policy, env, seed):
     estimates = [info["estimated_target_state"][:3]]
     rhos = [info["rho_pos"]]
     active = [info["active"]]
+    priors = [info.get("prior_estimated_target_state", info["estimated_target_state"])[:3]]
+    measurements = [info.get("measurement_source_mask", np.zeros(3, dtype=bool))]
     rewards, source_masks, communication, reward_parts = [], [], [], {}
     while not env.terminated:
         # 执行时不调用集中 Critic，只让活动 Actor 前向计算。
@@ -46,6 +39,8 @@ def rollout_policy(policy, env, seed):
         estimates.append(info["estimated_target_state"][:3])
         rhos.append(info["rho_pos"])
         active.append(info["active"])
+        priors.append(info.get("prior_estimated_target_state", info["estimated_target_state"])[:3])
+        measurements.append(info.get("measurement_source_mask", np.zeros(3, dtype=bool)))
         rewards.append(reward)
         source_masks.append(info["sensing_source_mask"])
         communication.append(info["communication_sinrs"])
@@ -56,6 +51,9 @@ def rollout_policy(policy, env, seed):
     trace = {
         "positions": np.asarray(positions), "target_positions": np.asarray(targets),
         "estimated_target_positions": np.asarray(estimates),
+        "prior_target_positions": np.asarray(priors),
+        "measurement_source_mask": np.asarray(measurements, dtype=bool),
+        "uncertainty_kind": np.asarray(info.get("uncertainty_kind", "proxy_pcrb")),
         "bs_position": env.config.bs_position.copy(),
         "rho_pos": np.asarray(rhos), "active": np.asarray(active),
         "rewards": np.asarray(rewards),

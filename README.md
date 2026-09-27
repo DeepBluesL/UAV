@@ -72,13 +72,25 @@ python -B -m unittest discover -s project/tests -v
 
 ## 对比实验
 
-统一比较随机动作、目标导航、PD、人工势场和短时域导航 MPC：
+统一比较随机动作、目标导航、PD、人工势场、短时域导航 MPC 和在线模拟退火（SA）：
 
 ```bat
 python -m project.benchmark --config project/example_config.json --seed-start 2001 --episodes 100 --output project/output/comparison_rules
 ```
 
 加入已训练 MAPPO 的方式、场景与统计口径见 [对比实验指南](project/docs/BASELINES.md)；实际实验结论见 [结果分析](project/docs/BASELINE_RESULTS.md)。
+
+## 测量闭环、泛化与残差 RL
+
+新模式将“带噪声量测 → EKF 融合 → 后验估计 → 下一步决策”接入环境。相同预算比较固定场景纯 RL、多场景纯 RL、多场景残差 RL，另测边界、速度和感知消融：
+
+```bat
+python -m project.study --config project/study_config.json --jobs 3 --output project/output/my_study
+```
+
+该命令训练 9 个模型并统一评估；新配置使用 CPU 采样推理、CUDA 批量更新，以减少每步设备同步开销。参数与逐个运行命令见 [新实验指南](project/docs/CLOSED_LOOP_STUDY.md)，旧模型的限制变更与 SA 实测见 [结果分析](project/docs/LIMITS_SA_RESULTS.md)。新配置是 `closed_loop_config.json`，原 `example_config.json` 保留代理模式用于复核旧结果。
+
+已完成三训练种子的 [纯／残差 RL 与融合滤波实测](project/docs/CLOSED_LOOP_RESULTS.md)：残差 RL 在 11 场景共 990 回合全部成功，交叉任务平均 22 s（SA 为 26.17 s）；普通任务回报仍略低于简单导航。多源融合的前 10 步平均跟踪 RMSE 为 0.706 m，BS-only 为 4.726 m。完整数据与图表在 [实验归档](project/experiments/closed_loop_20260927/README.md)。
 
 ## 从哪里修改
 
@@ -93,6 +105,6 @@ python -m project.benchmark --config project/example_config.json --seed-start 20
 
 详细说明见 [使用指南](project/docs/GUIDE.md)、[物理公式迁移](project/docs/PHYSICS_MIGRATION.md) 和 [验证记录](project/docs/VERIFICATION.md)。旧代码的用途和运行方式见 [legacy/README.md](legacy/README.md)。
 
-黑飞真值不直接输入 Actor/Critic 观测；当前目标估计采用加噪代理，尚未实现实际测量与滤波闭环，PCRB 也不等于实测跟踪误差。
+黑飞真值不直接输入 Actor/Critic。`proxy` 使用旧加噪估计与 PCRB 代理；`ekf` 使用仿真测量与融合滤波。滤波协方差与实际跟踪 RMSE 分开记录，量测噪声尚未经实物传感器校准。
 
 PPO 参考 OpenAI Spinning Up，第三方许可保留在 [LICENSE-spinningup.txt](project/LICENSE-spinningup.txt)。该许可用于相关第三方代码，不代表仓库全部代码的授权声明。

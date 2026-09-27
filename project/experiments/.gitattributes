@@ -1,0 +1,2 @@
+# Preserve archived bytes and recognize CRLF records for whitespace checks.
+closed_loop_20260927/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

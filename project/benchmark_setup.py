@@ -10,6 +10,7 @@ import subprocess
 import numpy as np
 import torch
 
+from .annealing import SimulatedAnnealingController
 from .artifacts import config_dict, load_policy
 from .baselines import PDController, PotentialFieldController, RandomController
 from .config import EnvConfig, PPOConfig, RewardConfig
@@ -19,7 +20,7 @@ from .mpc import MPCController
 
 CONTROLLERS = {
     "random": RandomController, "goal": GoalController, "pd": PDController,
-    "apf": PotentialFieldController, "mpc": MPCController,
+    "apf": PotentialFieldController, "mpc": MPCController, "sa": SimulatedAnnealingController,
 }
 METHODS = (*CONTROLLERS, "mappo")
 PROJECT_DIR = Path(__file__).resolve().parent
@@ -35,6 +36,8 @@ def load_experiment(args):
             "filename": args.checkpoint.name,
             "sha256": hashlib.sha256(args.checkpoint.read_bytes()).hexdigest(),
             "training_seed": ppo.seed,
+            "control_mode": ppo.control_mode,
+            "training_distribution": ppo.training_distribution,
             "training_environment_steps": ppo.epochs * ppo.steps_per_epoch,
             "note": "One frozen checkpoint; no training-seed uncertainty estimate.",
         }
@@ -76,7 +79,7 @@ def load_experiment(args):
             "Same scenarios, constraints, team reward and paired evaluation seeds for all methods.",
             "Environment RNG consumption can diverge after different active-source histories.",
             "No tuning on evaluation outcomes; non-nominal cases are specified stress tests.",
-            "MPC is a centralized finite-candidate navigation planner, not an ISAC optimizer.",
+            "MPC and SA are centralized navigation references with known dynamics, not full ISAC optimizers.",
             "Fixed-prefix rho excludes t=0; episodes shorter than the prefix remain missing.",
             "Timing covers warmed policy.act wall time only; environment and plotting are excluded.",
             "Figures use the first listed evaluation seed, without selecting a favorable trajectory.",
@@ -94,5 +97,7 @@ def load_experiment(args):
 
 def make_controller(method, config, suite, learned_policy):
     if method == "mappo":
+        if hasattr(learned_policy, "set_environment"):
+            learned_policy.set_environment(config)
         return learned_policy
     return CONTROLLERS[method](config, **suite.get("methods", {}).get(method, {}))

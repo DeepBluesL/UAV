@@ -72,13 +72,25 @@ Results are saved in the specified subdirectory under `project/output/`, includi
 
 ## Baseline Comparisons
 
-Compare random actions, goal seeking, PD, artificial potential fields, and short-horizon navigation MPC under the same evaluation protocol:
+Compare random actions, goal seeking, PD, artificial potential fields, and short-horizon navigation MPC, and online simulated annealing (SA) under the same evaluation protocol:
 
 ```bat
 python -m project.benchmark --config project/example_config.json --seed-start 2001 --episodes 100 --output project/output/comparison_rules
 ```
 
 See the [benchmark guide](project/docs/BASELINES.md) for adding a trained MAPPO checkpoint, scenarios, and statistics, and the [results analysis](project/docs/BASELINE_RESULTS.md) for measured findings (both in Chinese).
+
+## Measurement Feedback, Generalization, and Residual RL
+
+The new mode connects simulated noisy measurements, EKF fusion, posterior estimates, and subsequent decisions. The study compares fixed-task pure RL, randomized-task pure RL, and randomized-task residual RL with equal budgets and three training seeds each. It also tests bounds, speed limits, and sensing ablations:
+
+```bat
+python -m project.study --config project/study_config.json --jobs 3 --output project/output/my_study
+```
+
+This trains nine models and evaluates them on common scenarios and seeds. The new configuration uses CPU rollout inference and CUDA batch updates to reduce per-step synchronization overhead. See the [English closed-loop study guide](project/docs/CLOSED_LOOP_STUDY.en.md), its [Chinese companion](project/docs/CLOSED_LOOP_STUDY.md), and the [measured SA / limit-change results](project/docs/LIMITS_SA_RESULTS.md) (Chinese). Use `closed_loop_config.json` for the new mode; `example_config.json` retains the proxy model for historical comparisons.
+
+Measured closed-loop findings are summarized in the [English results companion](project/docs/CLOSED_LOOP_RESULTS.en.md), with the complete reproducibility archive under [`project/experiments/closed_loop_20260927`](project/experiments/closed_loop_20260927/README.md).
 
 ## Where to Make Changes
 
@@ -93,6 +105,6 @@ See the [benchmark guide](project/docs/BASELINES.md) for adding a trained MAPPO 
 
 For details, see the [User Guide](project/docs/GUIDE.md), [Physics Formula Migration](project/docs/PHYSICS_MIGRATION.md), and [Verification Records](project/docs/VERIFICATION.md) (in Chinese). See [legacy/README.md](legacy/README.md) for the purpose and usage of the legacy code.
 
-The rogue UAV's ground-truth state is not directly provided to the Actor or Critic observations. The current target estimate uses a noisy proxy; a closed loop with actual measurements and filtering has not yet been implemented, and the PCRB is not equivalent to measured tracking error.
+The rogue UAV's ground truth is not an Actor/Critic input. The `proxy` mode retains noisy state estimates and a PCRB proxy; `ekf` uses simulated measurements and recursive fusion. Filter covariance and realized tracking RMSE are reported separately. Measurement noise is not calibrated against physical sensors.
 
 The PPO implementation references OpenAI Spinning Up. The third-party license is retained in [LICENSE-spinningup.txt](project/LICENSE-spinningup.txt). This license applies to the relevant third-party code and does not constitute a licensing statement for the entire repository.

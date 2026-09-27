@@ -16,9 +16,15 @@ PANELS = (
     ("episode_return_mean", "episode_return_ci_low", "episode_return_ci_high",
      "Episode return", "Return"),
     ("rho_prefix_mean_mean", "rho_prefix_mean_ci_low", "rho_prefix_mean_ci_high",
-     "Prefix position PCRB", "Mean trace (m²)"),
+     "Prefix position uncertainty", "Mean covariance trace (m²)"),
     ("boundary_requests_mean", "boundary_requests_ci_low", "boundary_requests_ci_high",
      "Boundary requests", "Count / episode"),
+    ("tracking_prefix_rmse_mean", "tracking_prefix_rmse_ci_low", "tracking_prefix_rmse_ci_high",
+     "Prefix tracking RMSE", "3D position RMSE (m)"),
+    ("total_energy_proxy_mean", "total_energy_proxy_ci_low", "total_energy_proxy_ci_high",
+     "Energy proxy", "Dimensionless"),
+    ("policy_ms_per_step_mean", "policy_ms_per_step_ci_low", "policy_ms_per_step_ci_high",
+     "Decision time", "Milliseconds / step"),
     ("safety_interventions_mean", "safety_interventions_ci_low",
      "safety_interventions_ci_high", "Safety interventions", "Count / episode"),
 )
@@ -30,7 +36,7 @@ def _safe_name(value):
 
 
 def plot_benchmark(output, summaries):
-    """Write one 2x3 mean/95%-CI comparison figure per scenario."""
+    """Write one 3x3 mean/95%-CI comparison figure per scenario."""
     output = Path(output)
     output.mkdir(parents=True, exist_ok=True)
     scenarios = sorted({row["scenario"] for row in summaries})
@@ -39,7 +45,7 @@ def plot_benchmark(output, summaries):
         rows = sorted((row for row in summaries if row["scenario"] == scenario),
                       key=lambda row: row["method"])
         methods = [row["method"] for row in rows]
-        fig, axes = plt.subplots(2, 3, figsize=(13, 7.5), constrained_layout=True)
+        fig, axes = plt.subplots(3, 3, figsize=(14, 11), constrained_layout=True)
         for ax, (mean_key, low_key, high_key, title, ylabel) in zip(axes.flat, PANELS):
             plotted = []
             for index, row in enumerate(rows):
