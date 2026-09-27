@@ -1,5 +1,7 @@
 # UAV：双无人机导航与协同感知
 
+**简体中文** | [English](README.en.md)
+
 基于 MAPPO 的双 UAV 通感一体化仿真：两个独立 Actor 控制无人机运动，一个集中 Critic 学习团队回报。任务是在期限内到达各自终点，同时兼顾感知、通信与安全。
 
 ## 项目结构
@@ -14,7 +16,8 @@ UAV/
 │   └── output/              本地模型、日志与图表，不上传 Git
 ├── legacy/                  旧环境、旧训练器与 2uav 参考代码
 ├── requirements.txt         安装入口，引用 project/requirements.txt
-└── README.md
+├── README.md                中文说明
+└── README.en.md             英文说明
 ```
 
 ## 安装

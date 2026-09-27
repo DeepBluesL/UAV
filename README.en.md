@@ -1,0 +1,88 @@
+# UAV: Dual-UAV Navigation and Collaborative Sensing
+
+[简体中文](README.md) | **English**
+
+A MAPPO-based simulation of integrated sensing and communication for two UAVs: two independent Actors control UAV motion, while a centralized Critic learns the team return. The task is to reach each UAV's destination within the time limit while balancing sensing, communication, and safety.
+
+## Project Structure
+
+```text
+UAV/
+├── project/                 Current main implementation; environment, physics formulas, and PPO are contained in the package
+│   ├── train.py             Entry point for training, evaluation, and navigation baselines
+│   ├── example_config.json  Experiment configuration (uses CUDA by default)
+│   ├── tests/               Unit and integration tests
+│   ├── docs/                Detailed usage guide, formula migration, and verification records
+│   └── output/              Local models, logs, and plots; not uploaded to Git
+├── legacy/                  Legacy environment, trainer, and 2uav reference code
+├── requirements.txt         Installation entry point; references project/requirements.txt
+├── README.md                Chinese
+└── README.en.md             English
+```
+
+## Installation
+
+All commands below are for **Windows CMD**, with one command per line. If you already have the repository and the `uav` environment, simply enter the repository root and activate the environment.
+
+```bat
+git clone https://github.com/DeepBluesL/UAV.git
+cd UAV
+conda create -n uav python=3.12 -y
+conda activate uav
+```
+
+Install the GPU version of PyTorch first, then install the project dependencies. The commands below use the CUDA 13.0 wheel index; for other GPU or driver combinations, select the appropriate build on the [official PyTorch installation page](https://pytorch.org/get-started/locally/).
+
+```bat
+python -m pip install --upgrade torch --index-url https://download.pytorch.org/whl/cu130
+python -m pip install -r requirements.txt
+python -c "import torch; print('PyTorch:', torch.__version__); print('CUDA available:', torch.cuda.is_available())"
+```
+
+## Training and Evaluation
+
+Run all commands from the repository root (the parent directory of `project`). For a full training run:
+
+```bat
+python -m project.train --config project/example_config.json --seed 7 --eval-seed 1001 1002 1004 1005 --output project/output/run_seed7
+```
+
+To check that the workflow runs, first perform a short training run; it cannot be used to assess convergence:
+
+```bat
+python -m project.train --config project/example_config.json --epochs 2 --steps-per-epoch 128 --seed 7 --eval-seed 101 102 --output project/output/quick_check
+```
+
+Evaluate the model saved after training:
+
+```bat
+python -m project.train --mode evaluate --checkpoint project/output/run_seed7/policy.pt --device cuda --eval-seed 1001 1002 1004 1005 --output project/output/run_seed7_eval
+```
+
+Regenerate plots and run tests:
+
+```bat
+python -m project.replot --output project/output/run_seed7
+python -B -m unittest discover -s project/tests -v
+```
+
+The example configuration uses the GPU. To run on the CPU, add `--device cpu` to the training or evaluation command. The neural networks can use the GPU; the NumPy physics environment still executes serially on the CPU. `--eval-seed` and `--eval-seeds` are equivalent.
+
+Results are saved in the specified subdirectory under `project/output/`, including the `policy.pt` model, training and evaluation logs, and PNG plots. Trajectory plots show the base station, both UAVs, and the rogue UAV's ground-truth and estimated trajectories. **Use a different output directory for each experiment**; files with the same name will be overwritten. Resuming training from a checkpoint is not currently supported.
+
+## Where to Make Changes
+
+| Content | Location |
+| --- | --- |
+| Scenario, reward weights, learning rate, and training budget | [example_config.json](project/example_config.json); see [config.py](project/config.py) for all fields |
+| Motion, per-UAV exit on arrival, and observations | `project/env.py`, `project/observations.py` |
+| Reward expressions | [rewards.py](project/rewards.py) |
+| Networks, GAE, and PPO updates | `project/core.py`, `project/ppo.py` |
+| Channels, SINR, CRB/PCRB | `project/channels.py`, `communication.py`, `sensing.py`, `measurements.py`, `crb.py`, `pcrb.py` |
+| Training statistics and plotting | `project/train.py`, `metrics.py`, `plot.py`, `plot_trajectory.py` |
+
+For details, see the [User Guide](project/docs/GUIDE.md), [Physics Formula Migration](project/docs/PHYSICS_MIGRATION.md), and [Verification Records](project/docs/VERIFICATION.md) (in Chinese). See [legacy/README.md](legacy/README.md) for the purpose and usage of the legacy code.
+
+The rogue UAV's ground-truth state is not directly provided to the Actor or Critic observations. The current target estimate uses a noisy proxy; a closed loop with actual measurements and filtering has not yet been implemented, and the PCRB is not equivalent to measured tracking error.
+
+The PPO implementation references OpenAI Spinning Up. The third-party license is retained in [LICENSE-spinningup.txt](project/LICENSE-spinningup.txt). This license applies to the relevant third-party code and does not constitute a licensing statement for the entire repository.
