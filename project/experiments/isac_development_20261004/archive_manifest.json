@@ -1,0 +1,1525 @@
+{
+  "archive": "isac_development_20261004",
+  "created_date": "2026-10-04",
+  "excludes_self": "archive_manifest.json",
+  "file_count": 379,
+  "total_bytes": 9265793,
+  "files": {
+    "filter_calibration_dev_4101_4110/manifest.json": {
+      "bytes": 1155,
+      "sha256": "62adae4e44a841b83211b6d461a58cde1107ab0fe438472feb9995484df9849c"
+    },
+    "filter_calibration_dev_4101_4110/REPORT.md": {
+      "bytes": 2872,
+      "sha256": "337b2217e1db1dbacf0cdad1c9fb0a7ee6c6cfba3fc9fa10b7795c22722b401e"
+    },
+    "filter_calibration_dev_4101_4110/steps.csv": {
+      "bytes": 48327,
+      "sha256": "9b39d5938edce7dfc97b9b3c85406a2280f362850fb0046051b1f346cddc3ae8"
+    },
+    "filter_calibration_dev_4101_4110/summary.csv": {
+      "bytes": 2632,
+      "sha256": "9dc81b064c988413ac5477992138aa5c2a5d17ba9aa9d4e54d6f79be41c5971a"
+    },
+    "README.en.md": {
+      "bytes": 3146,
+      "sha256": "4287b5af7f2fdc6192f4dea001d752cf8595d061c3dd7ffb73a4464e29393b3d"
+    },
+    "README.md": {
+      "bytes": 2979,
+      "sha256": "2915165a154edc4b290c7cfef2f07872150aa0c808627bc4068aa5cd34e79776"
+    },
+    "sensing_diagnostics_step1_dev_4101_4110/episodes.csv": {
+      "bytes": 25754,
+      "sha256": "9e66b46ed97e51a38fc6dbd837a93e75af5b91bd497df9d8904c3521dfa34935"
+    },
+    "sensing_diagnostics_step1_dev_4101_4110/floor_hits.png": {
+      "bytes": 143437,
+      "sha256": "5ee98babaa3f53c4fe1cde0e2c56ce05a298e2b975ff7220658086a1029905d9"
+    },
+    "sensing_diagnostics_step1_dev_4101_4110/manifest.json": {
+      "bytes": 7140,
+      "sha256": "c6019aca51052ebf4b0bc83a8f8e25efcdb22271ee04830dd782a772cdea62f7"
+    },
+    "sensing_diagnostics_step1_dev_4101_4110/rmse_time.png": {
+      "bytes": 101505,
+      "sha256": "3ed8eb4f1fb38831cb22f3464ea342f6bf4ff1eacd69e9472eaaa24d23d9bddb"
+    },
+    "sensing_diagnostics_step1_dev_4101_4110/source_crb.csv": {
+      "bytes": 28154,
+      "sha256": "c0562a8a69851a06015f88e86676193230e55a4cb5db24642c04d8bc6e817933"
+    },
+    "sensing_diagnostics_step1_dev_4101_4110/STAGE1_REPORT.md": {
+      "bytes": 3183,
+      "sha256": "9923af0ba894705081baceeadc166ccac48ef29b74a8091c090c185d62d2ecf4"
+    },
+    "sensing_diagnostics_step1_dev_4101_4110/steps.csv": {
+      "bytes": 674527,
+      "sha256": "a8b58b8ef87b8ba7d914c5c077cf4f72e3e24ae6d793f26491b594bffb014e3d"
+    },
+    "sensing_planning_dev_4101_4110/episodes.csv": {
+      "bytes": 169246,
+      "sha256": "5b130f29fb5fc383c213037107c7887afd8cc87bda999ab11afe273c90c6dbb6"
+    },
+    "sensing_planning_dev_4101_4110/grid.json": {
+      "bytes": 1941,
+      "sha256": "eb8c5c829f412b2d5110098b3b93bd6a71cc2d65955c6e1d9c7fc5ea84a50d0c"
+    },
+    "sensing_planning_dev_4101_4110/manifest.json": {
+      "bytes": 9263,
+      "sha256": "9c28358a1638c40e5f9cf06ea72472627791b584b1d2ee8f8011bab8e8f0eedf"
+    },
+    "sensing_planning_dev_4101_4110/paired.csv": {
+      "bytes": 8397,
+      "sha256": "85d74b909ac85ea8bd88c46eeed2668321d613b55d90888794c901e4fb363d44"
+    },
+    "sensing_planning_dev_4101_4110/REPORT.md": {
+      "bytes": 3680,
+      "sha256": "be5a5858d4b288a8615ac520c530ac1613e32866caf6a87aaa2f6a536c424710"
+    },
+    "sensing_planning_dev_4101_4110/source_snapshot.zip": {
+      "bytes": 202765,
+      "sha256": "1fc43633d14338d530d8bf2294b07e9addf6fb29e34f4a922ef14799a2cba00a"
+    },
+    "sensing_planning_dev_4101_4110/summary.csv": {
+      "bytes": 40636,
+      "sha256": "1cf3b753b56857392b803693affef539a74d59103a0af5927acad22df31b3cb5"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/goal/4101/trajectory.npz": {
+      "bytes": 34827,
+      "sha256": "1497d39d899c70c8010d96f01bf6944fbff6f3b844f44a414f5fe757947d6079"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/goal/4102/trajectory.npz": {
+      "bytes": 34842,
+      "sha256": "814ef4595ffc23412da6a276ca9061e44ac802763f137c1259dfb7ab11489073"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/goal/4103/trajectory.npz": {
+      "bytes": 34823,
+      "sha256": "add2dc8fe01e11527cbc7b16acc5d1a7118183d3e04c2b3c0bfc0ee450f6e5a5"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/goal/4104/trajectory.npz": {
+      "bytes": 34821,
+      "sha256": "564b247319bb47e05b1b4319da340e3dc3d77a94b593d44b56f67b7bef2908ef"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/goal/4105/trajectory.npz": {
+      "bytes": 34804,
+      "sha256": "2100231b96c55c12d9684363b22c3abf1f3e858078a52d0d61fe4bd2f83b4855"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/goal/4106/trajectory.npz": {
+      "bytes": 34825,
+      "sha256": "f789995629987d70379ebba56480726a9c3ff256680d331ca795380ce63d2e1e"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/goal/4107/trajectory.npz": {
+      "bytes": 34819,
+      "sha256": "cc6a5bd23efdc6ec3899fe2599cfc9c196750c6ef5fa5d1bedd2747a15ee5e48"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/goal/4108/trajectory.npz": {
+      "bytes": 34833,
+      "sha256": "ebd2e9b81fbef2e1cd5b2dc091c6f361f64059f2bf3b809905f3d80ab6edd20b"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/goal/4109/trajectory.npz": {
+      "bytes": 34828,
+      "sha256": "08a7778c825d6aebf35244fa8939efe85bc03803c0ff9ed4f288de21f0bd99cf"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/goal/4110/trajectory.npz": {
+      "bytes": 34819,
+      "sha256": "e74eb47edb3d0b0633cda86df3b9162e3e8e9a292203cbafa7e4674f0b20ad20"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_joint_2000_200/4101/trajectory.npz": {
+      "bytes": 17308,
+      "sha256": "a015b57e911568a495ab2add0b94383934d73b7284ab920858aa0e5446a497ed"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_joint_2000_200/4102/trajectory.npz": {
+      "bytes": 17415,
+      "sha256": "32ded9c8ce5836c20156b2967e0edb093bd114147734ce946f50ffb76361eb90"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_joint_2000_200/4103/trajectory.npz": {
+      "bytes": 17645,
+      "sha256": "29e34d4ed30ca2db04135cbf94fae815aec18600536b7c46aed8b5b2d7874f17"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_joint_2000_200/4104/trajectory.npz": {
+      "bytes": 17404,
+      "sha256": "9244c42caf9aeeb113fa84af9c18285f81c45ef9f9328bc80750d7d3a1f0f382"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_joint_2000_200/4105/trajectory.npz": {
+      "bytes": 17400,
+      "sha256": "975157fe6b0f4d4f1ae35358dc1547c6c197fefe60194cdf175112a87d946d03"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_joint_2000_200/4106/trajectory.npz": {
+      "bytes": 17732,
+      "sha256": "a518ec4182176c48e2dfd2ba7391eda8a75d19b95c25a913173fcf4a4ed55795"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_joint_2000_200/4107/trajectory.npz": {
+      "bytes": 17324,
+      "sha256": "5918912e0168fc8322a8b9a6a7810db05407745e4f06fefba5899913be5c3b2f"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_joint_2000_200/4108/trajectory.npz": {
+      "bytes": 17329,
+      "sha256": "5d7ccd8c8b5ab8029e5a68e9563c5675dd4fe2197cffa86e4abe69861f0030d1"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_joint_2000_200/4109/trajectory.npz": {
+      "bytes": 16136,
+      "sha256": "5d39278f06944df3efcdbb16fd341d1a0c7583f061d70e1122da9fdc19a63b38"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_joint_2000_200/4110/trajectory.npz": {
+      "bytes": 17330,
+      "sha256": "0c9711a939ff8c6c63afad4fcd133da20a2811e07aec770d94a1320fa0c06d2f"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_nav/4101/trajectory.npz": {
+      "bytes": 14080,
+      "sha256": "4a930053a31b27cff335e3e8268453a64c53d4afcea7ae75e4b0e40bc1293595"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_nav/4102/trajectory.npz": {
+      "bytes": 14103,
+      "sha256": "db43e43606a582e39e2d3ca477f33c80ecf94f4ec26e15cbb767ed76deea3471"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_nav/4103/trajectory.npz": {
+      "bytes": 14097,
+      "sha256": "328d93bd902075d6f9b575368b7f6ba73a5133e930e460d8ca9c4662a7b9f2d2"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_nav/4104/trajectory.npz": {
+      "bytes": 14087,
+      "sha256": "00bec71fa83f1eceff6e43195869203621cb8efdbb74018dee2ee3a9fc539009"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_nav/4105/trajectory.npz": {
+      "bytes": 14080,
+      "sha256": "d7ff9fcbb6158feee174b7574491fe3082ca36b68bc61560bf689e07f05e5a94"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_nav/4106/trajectory.npz": {
+      "bytes": 14083,
+      "sha256": "549c2f26a6f3e66a1cb5a20356f730198f0f2cce11b1b200cc34733087769867"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_nav/4107/trajectory.npz": {
+      "bytes": 14091,
+      "sha256": "94f1e29df7a618f840e0b840a9c3f90cf313b33e4162f0c3b3f7d5b5cc894799"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_nav/4108/trajectory.npz": {
+      "bytes": 14100,
+      "sha256": "29fa4fe24c91af7548b867206d62926e22c5a2b4b5cf66c884766919f60c98c9"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_nav/4109/trajectory.npz": {
+      "bytes": 14093,
+      "sha256": "87a70e467d63dd18f11b071ca8f036b0d4a9d575f23199133554d7dbc07c07cb"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_nav/4110/trajectory.npz": {
+      "bytes": 14088,
+      "sha256": "501a34ea1c13629621251a98697b8ca053c77fe4cf965c88ff5ed98a0b417ba0"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_20/4101/trajectory.npz": {
+      "bytes": 14080,
+      "sha256": "4a930053a31b27cff335e3e8268453a64c53d4afcea7ae75e4b0e40bc1293595"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_20/4102/trajectory.npz": {
+      "bytes": 14103,
+      "sha256": "db43e43606a582e39e2d3ca477f33c80ecf94f4ec26e15cbb767ed76deea3471"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_20/4103/trajectory.npz": {
+      "bytes": 14097,
+      "sha256": "328d93bd902075d6f9b575368b7f6ba73a5133e930e460d8ca9c4662a7b9f2d2"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_20/4104/trajectory.npz": {
+      "bytes": 14087,
+      "sha256": "00bec71fa83f1eceff6e43195869203621cb8efdbb74018dee2ee3a9fc539009"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_20/4105/trajectory.npz": {
+      "bytes": 14080,
+      "sha256": "d7ff9fcbb6158feee174b7574491fe3082ca36b68bc61560bf689e07f05e5a94"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_20/4106/trajectory.npz": {
+      "bytes": 14083,
+      "sha256": "549c2f26a6f3e66a1cb5a20356f730198f0f2cce11b1b200cc34733087769867"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_20/4107/trajectory.npz": {
+      "bytes": 14091,
+      "sha256": "94f1e29df7a618f840e0b840a9c3f90cf313b33e4162f0c3b3f7d5b5cc894799"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_20/4108/trajectory.npz": {
+      "bytes": 14100,
+      "sha256": "29fa4fe24c91af7548b867206d62926e22c5a2b4b5cf66c884766919f60c98c9"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_20/4109/trajectory.npz": {
+      "bytes": 14093,
+      "sha256": "87a70e467d63dd18f11b071ca8f036b0d4a9d575f23199133554d7dbc07c07cb"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_20/4110/trajectory.npz": {
+      "bytes": 14088,
+      "sha256": "501a34ea1c13629621251a98697b8ca053c77fe4cf965c88ff5ed98a0b417ba0"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_200/4101/trajectory.npz": {
+      "bytes": 13782,
+      "sha256": "898ad291345f161e5b1bb7841c3696cc40b4f55cbdc93e513b78cc08e9cb2c93"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_200/4102/trajectory.npz": {
+      "bytes": 13777,
+      "sha256": "5a1520d46bc3465d6febcf3558c605ae4e73281bda9b26a45dcb4b2501b99341"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_200/4103/trajectory.npz": {
+      "bytes": 13773,
+      "sha256": "49e0d16a7fb6ff82969554e86c37d5418d30172b6e3da002b4506c099cf0ee0c"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_200/4104/trajectory.npz": {
+      "bytes": 13775,
+      "sha256": "f4dad5cc39fbecae274e83d63ad32774b451b7992402985611e1fa8ff8a74660"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_200/4105/trajectory.npz": {
+      "bytes": 13770,
+      "sha256": "debca0447b9151ce8ff1fb60a29e9241b3adf60ebe53c45c83c1eef6c5ab291f"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_200/4106/trajectory.npz": {
+      "bytes": 13775,
+      "sha256": "ef22b80ddb39ed359a0e511807e990b2377e15da6ddd0009c9cd2ea6f4b17904"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_200/4107/trajectory.npz": {
+      "bytes": 13775,
+      "sha256": "321fb0395de3d91eb92656d4a67bb8e32e2a8a52b3c2a97dcff5fc5e675ba8df"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_200/4108/trajectory.npz": {
+      "bytes": 13767,
+      "sha256": "0c81858bf4e58707acbcb95b1e96ac343e1bfccd9185c9b35d84020df4552e7e"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_200/4109/trajectory.npz": {
+      "bytes": 13766,
+      "sha256": "d15d10fb6284a576a41a77058f3d9c15a85e7dd927c2ba58e7ad9e8854959dba"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_200/4110/trajectory.npz": {
+      "bytes": 13776,
+      "sha256": "ec002318a312f6b83b7b9f5510072cb5401d76a62df8eb41f2e77ad79c7ff96a"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_2000/4101/trajectory.npz": {
+      "bytes": 15536,
+      "sha256": "69b876e29a0adedaea80815402f720e98d960906e149ad20ca4702ae11c9c5a0"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_2000/4102/trajectory.npz": {
+      "bytes": 15555,
+      "sha256": "7b544cf0fe1fba1fa7e6fe3266312dadc994a433e1cf99bc282730ceb774646f"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_2000/4103/trajectory.npz": {
+      "bytes": 15513,
+      "sha256": "71c51a5801b0545c5ba3bca4c47cf24901befcfd71bd698e48a3adef3dba670e"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_2000/4104/trajectory.npz": {
+      "bytes": 15531,
+      "sha256": "8d7059242ff4937cbb8924b43d4562ee49a6d854a0d63e3ac57339e491108a88"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_2000/4105/trajectory.npz": {
+      "bytes": 15533,
+      "sha256": "3571b0f2fef9d780024deb7d79cc78a8e96b6bd3f4f17dfa2abe4cfdd70e6e3b"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_2000/4106/trajectory.npz": {
+      "bytes": 15544,
+      "sha256": "de2cfd3bde105b48362a23e44d0a50d1359356f88dba5ff0c4c6b19097c0a0eb"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_2000/4107/trajectory.npz": {
+      "bytes": 15536,
+      "sha256": "040f0b43c84bfe8848ec8cdc33abc5ce403e6f208c7192e8d94a2e8609763828"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_2000/4108/trajectory.npz": {
+      "bytes": 15539,
+      "sha256": "53767a30d78b965475828145c0d259e13ebf32e0d555f594c6a8b1ae6d078911"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_2000/4109/trajectory.npz": {
+      "bytes": 15537,
+      "sha256": "c799d37e07126fb84a7f0b87b6e643a7179a454f190e2e68bade44d7582a6969"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_2000/4110/trajectory.npz": {
+      "bytes": 15539,
+      "sha256": "5df34fdbcbd28f822bfba8f446d40b11e34aea2126c72726e2aac53f4d8fe3d9"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_20000/4101/trajectory.npz": {
+      "bytes": 37498,
+      "sha256": "e33c5551bbc116700b98c43c06aa4d54182f21e48b486b1b57ca2190b3f1a78f"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_20000/4102/trajectory.npz": {
+      "bytes": 36801,
+      "sha256": "c3739d74787b28b85f218bdb55a6a35eabdb5fe60c29f9cbd5d36d6629dcc39c"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_20000/4103/trajectory.npz": {
+      "bytes": 37127,
+      "sha256": "d9c17f788211af09d443a3db935a9cec3e0f250b39e886a50e191c1439498822"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_20000/4104/trajectory.npz": {
+      "bytes": 36727,
+      "sha256": "6056b040940e4de83c8b36bbb4410177dfb801f6d6cd806b2f24365c42a86eab"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_20000/4105/trajectory.npz": {
+      "bytes": 37808,
+      "sha256": "1248a78b9ccbd36deb487573ca98df38ce03eca0df84285786c4482216dece6b"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_20000/4106/trajectory.npz": {
+      "bytes": 36763,
+      "sha256": "c8068cdd9e52f02fadce39687745131c9cd3402b6d1c779d4d55d14be859e44d"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_20000/4107/trajectory.npz": {
+      "bytes": 36800,
+      "sha256": "a2b0ff6be57dc06d0aa22cac5849db931adc9d1f2320c4e3050a9156a953d86a"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_20000/4108/trajectory.npz": {
+      "bytes": 36953,
+      "sha256": "c605156ecc24c58377d3e4351cc49bf628616e4fa0196af689fc680468a4e931"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_20000/4109/trajectory.npz": {
+      "bytes": 37555,
+      "sha256": "c702f5a2da6e2ca23440ceb678274b1cb3b050d56c4e175b65428b2bfaa3a974"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/mpc_sense_20000/4110/trajectory.npz": {
+      "bytes": 36635,
+      "sha256": "836004267eddfd780e310a87be104f772c737a55aebd758293ae47c9db1db41f"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_joint_20_2/4101/trajectory.npz": {
+      "bytes": 38375,
+      "sha256": "7b51182fc05f4baaa16f5d14aa3bbefe54ef0fe495c7f7b824c4503e14ad7f11"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_joint_20_2/4102/trajectory.npz": {
+      "bytes": 38796,
+      "sha256": "fe2564f5dec408c6448ca21704716653bbd50cfdcb550caafa5fd713e907bb83"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_joint_20_2/4103/trajectory.npz": {
+      "bytes": 38291,
+      "sha256": "b420f4b2d7ee8f2324ab27d4304ceb1eeb3139062f29f710b5f9bf1975258479"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_joint_20_2/4104/trajectory.npz": {
+      "bytes": 38415,
+      "sha256": "b4cd254c5d1a5067e0603c552ae8fbc48f26d0b1f361ff12bb982117e09e14eb"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_joint_20_2/4105/trajectory.npz": {
+      "bytes": 38349,
+      "sha256": "9b4413eb5ce2c2fcad1470cbcfd96d55934978958b37d733a8103283ba22f0ab"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_joint_20_2/4106/trajectory.npz": {
+      "bytes": 38941,
+      "sha256": "2a96f787c915d9a743d81d211f97f0c52f4d5023c77aa54ccafd9ef513ecd7ac"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_joint_20_2/4107/trajectory.npz": {
+      "bytes": 38456,
+      "sha256": "afbca4782871e1ba6bb504772b66131999a6103f1caa71598ef0320d21f87672"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_joint_20_2/4108/trajectory.npz": {
+      "bytes": 38690,
+      "sha256": "f8bbaef2ee0f9d6d9645e9be618de48db4e2a42331cc0179755c78aa900b4231"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_joint_20_2/4109/trajectory.npz": {
+      "bytes": 38540,
+      "sha256": "5002d31df23d4d928d826e9d288a1b5a1b6b6b415ab9fcac75a86a2cd8baec4d"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_joint_20_2/4110/trajectory.npz": {
+      "bytes": 20012,
+      "sha256": "3e7116b46ef101ef1902f61d616ebcc54262e1d6e9d8c733b87f4fdd722aa2c4"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_nav/4101/trajectory.npz": {
+      "bytes": 17100,
+      "sha256": "3e28b203186a1c4372ed924e79e2862351d16d1643b6647348c1f80f213e1b1a"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_nav/4102/trajectory.npz": {
+      "bytes": 14504,
+      "sha256": "b1d359e61cfde64f534469f5d6bbe43ee16f86ac649b2f91c8515151e0274147"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_nav/4103/trajectory.npz": {
+      "bytes": 14550,
+      "sha256": "053f1fccd605fd7081c1346852b5daf30cdb221cd54ff303639368d81b0d753c"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_nav/4104/trajectory.npz": {
+      "bytes": 14092,
+      "sha256": "b0ee500b9bf262f43f9d23afef59db7f2021f5d62fa0eed681932fbdf5dd23cd"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_nav/4105/trajectory.npz": {
+      "bytes": 14257,
+      "sha256": "5b308c8ff2fd88004a56c2478f38d27991488054cd941a16c57a91ed926a359e"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_nav/4106/trajectory.npz": {
+      "bytes": 14143,
+      "sha256": "432746a786d20ae438907c3d44654f9d7dd71d3fba1d74a86f96787e09174f88"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_nav/4107/trajectory.npz": {
+      "bytes": 13988,
+      "sha256": "015d67328e6b03e428e632459e003f995fb63879b2f9f67689f3e8d2fb9ea536"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_nav/4108/trajectory.npz": {
+      "bytes": 14005,
+      "sha256": "3c86ea01642807b7d7330b3e005ef20c16c02861ee269dd2f0f1689befe7546f"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_nav/4109/trajectory.npz": {
+      "bytes": 13991,
+      "sha256": "87819c56176e4257dff4839d7de34e37ba58bbb971201d9acf797c30e2025b53"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_nav/4110/trajectory.npz": {
+      "bytes": 14305,
+      "sha256": "8af6286e9492e628c29db32d391996f95d915e2c8cb2b0295993493ca75f2dc7"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_0p2/4101/trajectory.npz": {
+      "bytes": 17102,
+      "sha256": "0bd0d2fc094565551617cb0208b34f387b1dd54bdd348869b742cc61aae7eaff"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_0p2/4102/trajectory.npz": {
+      "bytes": 14801,
+      "sha256": "49a5820d8449ec1f14cac293ae91429e8a9e93013c109c4118cb318ec1fbf718"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_0p2/4103/trajectory.npz": {
+      "bytes": 13862,
+      "sha256": "04ac3d4700f1a7b9152cb3ca653ce93f11c9519489122d9fa21251eee87d316f"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_0p2/4104/trajectory.npz": {
+      "bytes": 14633,
+      "sha256": "71330115f179c8e6300af30b01da707c478db61b4a6f120988368fbc1c1325b6"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_0p2/4105/trajectory.npz": {
+      "bytes": 14528,
+      "sha256": "1b40ad0cd720b45bad6464b89c36e95433db0943e97308abeaa58047a75e9ded"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_0p2/4106/trajectory.npz": {
+      "bytes": 13937,
+      "sha256": "5c638c2c8907e887930e977e5778641b76dcb32a4011507fbdff6f0741e070da"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_0p2/4107/trajectory.npz": {
+      "bytes": 14636,
+      "sha256": "db840949356010fcd00848f9ab7ecec2c7b117e1bfd6ad36f677181ddf65c7cb"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_0p2/4108/trajectory.npz": {
+      "bytes": 14425,
+      "sha256": "96b683769575f2e40d1bd6e199d67ccec387477a0f1ce0f90e12baa07a0000ea"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_0p2/4109/trajectory.npz": {
+      "bytes": 14760,
+      "sha256": "eda1f0bdb308e6c78a92ee35241808194a362897f69f647033ed2627da21d0eb"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_0p2/4110/trajectory.npz": {
+      "bytes": 14997,
+      "sha256": "7c9a6a231d8baf0dbf5c4fd56ad3e3e10cad1d1700f14d1703a7fe8345ac884f"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_2/4101/trajectory.npz": {
+      "bytes": 17003,
+      "sha256": "f713a7d156ccab158276d8556c9743623026b42f1d0bc3ce313cf817447bcc33"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_2/4102/trajectory.npz": {
+      "bytes": 15505,
+      "sha256": "efb954fa836583dcf69536ed9bd086a4427b2c02655b019470c15601bf302a6d"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_2/4103/trajectory.npz": {
+      "bytes": 14933,
+      "sha256": "f014db9146d8c42674c6e9a85a6ef80d831b15fab4d7dc51cff9d635fd7f1474"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_2/4104/trajectory.npz": {
+      "bytes": 15233,
+      "sha256": "3f8ebea871171a7c1d9736e0cd71da346927ef61e5e22882d7892baa8882d579"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_2/4105/trajectory.npz": {
+      "bytes": 16080,
+      "sha256": "4241f0647d2af3ec6736aa42c6c8dff4fc9877d889a4ff6c778428a1ba98308e"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_2/4106/trajectory.npz": {
+      "bytes": 16407,
+      "sha256": "3271fdffe3596062121997bf2cd15e556f31a00a8d011b56b87cc3007ac0e066"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_2/4107/trajectory.npz": {
+      "bytes": 14525,
+      "sha256": "4d8c94d47d3c1184a85857144e25f8caaea54893e9e2ec040cbeeddc45b4fc8a"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_2/4108/trajectory.npz": {
+      "bytes": 15073,
+      "sha256": "03c6d15faefb01ec21b84eb9396607815b3d4e05685fcbff3036132240455874"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_2/4109/trajectory.npz": {
+      "bytes": 15443,
+      "sha256": "1898bc8cae3781f8da48b41165edf847021c117f5f9f33d089349ac38a01943d"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_2/4110/trajectory.npz": {
+      "bytes": 16422,
+      "sha256": "d9e4f634f0e32f1254065a290ff2d920a420869b7fb1219444b3448f9f76c49b"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_20/4101/trajectory.npz": {
+      "bytes": 38595,
+      "sha256": "4c742b3ce3bd6f5c3c76b8a767027f922fa8e33668f4e88158e3a7668fb9aa77"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_20/4102/trajectory.npz": {
+      "bytes": 38281,
+      "sha256": "b5a5e4a57fad1fe626f07fb165eb6d44fd3194656a2f4f840b86403dfe73b15b"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_20/4103/trajectory.npz": {
+      "bytes": 22414,
+      "sha256": "3a1123cbae3dda5ee86d8f582734624319293619ca4f9a19e6ac9a7a2e5e5f9c"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_20/4104/trajectory.npz": {
+      "bytes": 38480,
+      "sha256": "bd79825e1f42fd802d4c7f40574d491089594fd71498251cb9b74f8e40353af7"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_20/4105/trajectory.npz": {
+      "bytes": 38680,
+      "sha256": "9c562cdbb2c84b2fc31c7d2b4da4528477c719aeac4541790ab5b1a68985bd1f"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_20/4106/trajectory.npz": {
+      "bytes": 25325,
+      "sha256": "b7e3a7471b684eb3b43f96fc0aca14539d7c4450c4cb060c45b0bc48661bcc97"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_20/4107/trajectory.npz": {
+      "bytes": 38629,
+      "sha256": "4a2514f5979f9d64464146bf09f9310b61e114ab3381f088f15d90a728a77b83"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_20/4108/trajectory.npz": {
+      "bytes": 38709,
+      "sha256": "9e1dd834cf3b4d89f073b7982def947e2f8d2d2013846bc39fc14bbe8aca8809"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_20/4109/trajectory.npz": {
+      "bytes": 38356,
+      "sha256": "8a3467fec7e29be88974b4a505dd14041d72f9284e5580d3311257feaef31d8b"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_20/4110/trajectory.npz": {
+      "bytes": 38617,
+      "sha256": "3c997aeb8a79c8ed35005af020a7201727c791e222b1a81945be38276a7bed6b"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_200/4101/trajectory.npz": {
+      "bytes": 40605,
+      "sha256": "b708b44962853f64119bc44e29a88971edbd1deb40d7c805e77707ba997faa5b"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_200/4102/trajectory.npz": {
+      "bytes": 40726,
+      "sha256": "642488067fa1438219ed1c2581d0c146988690671fd26786f0de8b05ff3a04ac"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_200/4103/trajectory.npz": {
+      "bytes": 39612,
+      "sha256": "dcc097aad4fa7fd75f552f4f4f130f81d5db8de55515f77c3288769089d8cbdf"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_200/4104/trajectory.npz": {
+      "bytes": 40695,
+      "sha256": "c8b2a70fdd3902c936a23c661ae9fed98e437cc629d22a74f8516be0744c91c9"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_200/4105/trajectory.npz": {
+      "bytes": 40735,
+      "sha256": "82c56f3096bbd8f7243e8c31c58e604df1e99d8a2695e8f2b7abb33dd5e9a6be"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_200/4106/trajectory.npz": {
+      "bytes": 40787,
+      "sha256": "6320e287c8e2f7155db2e523ebcdd05826d18f54082aab4dd8f23dd93371cdf8"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_200/4107/trajectory.npz": {
+      "bytes": 40713,
+      "sha256": "8f122d4a9d0d604fa24ad4ca961adee0a198b11a187005db502ad5b297313fad"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_200/4108/trajectory.npz": {
+      "bytes": 40748,
+      "sha256": "01ccdf4dd7114fc725c1f522be8cadbe683185165c92e3e8b9fb86e737658f55"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_200/4109/trajectory.npz": {
+      "bytes": 40762,
+      "sha256": "9d8e8920c21075720c9ec070d4bf9afa07de8bb9b48b3528af11fbeed0d60a1a"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/crossing/sa_sense_200/4110/trajectory.npz": {
+      "bytes": 40813,
+      "sha256": "b052809fcbb9da6b7f5030775c513e1917c1b1d3f2cfa3b7aca233380b112bfd"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/goal/4101/trajectory.npz": {
+      "bytes": 14875,
+      "sha256": "db12e6b38e882aaf8e58a038baa32be15594bdbcea142bf17d2ecec151cd9f3f"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/goal/4102/trajectory.npz": {
+      "bytes": 14882,
+      "sha256": "e72a710ae16b3dd8b747d42311470610866568cc2eb75acd44f60f0443293b1b"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/goal/4103/trajectory.npz": {
+      "bytes": 14874,
+      "sha256": "33700ae03eb96ce31c05c47a7876959990b5f61d58d84468262e922097c79ff0"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/goal/4104/trajectory.npz": {
+      "bytes": 14872,
+      "sha256": "08ceba105882320b82ac586c46b456db9ddcc38ac20b8f7b455ff979198fb4ce"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/goal/4105/trajectory.npz": {
+      "bytes": 14871,
+      "sha256": "3454b8e68b03f5295a918c9566c31e0f4df0fc5261143e94502b589b03c91c17"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/goal/4106/trajectory.npz": {
+      "bytes": 14873,
+      "sha256": "7ea6f7d24d26b81c3373be9679cf77da9f70d9599f61c472bb63b455a682eb25"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/goal/4107/trajectory.npz": {
+      "bytes": 14876,
+      "sha256": "4f466f8eb709a143a3eb6de7ba837ede23ddba349773678b275b75f9613db4ad"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/goal/4108/trajectory.npz": {
+      "bytes": 14887,
+      "sha256": "9d76a13fcc4bdeca6265788486e2734180115f1248c84fea95ca2ce92cc428c8"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/goal/4109/trajectory.npz": {
+      "bytes": 14887,
+      "sha256": "b9f0918a3c5f4b275d6fae20bb1ffe4912a6f587de944c56f3dd4677d88065da"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/goal/4110/trajectory.npz": {
+      "bytes": 14872,
+      "sha256": "c991c840e4bbb830798faac05d0b2285c0720f661d7e856742661bde190ce4f8"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_joint_2000_200/4101/trajectory.npz": {
+      "bytes": 15097,
+      "sha256": "5434e85ce102b4cfaefc2adc0345ca8bf87bcc6f709e7b44d2efbda3481df4f6"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_joint_2000_200/4102/trajectory.npz": {
+      "bytes": 15077,
+      "sha256": "0f85d2f84d80cb994b39f9aacebd21ad148efbb85eb0fd5f326055bbe60b38e2"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_joint_2000_200/4103/trajectory.npz": {
+      "bytes": 15091,
+      "sha256": "f97a527f52c66b450c88aa883bdec3497d06d11f5113f7a3b71fc7a6a2898ed8"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_joint_2000_200/4104/trajectory.npz": {
+      "bytes": 15108,
+      "sha256": "9b41379486bc25cd297650ad9930faea6e6783d6310de6d51058017d2d2b68fc"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_joint_2000_200/4105/trajectory.npz": {
+      "bytes": 15091,
+      "sha256": "15461a9496f8920ebd07b6eea65acaeb2cb109aa117168bd9de244808696c39d"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_joint_2000_200/4106/trajectory.npz": {
+      "bytes": 15082,
+      "sha256": "f7db4e11b9e538a7379d81f63bf19f6f57ff2b2040ae32e66e288b362a4e356c"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_joint_2000_200/4107/trajectory.npz": {
+      "bytes": 15124,
+      "sha256": "0c625eb107561f137944f05bb5775a9363a26a682de36fa752af640e8433ea03"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_joint_2000_200/4108/trajectory.npz": {
+      "bytes": 15067,
+      "sha256": "f3ae6afa339b4b32de43c834ffa8108b5bbf1cff0ebe08853ba077d8e1e63c03"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_joint_2000_200/4109/trajectory.npz": {
+      "bytes": 15101,
+      "sha256": "828e1c6f94b90fdef5f61d9c6e6190c5272f6af412247e22d8e7010f97b86e92"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_joint_2000_200/4110/trajectory.npz": {
+      "bytes": 15118,
+      "sha256": "dafca77c46bf83f5a1b7572e0d3f11e5e065c1acd0be431ad27c4871810fed88"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_nav/4101/trajectory.npz": {
+      "bytes": 14821,
+      "sha256": "5269ef272e59946b08da31956669104f5357fbe67d59bcd1f887fb61aae08a90"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_nav/4102/trajectory.npz": {
+      "bytes": 14818,
+      "sha256": "c65bc83845f610cd7bbb80d0e8953cda3dd00395137df091345863270403d79e"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_nav/4103/trajectory.npz": {
+      "bytes": 14819,
+      "sha256": "c6d68077d8d22d50c323ab59499e8369a45179ed5b327fb8e37f3b197bdc03cc"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_nav/4104/trajectory.npz": {
+      "bytes": 14810,
+      "sha256": "b611571f73d8f498be47a7359a03f8c190c2a2e8c0b92c6dee4b67a9512822f9"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_nav/4105/trajectory.npz": {
+      "bytes": 14815,
+      "sha256": "b903449a23f8fb8563bf4849c4f7c06d5c6eaeafa18fc4fcabb72dd77a9cdab6"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_nav/4106/trajectory.npz": {
+      "bytes": 14819,
+      "sha256": "25b43cf27b954f691b396e519d49699bdc79a465b50d4edcf928ee03a34d391b"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_nav/4107/trajectory.npz": {
+      "bytes": 14818,
+      "sha256": "bec182801ff14869a06c861709e6cca222227ff9b3a5b870f9ad2a1417bcde7a"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_nav/4108/trajectory.npz": {
+      "bytes": 14818,
+      "sha256": "015134c52833124930fca360d3fdcd77308b510614e5b4925c81e62bf2721f1a"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_nav/4109/trajectory.npz": {
+      "bytes": 14832,
+      "sha256": "6e59e647be66522e68d1971882852547bde9bc3a9b02547833b4356d641f45bf"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_nav/4110/trajectory.npz": {
+      "bytes": 14815,
+      "sha256": "e92b16c7ab059dec83bb963c7b218f46c6cb281a6eed4f1acb91d65d1f601c85"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_20/4101/trajectory.npz": {
+      "bytes": 14821,
+      "sha256": "5269ef272e59946b08da31956669104f5357fbe67d59bcd1f887fb61aae08a90"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_20/4102/trajectory.npz": {
+      "bytes": 14818,
+      "sha256": "c65bc83845f610cd7bbb80d0e8953cda3dd00395137df091345863270403d79e"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_20/4103/trajectory.npz": {
+      "bytes": 14819,
+      "sha256": "c6d68077d8d22d50c323ab59499e8369a45179ed5b327fb8e37f3b197bdc03cc"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_20/4104/trajectory.npz": {
+      "bytes": 14810,
+      "sha256": "b611571f73d8f498be47a7359a03f8c190c2a2e8c0b92c6dee4b67a9512822f9"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_20/4105/trajectory.npz": {
+      "bytes": 14815,
+      "sha256": "b903449a23f8fb8563bf4849c4f7c06d5c6eaeafa18fc4fcabb72dd77a9cdab6"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_20/4106/trajectory.npz": {
+      "bytes": 14819,
+      "sha256": "25b43cf27b954f691b396e519d49699bdc79a465b50d4edcf928ee03a34d391b"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_20/4107/trajectory.npz": {
+      "bytes": 14818,
+      "sha256": "bec182801ff14869a06c861709e6cca222227ff9b3a5b870f9ad2a1417bcde7a"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_20/4108/trajectory.npz": {
+      "bytes": 14818,
+      "sha256": "015134c52833124930fca360d3fdcd77308b510614e5b4925c81e62bf2721f1a"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_20/4109/trajectory.npz": {
+      "bytes": 14832,
+      "sha256": "6e59e647be66522e68d1971882852547bde9bc3a9b02547833b4356d641f45bf"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_20/4110/trajectory.npz": {
+      "bytes": 14815,
+      "sha256": "e92b16c7ab059dec83bb963c7b218f46c6cb281a6eed4f1acb91d65d1f601c85"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_200/4101/trajectory.npz": {
+      "bytes": 14813,
+      "sha256": "5563ba59982204b0afc2b04ab4202d44ae27ed03488aebd223e8e9f39c7d9b23"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_200/4102/trajectory.npz": {
+      "bytes": 14804,
+      "sha256": "919b9a5774c9625ce577698c917de0ac9fc3f5aff1e9797354b71e9612bd43d0"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_200/4103/trajectory.npz": {
+      "bytes": 14792,
+      "sha256": "b2b54083a5e26b627c979f9ebfd96bb72ead7ab2de09733c63e5aa617e324438"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_200/4104/trajectory.npz": {
+      "bytes": 14795,
+      "sha256": "4fbe9aa9ec2a8aec4da9b1fc4cf994a6d443630f064a3e12195c7ac74a950d00"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_200/4105/trajectory.npz": {
+      "bytes": 14800,
+      "sha256": "3a4905e8458606e9d248c041bc70237fea6135b3c4ac870a1b83f762f5a056ec"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_200/4106/trajectory.npz": {
+      "bytes": 14810,
+      "sha256": "573e572bd72a17d47fe8c5a715782dd4728c7cc1d01b6a4742f51c84e6865d3e"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_200/4107/trajectory.npz": {
+      "bytes": 14799,
+      "sha256": "9b0872a4b5a995f15aa3294416d6bdd24ee2a65cc70d3eca7e35167109bf3dc2"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_200/4108/trajectory.npz": {
+      "bytes": 14801,
+      "sha256": "1518609bfd3a38bdd6898dfdbc9211ae53ff5afc00bd999776b6a3fcc6f1e350"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_200/4109/trajectory.npz": {
+      "bytes": 14807,
+      "sha256": "9961a64c92d321a5b0a5ef8fec00d24705f1aa74ebe4827c714d887a4f801873"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_200/4110/trajectory.npz": {
+      "bytes": 14801,
+      "sha256": "2ccf9c43db39957666750355bcc8e0e5137fc38b2777265566a68142d24f6d95"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_2000/4101/trajectory.npz": {
+      "bytes": 15097,
+      "sha256": "5434e85ce102b4cfaefc2adc0345ca8bf87bcc6f709e7b44d2efbda3481df4f6"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_2000/4102/trajectory.npz": {
+      "bytes": 15077,
+      "sha256": "0f85d2f84d80cb994b39f9aacebd21ad148efbb85eb0fd5f326055bbe60b38e2"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_2000/4103/trajectory.npz": {
+      "bytes": 15085,
+      "sha256": "1cff775eb199982d57fca91f97c91aeb5b12210fba406f8448cfe4ed5e29f3d6"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_2000/4104/trajectory.npz": {
+      "bytes": 15084,
+      "sha256": "5356c1c734978b5a5f268449d44a2e1bda9dac322192c4e722a03fcf1ffd8b82"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_2000/4105/trajectory.npz": {
+      "bytes": 15083,
+      "sha256": "da49e32f78ba639fd6281df5827406d58e057004bf0948932e965e0c5a69924a"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_2000/4106/trajectory.npz": {
+      "bytes": 15082,
+      "sha256": "f7db4e11b9e538a7379d81f63bf19f6f57ff2b2040ae32e66e288b362a4e356c"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_2000/4107/trajectory.npz": {
+      "bytes": 15089,
+      "sha256": "7936ecf14e08ed817aea41ceb652dcc38c75102a18bdc6c5bfdaafeed38e3431"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_2000/4108/trajectory.npz": {
+      "bytes": 15084,
+      "sha256": "51595d489c9b599eb7564f5ea964e9e85ead31af8bf8368cb212a46bb4a3e93d"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_2000/4109/trajectory.npz": {
+      "bytes": 15101,
+      "sha256": "828e1c6f94b90fdef5f61d9c6e6190c5272f6af412247e22d8e7010f97b86e92"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_2000/4110/trajectory.npz": {
+      "bytes": 15091,
+      "sha256": "862630f27c159966380e57b3fbe53952e066c109541e266d84ba3560a981457c"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_20000/4101/trajectory.npz": {
+      "bytes": 38206,
+      "sha256": "759a104adc349b429bba8154a3a016f731d3688b6384daabac8902855a40602a"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_20000/4102/trajectory.npz": {
+      "bytes": 38536,
+      "sha256": "2e62b9939e180519aa7a7a7926f1600300f2dab042ad4a4a8edba9dd6ba6f45d"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_20000/4103/trajectory.npz": {
+      "bytes": 38617,
+      "sha256": "63b705d3a58fb7dfec01536c59dbbc3393b8dda65a96a913c86cf878992ebfff"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_20000/4104/trajectory.npz": {
+      "bytes": 37966,
+      "sha256": "50f8a7c84e4674f40b08d55bf31241fd9619003e72d17645b42e3cbfab2c845e"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_20000/4105/trajectory.npz": {
+      "bytes": 38244,
+      "sha256": "bcac0c52f6fbfe4eb40e895711c8a0e57f34d11006f9fcfad7cd8d54cf2d1362"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_20000/4106/trajectory.npz": {
+      "bytes": 37221,
+      "sha256": "175b57e6eed210b41133bd62bb85c6d1eadf2a0cae56f8c57a34d3328ad94612"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_20000/4107/trajectory.npz": {
+      "bytes": 38889,
+      "sha256": "2254e7beda33c4b3ee2a0e0d5c4055ef699c5bbf7c08f797c5218974907a3d9b"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_20000/4108/trajectory.npz": {
+      "bytes": 38888,
+      "sha256": "13d574e92e785c8e87020cc21df4a73fca8ec4e2c1aa69dbcc5c3113ff18b0e3"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_20000/4109/trajectory.npz": {
+      "bytes": 38411,
+      "sha256": "38c4a9d75c6acdb5003450c31b90535b0aa2f3676565c3f19a1af21015092096"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/mpc_sense_20000/4110/trajectory.npz": {
+      "bytes": 39323,
+      "sha256": "011dbb7f3a1a47e77a11ada009170aae64f73fa46f198603ce75fb78e7e21708"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_joint_20_2/4101/trajectory.npz": {
+      "bytes": 38545,
+      "sha256": "4e6a009c6e39097a06397870db417d47ce8ea9b9a08e227fd4bb85837138b18a"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_joint_20_2/4102/trajectory.npz": {
+      "bytes": 16916,
+      "sha256": "2699d806f9745e7f8acbf8763e236f1867f5e4729718fd9a873f046116c0c1b5"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_joint_20_2/4103/trajectory.npz": {
+      "bytes": 17592,
+      "sha256": "a2f55b9ce36043dd09962da5f4104a12a75bc6fc4fa3a5b45592e127496b2f28"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_joint_20_2/4104/trajectory.npz": {
+      "bytes": 16544,
+      "sha256": "9cf5f6efa0ebd771a5b530c15f153a1bf77bbfef2d314dae20c0820b04ed9a89"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_joint_20_2/4105/trajectory.npz": {
+      "bytes": 38687,
+      "sha256": "ccb31476945a3278e9de56b57f847029e9c3e996bbe92eeea4b168fc68c20316"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_joint_20_2/4106/trajectory.npz": {
+      "bytes": 15165,
+      "sha256": "c4b5f3a163f85efd61baa5bdbc76810e26bea7ecd8ed3ad1f1cf0b6f5f480a6a"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_joint_20_2/4107/trajectory.npz": {
+      "bytes": 38313,
+      "sha256": "08ef2a9bf80fd18772d5958d9082413de352a085de1f72ac2785e6671bb73602"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_joint_20_2/4108/trajectory.npz": {
+      "bytes": 38342,
+      "sha256": "f7556c1f24868930f0473cffeeef5f78e2e6a7c7a384e85f43f4aacf1611b6e3"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_joint_20_2/4109/trajectory.npz": {
+      "bytes": 38349,
+      "sha256": "65ae119c80b650bd4de1b1630dbe7c02ab2f4aefc9f33d05e051bd389ff5fceb"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_joint_20_2/4110/trajectory.npz": {
+      "bytes": 38624,
+      "sha256": "d01951e3c8e429c4901af11773b0e5bbe04862090e683fc6d08517d100030049"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_nav/4101/trajectory.npz": {
+      "bytes": 14834,
+      "sha256": "7dd26676e4f72f1c6f2ddd8930ba83e8d433959275f80db5d9574e88792bee1f"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_nav/4102/trajectory.npz": {
+      "bytes": 14850,
+      "sha256": "f13a3c92858ef587d0a42d54d87fdc1135ef94fe70acef116fc9c08f99960615"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_nav/4103/trajectory.npz": {
+      "bytes": 14840,
+      "sha256": "af1473d3aa9906fb056f2b99ede3f5c1f73fbcc657f5b36097691d85b390a6cc"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_nav/4104/trajectory.npz": {
+      "bytes": 14838,
+      "sha256": "df81d792002403566e64a5c5dc4bacb7a22a119e8d2c73f37345642ead7aa1b7"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_nav/4105/trajectory.npz": {
+      "bytes": 14839,
+      "sha256": "f6c0d4af1f1202b3f82d9339471c3a94c5b9aa0e7caa1e71f6ff86bd6bbf45ec"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_nav/4106/trajectory.npz": {
+      "bytes": 14851,
+      "sha256": "213c0b93508c6452009850418ab92feb20a5b9696860aa9ed2ff35b3204a0997"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_nav/4107/trajectory.npz": {
+      "bytes": 14849,
+      "sha256": "484f2cadfe0bc801aa6691bab61a68f67c19d34c6376ebd4f8edd07668de84bd"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_nav/4108/trajectory.npz": {
+      "bytes": 14846,
+      "sha256": "b88d71761fb741ef6a9aa73fd97efe693b1d00fdb6857f3ee44322078c0d9d79"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_nav/4109/trajectory.npz": {
+      "bytes": 14841,
+      "sha256": "63e65ec851388430f260307210268f460efdae45c25d7fe729a359c4eb4fbaaa"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_nav/4110/trajectory.npz": {
+      "bytes": 14836,
+      "sha256": "79e9f44b119225512e0621f5de2ebd2f5320d62bc13b260ed95804a2e4a00035"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_0p2/4101/trajectory.npz": {
+      "bytes": 14817,
+      "sha256": "4c6e1f6f2452b3180960d1d1251c2631aa73d95c888270ed7bd09eb8ef843f9c"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_0p2/4102/trajectory.npz": {
+      "bytes": 14815,
+      "sha256": "afc1fbda11cddad41003e5de710c2f72201a02731e14671e9f7310ff6c8146a4"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_0p2/4103/trajectory.npz": {
+      "bytes": 14811,
+      "sha256": "8cea7b09decba074cd5cd2f73a956811afe8de9c53f2b9eda851587f3761c8a8"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_0p2/4104/trajectory.npz": {
+      "bytes": 14806,
+      "sha256": "ac15a320b2450fbc0c28576048b1a5092051defec22ccb65da26d1fa5e3fb7ea"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_0p2/4105/trajectory.npz": {
+      "bytes": 14813,
+      "sha256": "24d7ecb2f0b3ce8a5e3b3e405301631b81acbca0631130913a6d8761dcba9bad"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_0p2/4106/trajectory.npz": {
+      "bytes": 14817,
+      "sha256": "a2d9240f9cb25f06b89d7ff661458e26304e119e9f9814db8cf0b174e5e4767d"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_0p2/4107/trajectory.npz": {
+      "bytes": 14825,
+      "sha256": "25923cf631ceca20db5fbbf6fcf18266622a852457b9fa42d42b385e0a87ce65"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_0p2/4108/trajectory.npz": {
+      "bytes": 14825,
+      "sha256": "efff5c9d1b872c1b8890b26a3ea8f84f084ad278e3d383a259c9c1cef86c93a9"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_0p2/4109/trajectory.npz": {
+      "bytes": 14816,
+      "sha256": "7d4cdffc3a12ef027f4c0f0908740735d15718446bae073ceeea1f0ffce3db7d"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_0p2/4110/trajectory.npz": {
+      "bytes": 14811,
+      "sha256": "a0c3d282d38c931faf4074122d1c1ffe0ab8ce6e994d9edc6a4ac261d4ab1b9b"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_2/4101/trajectory.npz": {
+      "bytes": 14839,
+      "sha256": "bca725fbc4c2f66ae0e794dd9a799488216b183c506d221ab6a8a3c7ded08c4e"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_2/4102/trajectory.npz": {
+      "bytes": 14847,
+      "sha256": "e4b374ca939d67e6773d5060ed1d6300c906d458c38c0c3723fc6fed66037b0f"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_2/4103/trajectory.npz": {
+      "bytes": 14837,
+      "sha256": "9980359c7b2cf4f4688a1416446973034957a8fe4920fbbc56875095ee391676"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_2/4104/trajectory.npz": {
+      "bytes": 14847,
+      "sha256": "efb9a1379859b575257052ceba28fe9db1db7bd62aa2d1c076ceaf02938cab1e"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_2/4105/trajectory.npz": {
+      "bytes": 14843,
+      "sha256": "e124f36ada08ff059308c7a69ef1da6024152fbd8251c31173516e17e04182f2"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_2/4106/trajectory.npz": {
+      "bytes": 14846,
+      "sha256": "e38f9fb7eb9d64e42e994a1c86c616878ba4bcd41ce1bc53c40807338ceb9161"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_2/4107/trajectory.npz": {
+      "bytes": 14849,
+      "sha256": "fc40a6675cf6055a2885d8e06fe2d31c95c202a281241e7172556130d4d2dc68"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_2/4108/trajectory.npz": {
+      "bytes": 14862,
+      "sha256": "74a482fd5ec8e04a5b1415a05315f3cdf182b0b1224cdb64a3ef1ddce6445cc1"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_2/4109/trajectory.npz": {
+      "bytes": 14848,
+      "sha256": "e0b2c037fa6be6904ea90aa581441a72bace5c042cf0fcf05be099473ea5e03e"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_2/4110/trajectory.npz": {
+      "bytes": 14884,
+      "sha256": "2c11fe030e14a619e1b1e97997b44109d7bc64e3034c6f2ffcdd6a37641db7bc"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_20/4101/trajectory.npz": {
+      "bytes": 38816,
+      "sha256": "a47805a2cbff806e48a75ed80d2ac6fa0b8c48ea3b353c9b528031d3dde30add"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_20/4102/trajectory.npz": {
+      "bytes": 17198,
+      "sha256": "a75bbd62a91d62a293456f22d3eb5a63fb072a5352e03d302f57b6f91febe4ff"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_20/4103/trajectory.npz": {
+      "bytes": 38736,
+      "sha256": "679ca4746caac0f683353ed680f452983e34728ce187d1237fc608307489a8b0"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_20/4104/trajectory.npz": {
+      "bytes": 16232,
+      "sha256": "15afdbe602823d70b53cd3e5464d729b0a3e0eafbf46b8e969c8982d4cb3bd86"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_20/4105/trajectory.npz": {
+      "bytes": 38654,
+      "sha256": "169fe88210773ccc406d95c3b31de4b0355f5833b0f9abbc110584b1bd213413"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_20/4106/trajectory.npz": {
+      "bytes": 38357,
+      "sha256": "2481819ccfb2d3c5d1d20626a29c32207c8489577bfd338a65c1410a5ffb2069"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_20/4107/trajectory.npz": {
+      "bytes": 38547,
+      "sha256": "26b857ecd47d8ee3767f03a23f96863a1cfce53560c793f174aa41b8f3518911"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_20/4108/trajectory.npz": {
+      "bytes": 38344,
+      "sha256": "adcba6aec9aa392140900ef5d6d71ff5c6a4f2292686eba592fa869ee0b4be3f"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_20/4109/trajectory.npz": {
+      "bytes": 38336,
+      "sha256": "da89c1260d36c789f37ab8423ed1b7502b2fe01ae259f954dd5b5adeb936805a"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_20/4110/trajectory.npz": {
+      "bytes": 38399,
+      "sha256": "9011bdb54fd6d924e95ea05f37ffc122d63c77b03bee70d4ad4aef76f458beb6"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_200/4101/trajectory.npz": {
+      "bytes": 40798,
+      "sha256": "a63112e29f89cad37062fada2799c14c076e9b6f710ae51664e3fd4c1d2024e7"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_200/4102/trajectory.npz": {
+      "bytes": 40783,
+      "sha256": "5d510c5183a98a755ad945338fdd633b4b9ce791e0180b6487c4e5d50b3338e7"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_200/4103/trajectory.npz": {
+      "bytes": 40699,
+      "sha256": "6c0fb00d753b0dbc692ab757d34d2234960f66827b3d675716fd47558660d8f9"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_200/4104/trajectory.npz": {
+      "bytes": 40761,
+      "sha256": "4ce720dfcfcc98ebbc16a8abce722437b52a8ebcaa47904b8f95a0c6adec4f3a"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_200/4105/trajectory.npz": {
+      "bytes": 40735,
+      "sha256": "9a70b7f900af24c45073a513507967d2dae0fd03b89f4695450cecd651644464"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_200/4106/trajectory.npz": {
+      "bytes": 40775,
+      "sha256": "222bf9293d21cb141c28491c20e035e77c79eca5094ee9505c79d24b3599cc70"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_200/4107/trajectory.npz": {
+      "bytes": 40768,
+      "sha256": "0e2b84c25711459046e489712439641d1ecbd35b12d1766e543d89e61d511bf7"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_200/4108/trajectory.npz": {
+      "bytes": 40808,
+      "sha256": "297d47b95339dd5cbdc764338f7b9b86beaa047a2e1871f2b333b93054256af5"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_200/4109/trajectory.npz": {
+      "bytes": 40799,
+      "sha256": "258e3b124062c2cab02a302b58faba18897d5f81ecba0a6d18833f8b8d174b3d"
+    },
+    "sensing_planning_dev_4101_4110/trajectories/nominal/sa_sense_200/4110/trajectory.npz": {
+      "bytes": 40754,
+      "sha256": "a42676d974767f8d37abd60c893e3e16c9e86d0fa1b07ebaeaf35345b5b69e72"
+    },
+    "sensing_planning_pilot_4101/episodes.csv": {
+      "bytes": 10068,
+      "sha256": "705e23e4057f1da7c212eef52a1a113e4a91c9d186dd78f532fa5263cbbb11a9"
+    },
+    "sensing_planning_pilot_4101/grid.json": {
+      "bytes": 914,
+      "sha256": "8fe4bc4df38a8a123b871c2993e52e21c872ee9dd48dd1fa3e1cdd897de928d8"
+    },
+    "sensing_planning_pilot_4101/manifest.json": {
+      "bytes": 7278,
+      "sha256": "e56db7bdc7fad6e8d752c404e81781e405c546950c45de55c98481ac68b5cdd8"
+    },
+    "sensing_planning_pilot_4101/paired.csv": {
+      "bytes": 5673,
+      "sha256": "32fd4787c411cd4f4b7910649af9024e3aa54e066b71a7b0eebcbab227265033"
+    },
+    "sensing_planning_pilot_4101/REPORT.md": {
+      "bytes": 2561,
+      "sha256": "d8078065c1dfca7d35ee0529bfacfaf69bd311b08cc3df055337739ce9e0b4e5"
+    },
+    "sensing_planning_pilot_4101/source_snapshot.zip": {
+      "bytes": 188164,
+      "sha256": "76ab24a0e70dbd79527bbbfc8e92ff89a6ec7ed8d77173c907abb3c86c0e4b83"
+    },
+    "sensing_planning_pilot_4101/summary.csv": {
+      "bytes": 17657,
+      "sha256": "242b42d533d29606f950b744ae11904a428859cd4bb5e78749b714eb3e3e3c18"
+    },
+    "sensing_planning_pilot_4101/trajectories/crossing/goal/4101/trajectory.npz": {
+      "bytes": 34827,
+      "sha256": "1497d39d899c70c8010d96f01bf6944fbff6f3b844f44a414f5fe757947d6079"
+    },
+    "sensing_planning_pilot_4101/trajectories/crossing/mpc_nav/4101/trajectory.npz": {
+      "bytes": 14080,
+      "sha256": "4a930053a31b27cff335e3e8268453a64c53d4afcea7ae75e4b0e40bc1293595"
+    },
+    "sensing_planning_pilot_4101/trajectories/crossing/mpc_sense_20/4101/trajectory.npz": {
+      "bytes": 14080,
+      "sha256": "4a930053a31b27cff335e3e8268453a64c53d4afcea7ae75e4b0e40bc1293595"
+    },
+    "sensing_planning_pilot_4101/trajectories/crossing/mpc_sense_2000/4101/trajectory.npz": {
+      "bytes": 15536,
+      "sha256": "69b876e29a0adedaea80815402f720e98d960906e149ad20ca4702ae11c9c5a0"
+    },
+    "sensing_planning_pilot_4101/trajectories/crossing/sa_nav/4101/trajectory.npz": {
+      "bytes": 17100,
+      "sha256": "3e28b203186a1c4372ed924e79e2862351d16d1643b6647348c1f80f213e1b1a"
+    },
+    "sensing_planning_pilot_4101/trajectories/crossing/sa_sense_0p2/4101/trajectory.npz": {
+      "bytes": 17102,
+      "sha256": "0bd0d2fc094565551617cb0208b34f387b1dd54bdd348869b742cc61aae7eaff"
+    },
+    "sensing_planning_pilot_4101/trajectories/crossing/sa_sense_20/4101/trajectory.npz": {
+      "bytes": 38595,
+      "sha256": "4c742b3ce3bd6f5c3c76b8a767027f922fa8e33668f4e88158e3a7668fb9aa77"
+    },
+    "sensing_planning_pilot_4101/trajectories/nominal/goal/4101/trajectory.npz": {
+      "bytes": 14875,
+      "sha256": "db12e6b38e882aaf8e58a038baa32be15594bdbcea142bf17d2ecec151cd9f3f"
+    },
+    "sensing_planning_pilot_4101/trajectories/nominal/mpc_nav/4101/trajectory.npz": {
+      "bytes": 14821,
+      "sha256": "5269ef272e59946b08da31956669104f5357fbe67d59bcd1f887fb61aae08a90"
+    },
+    "sensing_planning_pilot_4101/trajectories/nominal/mpc_sense_20/4101/trajectory.npz": {
+      "bytes": 14821,
+      "sha256": "5269ef272e59946b08da31956669104f5357fbe67d59bcd1f887fb61aae08a90"
+    },
+    "sensing_planning_pilot_4101/trajectories/nominal/mpc_sense_2000/4101/trajectory.npz": {
+      "bytes": 15097,
+      "sha256": "5434e85ce102b4cfaefc2adc0345ca8bf87bcc6f709e7b44d2efbda3481df4f6"
+    },
+    "sensing_planning_pilot_4101/trajectories/nominal/sa_nav/4101/trajectory.npz": {
+      "bytes": 14834,
+      "sha256": "7dd26676e4f72f1c6f2ddd8930ba83e8d433959275f80db5d9574e88792bee1f"
+    },
+    "sensing_planning_pilot_4101/trajectories/nominal/sa_sense_0p2/4101/trajectory.npz": {
+      "bytes": 14817,
+      "sha256": "4c6e1f6f2452b3180960d1d1251c2631aa73d95c888270ed7bd09eb8ef843f9c"
+    },
+    "sensing_planning_pilot_4101/trajectories/nominal/sa_sense_20/4101/trajectory.npz": {
+      "bytes": 38816,
+      "sha256": "a47805a2cbff806e48a75ed80d2ac6fa0b8c48ea3b353c9b528031d3dde30add"
+    },
+    "sensing_planning_validation_4201_4205/episodes.csv": {
+      "bytes": 46516,
+      "sha256": "37d76740edf25790cca9589901ef9f582bf0ae91492134e0f7b100c63a9f6519"
+    },
+    "sensing_planning_validation_4201_4205/grid.json": {
+      "bytes": 1945,
+      "sha256": "83ec5ecdf69a8917e82cafdc09498e789374dc6a88b840e1986fdc3cab443597"
+    },
+    "sensing_planning_validation_4201_4205/manifest.json": {
+      "bytes": 14894,
+      "sha256": "6790a5a060b514bda09ce49672b86f92eb6d65899c76ca9972d8369e1ddc3018"
+    },
+    "sensing_planning_validation_4201_4205/paired.csv": {
+      "bytes": 3265,
+      "sha256": "65ab816abab6a1ba90dc5a69ae3864e2071ca1db89b7325caf3905a902614ed6"
+    },
+    "sensing_planning_validation_4201_4205/REPORT.md": {
+      "bytes": 3033,
+      "sha256": "68332a29e16730372235ff59d0df4d28227ab6711354eef0596faeea2ab32a9c"
+    },
+    "sensing_planning_validation_4201_4205/selection.json": {
+      "bytes": 2875,
+      "sha256": "65851d985d88b64380151d64820ee9cd0a894eaaffdc01ce9c0d940b6f3a4727"
+    },
+    "sensing_planning_validation_4201_4205/source_snapshot.zip": {
+      "bytes": 214668,
+      "sha256": "47e1d24f5c8a3adf44482b8867949fd7eb3a6ab35af15375ae75a2e0a635c597"
+    },
+    "sensing_planning_validation_4201_4205/summary.csv": {
+      "bytes": 22646,
+      "sha256": "2a29a681135c89dcdf1d00da870341bd61a4ce9d12637dc4c563a65ecd65e683"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/goal/4201/trajectory.npz": {
+      "bytes": 34802,
+      "sha256": "abf80129c07659558203947abff53aee54802d94b5d850ffca5ed9705b28acff"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/goal/4202/trajectory.npz": {
+      "bytes": 34839,
+      "sha256": "c53bd66c4bb253a1abb969cbb4c620a67cac49df2f7d97210f8e3b6ae3f780e1"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/goal/4203/trajectory.npz": {
+      "bytes": 34805,
+      "sha256": "fe2a49bc0055b96756df3897d98d0146a94ced519f748bfe731f14653b256f4e"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/goal/4204/trajectory.npz": {
+      "bytes": 34819,
+      "sha256": "10469665e2e689e61ea0f9b530342c0e5177cce41dfad5ce2aac961b00af5369"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/goal/4205/trajectory.npz": {
+      "bytes": 34829,
+      "sha256": "505ba9a77941cda9f66b9425cfc34175c655027ece57d1bc75ddaa891803ebbd"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/mpc_nav/4201/trajectory.npz": {
+      "bytes": 14104,
+      "sha256": "7a01c7e88e06435c8ab34e218d0a852f599f60474ab537dee72f5bc7bea4ce16"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/mpc_nav/4202/trajectory.npz": {
+      "bytes": 14099,
+      "sha256": "20033e42c5412eccc6177de27cb5bcfb993a8d78eccbf4cfc3ca83e90724af2f"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/mpc_nav/4203/trajectory.npz": {
+      "bytes": 14093,
+      "sha256": "6a3b33601166b61eb66f4fda41c94e2221e0b1427163451adb1e2b0c4edb3ff6"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/mpc_nav/4204/trajectory.npz": {
+      "bytes": 14084,
+      "sha256": "c28a64bb085a5ebf6ce577d1403d30fef4dbfb0baf28f0bf73b0e349f0bf32a9"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/mpc_nav/4205/trajectory.npz": {
+      "bytes": 14089,
+      "sha256": "85c57870be40e8dedaf83f07f5993c33ff51d5d1dc8d8ad82e7feca0d281dcb7"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/mpc_sense_2000/4201/trajectory.npz": {
+      "bytes": 15538,
+      "sha256": "177288ce55382d26619be806f885823ea8dc41fef5c16583d28839577adcee34"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/mpc_sense_2000/4202/trajectory.npz": {
+      "bytes": 15532,
+      "sha256": "61b042acb44c9da8613979f3e4e4e2877eed5cc752f9e974bdd6dad8b2f7a960"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/mpc_sense_2000/4203/trajectory.npz": {
+      "bytes": 15526,
+      "sha256": "c9f68b5578d71081e2211e747e69fae7b4e7caa337dddbb5956e324296422524"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/mpc_sense_2000/4204/trajectory.npz": {
+      "bytes": 15534,
+      "sha256": "1640f99d2a1f1d5c2508ea0d7da7704505bfd9fd17b2b562e13e486e555cfe1d"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/mpc_sense_2000/4205/trajectory.npz": {
+      "bytes": 15532,
+      "sha256": "e7a3ea226b36ad98e1051737db61fcc059a5cc1cbfe07b18a503721cbd5050e4"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/sa_nav_i16/4201/trajectory.npz": {
+      "bytes": 14901,
+      "sha256": "cfd3ac4c65157dbab251fcff8140f5e73c934f71a04932ca46d5812603bd57ea"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/sa_nav_i16/4202/trajectory.npz": {
+      "bytes": 13778,
+      "sha256": "bec90751fd9facf732ffd5d80632f7d7a6d9b106aaec56444316395abefd53ee"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/sa_nav_i16/4203/trajectory.npz": {
+      "bytes": 14513,
+      "sha256": "b624fee95fcce2508a38c2b60f7a9b40c82837dc88afc42ce46d6a9f95201004"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/sa_nav_i16/4204/trajectory.npz": {
+      "bytes": 15367,
+      "sha256": "f5c237920f1234a314e70fdc8516205f93b6300a991bddf027fd2ce1afe77a95"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/sa_nav_i16/4205/trajectory.npz": {
+      "bytes": 14670,
+      "sha256": "f809638adb3ec93a1f1c3250615c45cb5585e38ea3961bf4785b9d5c9beadb72"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/sa_nav_i64/4201/trajectory.npz": {
+      "bytes": 13995,
+      "sha256": "a801e325ad1faf130298d9218cae5f3669d5e75ef66d545bcfcf5db83abf3060"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/sa_nav_i64/4202/trajectory.npz": {
+      "bytes": 14635,
+      "sha256": "96619825ff531c9506780bf36a455190fe26fafc4163f96a21c327f0400dd7b2"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/sa_nav_i64/4203/trajectory.npz": {
+      "bytes": 14106,
+      "sha256": "4aefc2b7149e59903c890f30895f5eb1e8fe2370138845de88659afcae172deb"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/sa_nav_i64/4204/trajectory.npz": {
+      "bytes": 14449,
+      "sha256": "782570212648cd171ee284cbc791427728db8a06b1665c3d36a3b75adbc28a6d"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/sa_nav_i64/4205/trajectory.npz": {
+      "bytes": 13982,
+      "sha256": "cb8a7b3228c5ce14060fdd1db54f96892a58c0ed7017f4817b1def650fb6d15b"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/sa_sense_2_i16/4201/trajectory.npz": {
+      "bytes": 16527,
+      "sha256": "8dbbeb7fcff947cfe26c13c19cea95c2bcd709958d80ba94628b9ef125bcbe87"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/sa_sense_2_i16/4202/trajectory.npz": {
+      "bytes": 17094,
+      "sha256": "a33c69b1bd43ca21906ba5f12609467f80c49bc4ae3bed3cd2f27c5ac7c7b768"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/sa_sense_2_i16/4203/trajectory.npz": {
+      "bytes": 15658,
+      "sha256": "1f1347097148b587d96e8a85ff55a82f88de1b82ba626c473cb5293a56dea20f"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/sa_sense_2_i16/4204/trajectory.npz": {
+      "bytes": 14717,
+      "sha256": "bc59c5a40917a36872fbc51f55533440bed2f12d9ad861cca86acfe984870b12"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/sa_sense_2_i16/4205/trajectory.npz": {
+      "bytes": 15408,
+      "sha256": "df65d6662072485881ed8ade05d08de997b66b383fcedab6339eb3030bd7dd5c"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/sa_sense_2_i64/4201/trajectory.npz": {
+      "bytes": 15413,
+      "sha256": "a87c6c6d6adc95ebe8649bb10fb22b2b3659cb65e32d0e5a131342851393bdd2"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/sa_sense_2_i64/4202/trajectory.npz": {
+      "bytes": 17257,
+      "sha256": "a426fac85a5fda9a2e385f54bdadbb7749edd6c490ae2ac40ba8ca483556d981"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/sa_sense_2_i64/4203/trajectory.npz": {
+      "bytes": 16049,
+      "sha256": "671d871fca1d5ec15b57acef9fe408a1956b20a6d17e08bf4097503ca1718b3b"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/sa_sense_2_i64/4204/trajectory.npz": {
+      "bytes": 16480,
+      "sha256": "875e5e1f8ea48b6a8850f5873927886e81f9b89209c1483e0eeaf708391301e5"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/crossing/sa_sense_2_i64/4205/trajectory.npz": {
+      "bytes": 14268,
+      "sha256": "4e61072cba0c597ae25ed13e1947e862cd6c3e0eceaf54a1114bda4f14706f73"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/goal/4201/trajectory.npz": {
+      "bytes": 14875,
+      "sha256": "851f5c1e64085ad55aa0820e240b826935e543fd6748c9565071e93437579764"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/goal/4202/trajectory.npz": {
+      "bytes": 14880,
+      "sha256": "a7dee75c08b9a274b6b2365085c3f1a11a32096108b8d2fc0013acafaedecd87"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/goal/4203/trajectory.npz": {
+      "bytes": 14887,
+      "sha256": "a885fb994e5d4fcb89e6fbdf1cadce11a0199aeba8993dca7cdb8b55d5094470"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/goal/4204/trajectory.npz": {
+      "bytes": 14883,
+      "sha256": "aa1b5c9ee63213964c1caa09505ada4c6fc3eb811b5a8c3c5e5a0a7d3c53d103"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/goal/4205/trajectory.npz": {
+      "bytes": 14879,
+      "sha256": "afc1cad9a166962cf510d9c8c1c4da6f39e1d5873392a400f408565ddee409ea"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/mpc_nav/4201/trajectory.npz": {
+      "bytes": 14816,
+      "sha256": "5c3f32bb93978767f56e0b904d21cf519a7c89295e1bb4518b4eb6a788382750"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/mpc_nav/4202/trajectory.npz": {
+      "bytes": 14821,
+      "sha256": "466dbcf4f0922ea4168e4042f21cef2d518544fc5792528a5915e2dbf7c0ed01"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/mpc_nav/4203/trajectory.npz": {
+      "bytes": 14825,
+      "sha256": "8419b241023eec22e771e555673cd34c0d9a74c1799a9a707ebc00ff8dcfd90d"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/mpc_nav/4204/trajectory.npz": {
+      "bytes": 14838,
+      "sha256": "7ba55b55275940279294039a359d6a00e22e37e96d6e4e6b0353e12c4f2ffd3d"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/mpc_nav/4205/trajectory.npz": {
+      "bytes": 14816,
+      "sha256": "c9465167de22119d002746f579eb1ffb8491b08d2d5d5ca6e52855fb5828a54f"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/mpc_sense_2000/4201/trajectory.npz": {
+      "bytes": 15096,
+      "sha256": "1dbb092be6cc4c44f94e1fb19101b700d07e4f79181f2f8d5db9bfa4a4da7aad"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/mpc_sense_2000/4202/trajectory.npz": {
+      "bytes": 15086,
+      "sha256": "5d5ef7bb55f60e8d7c63d90ac71529500e10a6e408790beed325b7bca6bf49ef"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/mpc_sense_2000/4203/trajectory.npz": {
+      "bytes": 15102,
+      "sha256": "a1f694d8ef65684894e637ad8ee133137b4feba25b07243cd251f67fedd1405f"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/mpc_sense_2000/4204/trajectory.npz": {
+      "bytes": 15083,
+      "sha256": "c5fac488601225907bcd69c4b2e6d02116e17e83253e25474cbd9e72d59963f0"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/mpc_sense_2000/4205/trajectory.npz": {
+      "bytes": 15092,
+      "sha256": "40cbbe9bf44ff774b62b71674905a12ff05822f4b4416b79003cced288097a67"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/sa_nav_i16/4201/trajectory.npz": {
+      "bytes": 14836,
+      "sha256": "b3cad6839a45cfa6fdf9dcf94bcf69a804fc9350b234c01ec144c38519eb3afb"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/sa_nav_i16/4202/trajectory.npz": {
+      "bytes": 14840,
+      "sha256": "1ff6be8942642575342a479ec0280ac87629dd78a405e192788dba2aab727b2d"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/sa_nav_i16/4203/trajectory.npz": {
+      "bytes": 14841,
+      "sha256": "939ee805d208d563962ec37ba3877b3ad94df86ca9d29f1489498547598c33e8"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/sa_nav_i16/4204/trajectory.npz": {
+      "bytes": 14850,
+      "sha256": "ed2c79db68198818bec8a580dc7454bc1a868e9693b11dd3b1c773c51abe3b09"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/sa_nav_i16/4205/trajectory.npz": {
+      "bytes": 14843,
+      "sha256": "78681163bdc2c6a10b01293882551350df4ede3ab6b5744fad1cd4a7926637e7"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/sa_nav_i64/4201/trajectory.npz": {
+      "bytes": 14836,
+      "sha256": "b3cad6839a45cfa6fdf9dcf94bcf69a804fc9350b234c01ec144c38519eb3afb"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/sa_nav_i64/4202/trajectory.npz": {
+      "bytes": 15295,
+      "sha256": "cab531f76e69d8d4198e095a7a63200bbd6feca099ac4612b107ef0185b282e1"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/sa_nav_i64/4203/trajectory.npz": {
+      "bytes": 14841,
+      "sha256": "939ee805d208d563962ec37ba3877b3ad94df86ca9d29f1489498547598c33e8"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/sa_nav_i64/4204/trajectory.npz": {
+      "bytes": 14850,
+      "sha256": "ed2c79db68198818bec8a580dc7454bc1a868e9693b11dd3b1c773c51abe3b09"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/sa_nav_i64/4205/trajectory.npz": {
+      "bytes": 14843,
+      "sha256": "78681163bdc2c6a10b01293882551350df4ede3ab6b5744fad1cd4a7926637e7"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/sa_sense_2_i16/4201/trajectory.npz": {
+      "bytes": 14837,
+      "sha256": "042067b737cb3704d231f07a679fac213ad5415ecfd6a77a63ef2cff99133b21"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/sa_sense_2_i16/4202/trajectory.npz": {
+      "bytes": 14831,
+      "sha256": "3d1f3d2b56a94be4e3e2ccfc9802b195fcf4695e5c30be133a46259ab3c2bbf1"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/sa_sense_2_i16/4203/trajectory.npz": {
+      "bytes": 15572,
+      "sha256": "3cd90b86dba4f27df82d7d34c816afaddd334334c3ab469743c7908487bf6d22"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/sa_sense_2_i16/4204/trajectory.npz": {
+      "bytes": 14853,
+      "sha256": "1a042188eef74f2adc11e0cd66bc8d164bcc13e8fe03e3a701a60e5710577463"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/sa_sense_2_i16/4205/trajectory.npz": {
+      "bytes": 14834,
+      "sha256": "cab9596bfeb16a2d02100dfaff4988b2a2902b2186d2f2607c1308eeef39b596"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/sa_sense_2_i64/4201/trajectory.npz": {
+      "bytes": 14837,
+      "sha256": "042067b737cb3704d231f07a679fac213ad5415ecfd6a77a63ef2cff99133b21"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/sa_sense_2_i64/4202/trajectory.npz": {
+      "bytes": 14831,
+      "sha256": "3d1f3d2b56a94be4e3e2ccfc9802b195fcf4695e5c30be133a46259ab3c2bbf1"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/sa_sense_2_i64/4203/trajectory.npz": {
+      "bytes": 14898,
+      "sha256": "6839420e3cea42f6f4813541a0c4685df21dd4e24cb7fe8aa7d6148b8ab621ab"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/sa_sense_2_i64/4204/trajectory.npz": {
+      "bytes": 14853,
+      "sha256": "1a042188eef74f2adc11e0cd66bc8d164bcc13e8fe03e3a701a60e5710577463"
+    },
+    "sensing_planning_validation_4201_4205/trajectories/nominal/sa_sense_2_i64/4205/trajectory.npz": {
+      "bytes": 14834,
+      "sha256": "cab9596bfeb16a2d02100dfaff4988b2a2902b2186d2f2607c1308eeef39b596"
+    }
+  }
+}

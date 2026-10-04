@@ -1,0 +1,284 @@
+{
+  "status": "complete",
+  "evaluation_seeds": [
+    4101,
+    4102,
+    4103,
+    4104,
+    4105,
+    4106,
+    4107,
+    4108,
+    4109,
+    4110
+  ],
+  "scenarios": [
+    "nominal",
+    "crossing"
+  ],
+  "paths": [
+    "goal",
+    "lateral_plus",
+    "lateral_minus",
+    "altitude_plus",
+    "altitude_minus",
+    "altitude_split",
+    "altitude_split_reverse"
+  ],
+  "prefix_steps": 10,
+  "runtime_seconds": 5.944878000000244,
+  "runtime": {
+    "python": "3.12.14",
+    "numpy": "2.5.2",
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "scenario_configs": {
+    "nominal": {
+      "max_steps": 100,
+      "slot_duration": 1.0,
+      "max_uav_speed": 5.0,
+      "max_uav_acceleration": 5.0,
+      "min_uav_distance": 5.0,
+      "goal_tolerance": 5.0,
+      "uav_initial": [
+        [
+          30.0,
+          10.0,
+          70.0
+        ],
+        [
+          30.0,
+          -10.0,
+          70.0
+        ]
+      ],
+      "uav_initial_velocities": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "uav_goal_positions": [
+        [
+          150.0,
+          70.0,
+          90.0
+        ],
+        [
+          120.0,
+          -30.0,
+          30.0
+        ]
+      ],
+      "world_low": [
+        -20.0,
+        -80.0,
+        20.0
+      ],
+      "world_high": [
+        150.0,
+        80.0,
+        120.0
+      ],
+      "bs_position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "target_initial_state": [
+        60.0,
+        0.0,
+        60.0,
+        -1.0,
+        1.0,
+        -1.0
+      ],
+      "target_acceleration": [
+        0.02,
+        -0.02,
+        0.02
+      ],
+      "antenna_x": 8,
+      "antenna_y": 8,
+      "total_power": 5.0,
+      "bandwidth": 100000000.0,
+      "rician_k": 10.0,
+      "beta0_c": 1e-05,
+      "beta0_s": 1e-05,
+      "alpha_target": 0.9,
+      "alpha_uav": 0.9,
+      "awgn_power": 1e-11,
+      "residual_noise": 1e-10,
+      "gamma_min": 3.1622776601683795,
+      "kappa_d": 1.0,
+      "kappa_theta": 1e-06,
+      "kappa_phi": 1e-06,
+      "kappa_v": 1e-06,
+      "process_noise_intensity": 0.1,
+      "initial_covariance": 1.0,
+      "imperfect_csi_beta": 0.1,
+      "csi_position_std": 10.0,
+      "csi_velocity_std": 1.0,
+      "csi_beta_jitter": 0.02,
+      "sensing_mode": "ekf",
+      "collect_measurements": true,
+      "tracking_use_uav_measurements": true,
+      "tracking_initial_position_std": 10.0,
+      "tracking_initial_velocity_std": 1.0,
+      "measurement_range_std_floor": 1.0,
+      "measurement_angle_std_floor": 0.008726646259971648,
+      "measurement_range_rate_std_floor": 0.5,
+      "position_scale": 150.0,
+      "velocity_scale": 10.0,
+      "sinr_log_scale": 10.0,
+      "covariance_position_std": 1.0,
+      "covariance_velocity_std": 1.0
+    },
+    "crossing": {
+      "max_steps": 100,
+      "slot_duration": 1.0,
+      "max_uav_speed": 5.0,
+      "max_uav_acceleration": 5.0,
+      "min_uav_distance": 5.0,
+      "goal_tolerance": 5.0,
+      "uav_initial": [
+        [
+          30.0,
+          -25.0,
+          70.0
+        ],
+        [
+          30.0,
+          25.0,
+          70.0
+        ]
+      ],
+      "uav_initial_velocities": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "uav_goal_positions": [
+        [
+          130.0,
+          25.0,
+          70.0
+        ],
+        [
+          130.0,
+          -25.0,
+          70.0
+        ]
+      ],
+      "world_low": [
+        -20.0,
+        -80.0,
+        20.0
+      ],
+      "world_high": [
+        150.0,
+        80.0,
+        120.0
+      ],
+      "bs_position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "target_initial_state": [
+        60.0,
+        0.0,
+        60.0,
+        -1.0,
+        1.0,
+        -1.0
+      ],
+      "target_acceleration": [
+        0.02,
+        -0.02,
+        0.02
+      ],
+      "antenna_x": 8,
+      "antenna_y": 8,
+      "total_power": 5.0,
+      "bandwidth": 100000000.0,
+      "rician_k": 10.0,
+      "beta0_c": 1e-05,
+      "beta0_s": 1e-05,
+      "alpha_target": 0.9,
+      "alpha_uav": 0.9,
+      "awgn_power": 1e-11,
+      "residual_noise": 1e-10,
+      "gamma_min": 3.1622776601683795,
+      "kappa_d": 1.0,
+      "kappa_theta": 1e-06,
+      "kappa_phi": 1e-06,
+      "kappa_v": 1e-06,
+      "process_noise_intensity": 0.1,
+      "initial_covariance": 1.0,
+      "imperfect_csi_beta": 0.1,
+      "csi_position_std": 10.0,
+      "csi_velocity_std": 1.0,
+      "csi_beta_jitter": 0.02,
+      "sensing_mode": "ekf",
+      "collect_measurements": true,
+      "tracking_use_uav_measurements": true,
+      "tracking_initial_position_std": 10.0,
+      "tracking_initial_velocity_std": 1.0,
+      "measurement_range_std_floor": 1.0,
+      "measurement_angle_std_floor": 0.008726646259971648,
+      "measurement_range_rate_std_floor": 0.5,
+      "position_scale": 150.0,
+      "velocity_scale": 10.0,
+      "sinr_log_scale": 10.0,
+      "covariance_position_std": 1.0,
+      "covariance_velocity_std": 1.0
+    }
+  },
+  "controller_settings": {
+    "switch_radius": 8.0,
+    "lateral_offset_m": 12.0,
+    "altitude_offset_m": 10.0,
+    "action_rule": "project.control.goal_raw_action"
+  },
+  "nees_note": "Position NEES is an offline covariance-scale diagnostic; correlated time steps are not treated as independent chi-square samples.",
+  "source_commit": "b77fbe64030e3589ee77ab526d5721b23fd84eab",
+  "source_tree_dirty": true,
+  "source_sha256": {
+    "sensing_diagnostics.py": "801a5c6b490a41445cf7442081d399ec9a3ba9c7aa0ea4f5bdde8e7492bebb90",
+    "diagnostic_paths.py": "2b3aec4b638f703b45c487f6a9188aab6a9bc1b111f8716bafc5d1121ae890cb",
+    "diagnostic_plots.py": "8ab5ad10d60712ce988e97f4a7a48900353c245fbbf7c8ac51921c4f9b25a95c",
+    "env.py": "2af816cbb4e7894dbfc26c66b42544b4a1d1445c09d9e851bd0ce947864ccd6a",
+    "physics.py": "e9bd33995330079b3e317ec4d0f09673857e017fde8c1b17d2e76d0e53534260",
+    "tracking.py": "15b3cb0d7b796d82ba7ac0347607e8f10005e75832439deea91696942b2d4806",
+    "control.py": "c836fa65186d4530c5a64dc5d7049d04524d52150c98bd293e83c41e93961124",
+    "config.py": "6dd212ba61a9c11c4b38781b70c0e3b2351d468d15d2066eb090385e6ddfd8b5"
+  },
+  "derived_artifacts": {
+    "plot_source_sha256": "2cf966af5fd587e3adce0680ede256045cad761b91d9ff8879de3242071a5d9f",
+    "inputs": [
+      "episodes.csv",
+      "source_crb.csv"
+    ],
+    "outputs": [
+      "rmse_time.png",
+      "floor_hits.png",
+      "STAGE1_REPORT.md"
+    ],
+    "note": "Figures and report were regenerated from saved CSV files only; original execution source_sha256 values above are preserved."
+  },
+  "rng_note": "Tracker source noise is aligned by seed. Channel draws may diverge after path-dependent exits, so this is not a fully paired causal counterfactual."
+}

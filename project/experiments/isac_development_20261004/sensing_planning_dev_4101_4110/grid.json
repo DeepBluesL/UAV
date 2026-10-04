@@ -1,0 +1,81 @@
+{
+  "name": "formal_development_4101_4110",
+  "prefix_steps": 10,
+  "scenarios": [
+    "nominal",
+    "crossing"
+  ],
+  "methods": {
+    "goal": {
+      "family": "goal"
+    },
+    "sa_nav": {
+      "family": "sa",
+      "sensing_weight": 0.0,
+      "communication_weight": 0.0
+    },
+    "sa_sense_0p2": {
+      "family": "sa",
+      "sensing_weight": 0.2,
+      "communication_weight": 0.0
+    },
+    "sa_sense_2": {
+      "family": "sa",
+      "sensing_weight": 2.0,
+      "communication_weight": 0.0
+    },
+    "sa_sense_20": {
+      "family": "sa",
+      "sensing_weight": 20.0,
+      "communication_weight": 0.0
+    },
+    "sa_sense_200": {
+      "family": "sa",
+      "sensing_weight": 200.0,
+      "communication_weight": 0.0
+    },
+    "sa_joint_20_2": {
+      "family": "sa",
+      "sensing_weight": 20.0,
+      "communication_weight": 2.0
+    },
+    "mpc_nav": {
+      "family": "mpc",
+      "sensing_weight": 0.0,
+      "communication_weight": 0.0
+    },
+    "mpc_sense_20": {
+      "family": "mpc",
+      "sensing_weight": 20.0,
+      "communication_weight": 0.0
+    },
+    "mpc_sense_200": {
+      "family": "mpc",
+      "sensing_weight": 200.0,
+      "communication_weight": 0.0
+    },
+    "mpc_sense_2000": {
+      "family": "mpc",
+      "sensing_weight": 2000.0,
+      "communication_weight": 0.0
+    },
+    "mpc_sense_20000": {
+      "family": "mpc",
+      "sensing_weight": 20000.0,
+      "communication_weight": 0.0
+    },
+    "mpc_joint_2000_200": {
+      "family": "mpc",
+      "sensing_weight": 2000.0,
+      "communication_weight": 200.0
+    }
+  },
+  "uncertainty_ref": 1.0,
+  "primary_sensing_metric": "tracking_prefix_rmse",
+  "secondary_sensing_metric": "rho_prefix_mean",
+  "family_references": {
+    "sa": "sa_nav",
+    "mpc": "mpc_nav"
+  },
+  "selection_gate": "No success loss or safety-intervention increase in either scenario"
+}

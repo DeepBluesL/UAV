@@ -1,0 +1,50 @@
+{
+  "status": "validation_complete_no_final_test_used",
+  "development_selection": {
+    "sa": {"sensing_weight": 2.0, "communication_weight": 0.0, "horizon": 4, "iterations": 16},
+    "mpc": {"sensing_weight": 2000.0, "communication_weight": 0.0, "horizon": 3}
+  },
+  "validation_seeds": [4201, 4202, 4203, 4204, 4205],
+  "validation_conclusion": {
+    "sa_default_budget": "No validated actual-RMSE gain; both paired intervals include zero and time increased.",
+    "sa_high_budget": "Mean RMSE improved but paired intervals include zero; higher search budget does not establish a robust sensing benefit.",
+    "mpc": "Validated small actual-RMSE improvement in both scenarios with preserved success and safety; crossing costs five seconds and substantially more computation."
+  },
+  "formal_rule_comparison": {
+    "sa": {"sensing_weight": 2.0, "communication_weight": 0.0, "horizon": 4, "iterations": 16,
+           "caveat": "Retained as the prespecified weak-gain sensing SA, not as a universal positive result."},
+    "mpc": {"sensing_weight": 2000.0, "communication_weight": 0.0, "horizon": 3,
+            "caveat": "Validated small tracking gain with a crossing-time and computation tradeoff."}
+  },
+  "rl_sensing_coefficients": {
+    "legacy": 0.2,
+    "low": 0.2,
+    "high": 2.0,
+    "rho_ref": 1.0,
+    "penalty": "log1p",
+    "rationale": "Low preserves the existing coefficient; high is a 10x moderate ablation. Planner lambdas use different native cost units and are not transferred directly."
+  },
+  "development_goal_reward_scale": {
+    "nominal": {
+      "mean_abs_per_step": {"progress": 4.35185, "distance": 0.14475, "legacy_sensing": 0.03288,
+                            "time": 0.17407, "energy": 0.04444},
+      "mean_episode_total": {"progress": 117.50, "arrival": 80.0, "completion": 80.0,
+                             "legacy_sensing": -0.88779, "time": -4.70},
+      "hypothetical_log_sensing": {
+        "lambda_0.2": {"first10_mean_abs_per_step": 0.02831, "mean_episode_total": -1.05796},
+        "lambda_2": {"first10_mean_abs_per_step": 0.28306, "mean_episode_total": -10.57958}
+      }
+    },
+    "crossing_goal_failure": {
+      "mean_abs_per_step": {"progress": 0.50, "distance": 0.19459, "legacy_sensing": 0.05542,
+                            "time": 0.20, "communication": 0.30457, "safety": 18.0},
+      "mean_episode_total": {"progress": 50.0, "legacy_sensing": -5.54171,
+                             "communication": -30.45720, "safety": -1800.0, "timeout": -100.0},
+      "hypothetical_log_sensing": {
+        "lambda_0.2": {"first10_mean_abs_per_step": 0.03698, "mean_episode_total": -6.65969},
+        "lambda_2": {"first10_mean_abs_per_step": 0.36979, "mean_episode_total": -66.59691}
+      }
+    }
+  },
+  "provenance": "Reward magnitudes were derived from saved STEP2 development Goal trajectories only; no episode was rerun."
+}

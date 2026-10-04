@@ -15,3 +15,7 @@
 ## EKF、随机场景与残差 RL
 
 [closed_loop_20260927](closed_loop_20260927/README.md) 保存主比较 3960 回合及独立辅助比较 990 回合，含 12 次训练日志、逐回合数据和首种子轨迹；不含权重。实测解读见 [CLOSED_LOOP_RESULTS.md](../docs/CLOSED_LOOP_RESULTS.md)。
+
+## 感知可控性、滤波一致性与规划开发实验
+
+[isac_development_20261004](isac_development_20261004/README.md) 保留140条路径回合、20次十步滤波诊断、14次规划试跑、260次开发比较与70次独立验证，包括失败和未复现的改善。不含最终测试集或训练权重。

@@ -112,3 +112,5 @@ The PPO implementation references OpenAI Spinning Up. The third-party license is
 ## Sensing Planning and Learning Budgets
 
 The next study adds belief-only sensing SA/MPC, v2 observations, reward ablations, curriculum training, and Goal initialization. See the [English guide](project/docs/NEXT_STUDY_GUIDE.en.md) / [中文指南](project/docs/NEXT_STUDY_GUIDE.md) for single-line CMD commands, budgets, and editing locations.
+
+Development evidence for path controllability, filter consistency, and sensing planning is archived in [English](project/experiments/isac_development_20261004/README.en.md) / [中文](project/experiments/isac_development_20261004/README.md). Formal multi-seed learning results are reported separately.

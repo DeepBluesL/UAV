@@ -112,3 +112,5 @@ PPO 参考 OpenAI Spinning Up，第三方许可保留在 [LICENSE-spinningup.txt
 ## 感知规划与学习预算研究
 
 新版加入仅使用估计与协方差的感知 SA/MPC、v2 观测、感知奖励消融、课程训练和 Goal 模仿初始化。运行顺序、单行 CMD 命令、预算口径与修改入口见[中文指南](project/docs/NEXT_STUDY_GUIDE.md) / [English](project/docs/NEXT_STUDY_GUIDE.en.md)。
+
+开发阶段的路径诊断、滤波一致性和感知规划结果已归档：[中文](project/experiments/isac_development_20261004/README.md) / [English](project/experiments/isac_development_20261004/README.en.md)。正式多种子学习实验另行统计。

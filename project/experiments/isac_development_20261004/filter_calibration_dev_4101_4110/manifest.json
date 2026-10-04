@@ -1,0 +1,39 @@
+{
+  "status": "complete",
+  "evaluation_seeds": [
+    4101,
+    4102,
+    4103,
+    4104,
+    4105,
+    4106,
+    4107,
+    4108,
+    4109,
+    4110
+  ],
+  "scenarios": [
+    "nominal",
+    "crossing"
+  ],
+  "controller": "GoalController",
+  "steps": 10,
+  "thresholds": {
+    "position_nees_chi2_3_95": 7.8147279,
+    "source_nis_chi2_4_95": 9.487729
+  },
+  "interpretation": "Coverage is descriptive; correlated steps are not independent tests. No filter parameters or floors were tuned.",
+  "runtime": {
+    "python": "3.12.14",
+    "numpy": "2.5.2"
+  },
+  "source_commit": "b77fbe64030e3589ee77ab526d5721b23fd84eab",
+  "source_tree_dirty": true,
+  "source_sha256": {
+    "calibration_diagnostics.py": "ab66d2fc79fae1ac98f5c5115bbbaf9dee769612b8596b47c1a3cd7168830a9a",
+    "tracking.py": "b7a2c3d16e4dbb8821dc6a08af5e970f33b637de1b47eea8075ab3c9395dba75",
+    "physics.py": "e9bd33995330079b3e317ec4d0f09673857e017fde8c1b17d2e76d0e53534260",
+    "env.py": "049688b6d77796f6f5fcfd69b6656d2809cc804276f7f14eeab20ad5f71a902f",
+    "config.py": "f12d6fa6880de7b2daf4d6ae83305caab99bfdcefe1f6600100129eef74fdf95"
+  }
+}
