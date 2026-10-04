@@ -2,115 +2,109 @@
 
 [简体中文](README.md) | **English**
 
-A MAPPO-based simulation of integrated sensing and communication for two UAVs: two independent Actors control UAV motion, while a centralized Critic learns the team return. The task is to reach each UAV's destination within the time limit while balancing sensing, communication, and safety.
+A MAPPO-based simulation of integrated sensing and communication for two UAVs. Two independent Actors control the friendly UAVs, a centralized Critic learns the team return, and the base station uses deterministic beamforming rules. Both UAVs must safely reach their destinations before the deadline while collaboratively sensing a moving target. A UAV stops acting and uploading sensing data after arrival.
 
-## Project Structure
+The `ekf` mode implements noisy measurements → fusion filter → target estimate → subsequent decisions. Target truth is used for simulation and offline scoring; it is not provided directly to the Actors, Critic, or planners. The measurement-noise model has not been calibrated against physical sensors.
+
+## Current Features and Experiment Status
+
+- The project supports pure RL, residual RL built on Goal navigation, and rule-based Goal, PD, artificial-potential-field, MPC, and simulated-annealing controllers.
+- The new study adds sensing-aware SA/MPC, v2 observations, reward ablations, curriculum learning, and Goal behavioral-cloning initialization. Its code and development-validation evidence are merged into `main`.
+- **As of 2026-10-05, the formal 24-model study has not completed final aggregation and archival.** Completed results are documented in the [historical closed-loop study](project/docs/CLOSED_LOOP_RESULTS.en.md) and the [current development-validation archive](project/experiments/isac_development_20261004/README.en.md). Interpret them separately from the current final evaluation.
+
+## Project Structure and Configurations
 
 ```text
 UAV/
-├── project/                 Current main implementation; environment, physics formulas, and PPO are contained in the package
-│   ├── train.py             Entry point for training, evaluation, and navigation baselines
-│   ├── example_config.json  Experiment configuration (uses CUDA by default)
-│   ├── tests/               Unit and integration tests
-│   ├── docs/                Detailed usage guide, formula migration, and verification records
-│   └── output/              Local models, logs, and plots; not uploaded to Git
-├── legacy/                  Legacy environment, trainer, and 2uav reference code
-├── requirements.txt         Installation entry point; references project/requirements.txt
-├── README.md                Chinese
-└── README.en.md             English
+├── project/          Current implementation: environment, physics, filtering, PPO, and experiment entry points
+│   ├── docs/         Usage guides, study protocols, and results documentation
+│   ├── experiments/  Published experiment data and figures
+│   ├── tests/        Unit and integration tests
+│   └── output/       Local models, logs, and results; ignored by Git
+├── legacy/           Historical code for reference only
+├── requirements.txt  Project dependency entry point
+└── README.en.md      English documentation
 ```
+
+| Configuration | Purpose |
+|---|---|
+| [closed_loop_config.json](project/closed_loop_config.json) | One EKF closed-loop training run with CPU rollout inference and CUDA batch updates |
+| [next_study_protocol.json](project/next_study_protocol.json) | Full study: 24 models, three training seeds, and 48 prespecified snapshot evaluations |
+| [example_config.json](project/example_config.json) | Historical `proxy` mode for reproducing older experiments |
 
 ## Installation
 
-All commands below are for **Windows CMD**, with one command per line. If you already have the repository and the `uav` environment, simply enter the repository root and activate the environment.
+All commands below are single-line **Windows CMD** commands. Run every Python command from the repository root. Skip repository and environment creation if they already exist.
 
-```bat
+```cmd
 git clone https://github.com/DeepBluesL/UAV.git
 cd UAV
 conda create -n uav python=3.12 -y
 conda activate uav
-```
-
-Install the GPU version of PyTorch first, then install the project dependencies. The commands below use the CUDA 13.0 wheel index; for other GPU or driver combinations, select the appropriate build on the [official PyTorch installation page](https://pytorch.org/get-started/locally/).
-
-```bat
 python -m pip install --upgrade torch --index-url https://download.pytorch.org/whl/cu130
 python -m pip install -r requirements.txt
-python -c "import torch; print('PyTorch:', torch.__version__); print('CUDA available:', torch.cuda.is_available())"
+python -c "import torch; print('PyTorch:', torch.__version__); print('CUDA:', torch.version.cuda); print('GPU available:', torch.cuda.is_available())"
 ```
 
-## Training and Evaluation
+This example uses the CUDA 13.0 PyTorch wheel index. For other GPU and driver combinations, select a build on the [official PyTorch installation page](https://pytorch.org/get-started/locally/). Physics simulation runs in NumPy on the CPU, while the GPU handles batched network updates, so GPU utilization will not remain high continuously.
 
-Run all commands from the repository root (the parent directory of `project`). For a full training run:
+## Single-Run Training, Evaluation, and Plotting
 
-```bat
-python -m project.train --config project/example_config.json --seed 7 --eval-seed 1001 1002 1004 1005 --output project/output/run_seed7
+First run a short training job to check the workflow. This does not demonstrate convergence:
+
+```cmd
+python -m project.train --config project/closed_loop_config.json --control-mode residual --epochs 2 --steps-per-epoch 128 --seed 7 --eval-seed 101 102 --output project/output/quick_check
 ```
 
-To check that the workflow runs, first perform a short training run; it cannot be used to assess convergence:
+Run closed-loop residual RL. Change `--control-mode residual` to `--control-mode pure` for pure RL:
 
-```bat
-python -m project.train --config project/example_config.json --epochs 2 --steps-per-epoch 128 --seed 7 --eval-seed 101 102 --output project/output/quick_check
+```cmd
+python -m project.train --config project/closed_loop_config.json --control-mode residual --seed 7 --eval-seed 1001 1002 1004 1005 --output project/output/run_seed7
 ```
 
-Evaluate the model saved after training:
+Evaluation reads the configuration saved in the model. The following uses the CPU for small-batch inference; training still uses CUDA updates according to its configuration:
 
-```bat
-python -m project.train --mode evaluate --checkpoint project/output/run_seed7/policy.pt --device cuda --eval-seed 1001 1002 1004 1005 --output project/output/run_seed7_eval
-```
-
-Regenerate plots and run tests:
-
-```bat
+```cmd
+python -m project.train --mode evaluate --checkpoint project/output/run_seed7/policy.pt --device cpu --eval-seed 1001 1002 1004 1005 --output project/output/run_seed7_eval
 python -m project.replot --output project/output/run_seed7
-python -B -m unittest discover -s project/tests -v
 ```
 
-The example configuration uses the GPU. To run on the CPU, add `--device cpu` to the training or evaluation command. The neural networks can use the GPU; the NumPy physics environment still executes serially on the CPU. `--eval-seed` and `--eval-seeds` are equivalent.
+Results include `policy.pt`, CSV/JSON logs, and PNG figures. Trajectory plots show the base station, friendly UAVs, their destinations, and the target's true and estimated trajectories. Use a new output directory for every run: a single training run may overwrite files with the same names, while batch studies reject an existing output directory. Optimizer state is not saved, so exact training resumption is unsupported. For CPU-only training, add `--device cpu --rollout-device cpu`.
 
-Results are saved in the specified subdirectory under `project/output/`, including the `policy.pt` model, training and evaluation logs, and PNG plots. Trajectory plots show the base station, both UAVs, and the rogue UAV's ground-truth and estimated trajectories. **Use a different output directory for each experiment**; files with the same name will be overwritten. Resuming training from a checkpoint is not currently supported.
+## Baselines and the Full Study
 
-## Baseline Comparisons
+Compare the six default rule-based methods: random actions, Goal, PD, artificial potential fields, navigation MPC, and SA:
 
-Compare random actions, goal seeking, PD, artificial potential fields, and short-horizon navigation MPC, and online simulated annealing (SA) under the same evaluation protocol:
-
-```bat
-python -m project.benchmark --config project/example_config.json --seed-start 2001 --episodes 100 --output project/output/comparison_rules
+```cmd
+python -m project.benchmark --config project/closed_loop_config.json --seed-start 2001 --episodes 30 --output project/output/comparison_rules
 ```
 
-See the [benchmark guide](project/docs/BASELINES.md) for adding a trained MAPPO checkpoint, scenarios, and statistics, and the [results analysis](project/docs/BASELINE_RESULTS.md) for measured findings (both in Chinese).
+Run the complete new study, including training, fixed-budget evaluation, and aggregation. It takes substantially longer than a single training run:
 
-## Measurement Feedback, Generalization, and Residual RL
-
-The new mode connects simulated noisy measurements, EKF fusion, posterior estimates, and subsequent decisions. The study compares fixed-task pure RL, randomized-task pure RL, and randomized-task residual RL with equal budgets and three training seeds each. It also tests bounds, speed limits, and sensing ablations:
-
-```bat
-python -m project.study --config project/study_config.json --jobs 3 --output project/output/my_study
+```cmd
+python -m project.next_study --config project/next_study_protocol.json --output project/output/my_next_study --stage all --jobs 3
 ```
 
-This trains nine models and evaluates them on common scenarios and seeds. The new configuration uses CPU rollout inference and CUDA batch updates to reduce per-step synchronization overhead. See the [English closed-loop study guide](project/docs/CLOSED_LOOP_STUDY.en.md), its [Chinese companion](project/docs/CLOSED_LOOP_STUDY.md), and the [measured SA / limit-change results](project/docs/LIMITS_SA_RESULTS.md) (Chinese). Use `closed_loop_config.json` for the new mode; `example_config.json` retains the proxy model for historical comparisons.
+`--jobs 3` starts three independent processes. The primary comparison uses the same budget of 204,800 joint environment interactions, including behavioral-cloning demonstrations; selected variants also save 300/500-epoch snapshots. The complete formal evaluation plan contains 15 scenarios, 30 evaluation seeds, and 23,850 episodes. See the [new study guide](project/docs/NEXT_STUDY_GUIDE.en.md) for staged commands, seed roles, and parameter changes. The historical nine-model study is described in the [closed-loop study guide](project/docs/CLOSED_LOOP_STUDY.en.md).
 
-Measured closed-loop findings are summarized in the [English results companion](project/docs/CLOSED_LOOP_RESULTS.en.md), with the complete reproducibility archive under [`project/experiments/closed_loop_20260927`](project/experiments/closed_loop_20260927/README.md).
+Inspect success rate, safety interventions, collisions, and completion time before comparing tracking RMSE, covariance, and communication over the same time window. Lower covariance does not necessarily mean lower realized error, and total returns are not directly comparable across reward configurations. In the current formal protocol, equal-reward pure/residual comparisons are limited to navigation; nonzero sensing-reward ablations are performed within residual RL.
 
 ## Where to Make Changes
 
-| Content | Location |
+| Content | Files |
 | --- | --- |
-| Scenario, reward weights, learning rate, and training budget | [example_config.json](project/example_config.json); see [config.py](project/config.py) for all fields |
-| Motion, per-UAV exit on arrival, and observations | `project/env.py`, `project/observations.py` |
-| Reward expressions | [rewards.py](project/rewards.py) |
-| Networks, GAE, and PPO updates | `project/core.py`, `project/ppo.py` |
-| Channels, SINR, CRB/PCRB | `project/channels.py`, `communication.py`, `sensing.py`, `measurements.py`, `crb.py`, `pcrb.py` |
-| Training statistics and plotting | `project/train.py`, `metrics.py`, `plot.py`, `plot_trajectory.py` |
+| Scenarios, hyperparameters, and experiment groups | `project/config.py` and the corresponding JSON configuration |
+| Motion, exit semantics, observations, and rewards | `project/env.py`, `observations.py`, `observation_specs.py`, `rewards.py` |
+| Channel, communication, and sensing physics | `project/physics.py`, `channels.py`, `communication.py`, `sensing.py`, `crb.py`, `pcrb.py` |
+| Simulated measurements and fusion filtering | `project/tracking.py` |
+| Networks, PPO, and action mapping | `project/core.py`, `ppo.py`, `rollout.py`, `control.py` |
+| Randomized scenarios, curriculum, and imitation initialization | `project/training_scenarios.py`, `domain_randomization.py`, `behavior_cloning.py` |
+| Sensing planning and result aggregation | `project/sensing_planning.py`, `nominal_links.py`, `next_study_summary.py`, `next_study_plots.py` |
 
-For details, see the [User Guide](project/docs/GUIDE.md), [Physics Formula Migration](project/docs/PHYSICS_MIGRATION.md), and [Verification Records](project/docs/VERIFICATION.md) (in Chinese). See [legacy/README.md](legacy/README.md) for the purpose and usage of the legacy code.
+```cmd
+python -B -m unittest discover -s project/tests -v
+```
 
-The rogue UAV's ground truth is not an Actor/Critic input. The `proxy` mode retains noisy state estimates and a PCRB proxy; `ekf` uses simulated measurements and recursive fusion. Filter covariance and realized tracking RMSE are reported separately. Measurement noise is not calibrated against physical sensors.
+More documentation: [module index](project/README.md) · [user guide](project/docs/GUIDE.md) · [physics formula migration](project/docs/PHYSICS_MIGRATION.md) · [baseline guide](project/docs/BASELINES.md) · [experiment archive](project/experiments/README.md). Some detailed pages are available only in Chinese where no English companion exists.
 
-The PPO implementation references OpenAI Spinning Up. The third-party license is retained in [LICENSE-spinningup.txt](project/LICENSE-spinningup.txt). This license applies to the relevant third-party code and does not constitute a licensing statement for the entire repository.
-
-## Sensing Planning and Learning Budgets
-
-The next study adds belief-only sensing SA/MPC, v2 observations, reward ablations, curriculum training, and Goal initialization. See the [English guide](project/docs/NEXT_STUDY_GUIDE.en.md) / [中文指南](project/docs/NEXT_STUDY_GUIDE.md) for single-line CMD commands, budgets, and editing locations.
-
-Development evidence for path controllability, filter consistency, and sensing planning is archived in [English](project/experiments/isac_development_20261004/README.en.md) / [中文](project/experiments/isac_development_20261004/README.md). Formal multi-seed learning results are reported separately.
+The PPO implementation references OpenAI Spinning Up. The license for the relevant third-party code is retained in [LICENSE-spinningup.txt](project/LICENSE-spinningup.txt); it is not a licensing statement for the repository as a whole.
