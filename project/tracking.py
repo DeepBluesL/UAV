@@ -97,6 +97,9 @@ class TrackingEKF:
         self.prior_state = None
         self.prior_covariance = None
         self.measurement_counts = np.zeros(3, dtype=int)
+        # Offline diagnostics only; these copies never enter the filter recursion.
+        self.last_residuals = np.full((3, 4), np.nan)
+        self.last_innovations = np.full((3, 4, 4), np.nan)
 
     def initialize(self, truth):
         std = np.array([self.config.tracking_initial_position_std] * 3
@@ -106,6 +109,8 @@ class TrackingEKF:
         self.prior_state = self.state.copy()
         self.prior_covariance = self.covariance.copy()
         self.measurement_counts[:] = 0
+        self.last_residuals[:] = np.nan
+        self.last_innovations[:] = np.nan
         return self.state.copy(), self.covariance.copy()
 
     def predict(self):
@@ -126,6 +131,8 @@ class TrackingEKF:
         sensor_positions = np.vstack((bs, positions))
         sensor_velocities = np.vstack((np.zeros(3), velocities))
         identity = np.eye(6)
+        self.last_residuals[:] = np.nan
+        self.last_innovations[:] = np.nan
         for source in np.flatnonzero(source_mask):
             bistatic = source > 0
             sensor_position = sensor_positions[source]
@@ -144,6 +151,8 @@ class TrackingEKF:
             residual[1] = wrap_angle(residual[1])
             residual[2] = wrap_angle(residual[2])
             innovation = jacobian @ self.covariance @ jacobian.T + covariance
+            self.last_residuals[source] = residual
+            self.last_innovations[source] = innovation
             cross_covariance = self.covariance @ jacobian.T
             gain = np.linalg.solve(innovation, cross_covariance.T).T
             self.state = self.state + gain @ residual

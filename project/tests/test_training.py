@@ -2,6 +2,7 @@
 
 import tempfile
 import unittest
+from dataclasses import replace
 from pathlib import Path
 
 import numpy as np
@@ -14,7 +15,7 @@ from project.env import DualUAVEnv
 from project.evaluate import GoalController, evaluate
 from project.metrics import EpisodeRecorder
 from project.ppo import MAPPOBuffer
-from project.train import collect_epoch
+from project.train import collect_epoch, train
 
 
 class ValuedController(GoalController):
@@ -36,6 +37,22 @@ def scenario(max_steps=10):
 
 
 class TrainingIntegrationTests(unittest.TestCase):
+    def test_tiny_v2_train_update_save_and_reload(self):
+        cfg = replace(scenario(max_steps=4), observation_version="v2")
+        reward = RewardConfig()
+        ppo = PPOConfig(
+            hidden_sizes=(8,), steps_per_epoch=8, epochs=1,
+            train_pi_iters=1, train_v_iters=1, seed=23)
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parent) as directory:
+            output = Path(directory)
+            policy, epochs, _ = train(cfg, reward, ppo, output)
+            loaded, loaded_env, _, _ = load_policy(output / "policy.pt")
+        self.assertEqual(len(epochs), 1)
+        self.assertEqual(policy.pi[0].mu_net[0].in_features, 67)
+        self.assertEqual(policy.v.v_net[0].in_features, 72)
+        self.assertEqual(loaded.pi[0].mu_net[0].in_features, 67)
+        self.assertEqual(loaded_env.observation_version, "v2")
+
     def test_cutoff_bootstraps_and_keeps_partially_finished_team(self):
         cfg = scenario()
         env = DualUAVEnv(cfg)

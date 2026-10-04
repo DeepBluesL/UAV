@@ -3,9 +3,11 @@
 import numpy as np
 
 from .config import EnvConfig, RewardConfig
+from .observation_specs import observation_spec
 from .observations import OBS_DIM, STATE_DIM, build_observations
 from .physics import ISACPhysics
 from .rewards import team_reward
+from .target_motion import advance_target_state
 
 
 def swept_distance(start, end):
@@ -25,6 +27,8 @@ class DualUAVEnv:
     def __init__(self, config=None, reward_config=None, seed=7):
         self.config = config or EnvConfig()
         self.reward_config = reward_config or RewardConfig()
+        spec = observation_spec(self.config)
+        self.obs_dim, self.state_dim = spec.obs_dim, spec.state_dim
         self.rng = np.random.default_rng(seed)
         self.physics = ISACPhysics(self.config, self.rng)
         self.reset()
@@ -90,9 +94,7 @@ class DualUAVEnv:
         self.energy_proxies += energy * active_before
 
         previous_target = self.target_state.copy()
-        dt = cfg.slot_duration
-        self.target_state[:3] += previous_target[3:] * dt + .5 * cfg.target_acceleration * dt ** 2
-        self.target_state[3:] += cfg.target_acceleration * dt
+        self.target_state = advance_target_state(previous_target, cfg, self.step_count)
         if cfg.sensing_mode == "proxy":
             self.estimated_target_state = self.physics.noisy_estimate(self.target_state)
         self.metrics = self.physics.update(

@@ -40,3 +40,5 @@ python -B -m unittest discover -s project/tests -v
 新闭环实验入口为 `python -m project.study --help`；随机训练任务分布在 `training_scenarios.py`。
 
 新闭环实验实测结论：[中文](docs/CLOSED_LOOP_RESULTS.md) / [English](docs/CLOSED_LOOP_RESULTS.en.md)；数据与重绘：[实验归档](experiments/closed_loop_20260927/README.md)。
+
+感知规划与学习预算研究：[中文指南](docs/NEXT_STUDY_GUIDE.md) / [English](docs/NEXT_STUDY_GUIDE.en.md)。总配置为 `next_study_protocol.json`，测试场景为 `next_study_scenarios.json`，入口为 `python -m project.next_study --help`。

@@ -1,0 +1,224 @@
+{
+  "status": "frozen",
+  "date": "2026-10-04",
+  "development_seeds": [
+    4101,
+    4102,
+    4103,
+    4104,
+    4105,
+    4106,
+    4107,
+    4108,
+    4109,
+    4110
+  ],
+  "validation_seeds": [
+    4201,
+    4202,
+    4203,
+    4204,
+    4205
+  ],
+  "evaluation_seeds": [
+    5101,
+    5102,
+    5103,
+    5104,
+    5105,
+    5106,
+    5107,
+    5108,
+    5109,
+    5110,
+    5111,
+    5112,
+    5113,
+    5114,
+    5115,
+    5116,
+    5117,
+    5118,
+    5119,
+    5120,
+    5121,
+    5122,
+    5123,
+    5124,
+    5125,
+    5126,
+    5127,
+    5128,
+    5129,
+    5130
+  ],
+  "training_seeds": [
+    7,
+    17,
+    27
+  ],
+  "steps_per_epoch": 2048,
+  "primary_epoch": 100,
+  "budget_epochs": [
+    100,
+    300,
+    500
+  ],
+  "variants": {
+    "residual_nav_v1": {
+      "control_mode": "residual",
+      "training_distribution": "domain_randomized",
+      "observation_version": "v1",
+      "sensing": 0,
+      "max_epochs": 100
+    },
+    "residual_nav": {
+      "control_mode": "residual",
+      "training_distribution": "domain_randomized",
+      "observation_version": "v2",
+      "sensing": 0,
+      "max_epochs": 500
+    },
+    "residual_sense_legacy": {
+      "control_mode": "residual",
+      "training_distribution": "domain_randomized",
+      "observation_version": "v2",
+      "sensing_penalty": "legacy",
+      "sensing": 0.2,
+      "max_epochs": 100
+    },
+    "residual_sense_low": {
+      "control_mode": "residual",
+      "training_distribution": "domain_randomized",
+      "observation_version": "v2",
+      "sensing_penalty": "log1p",
+      "sensing": 0.2,
+      "max_epochs": 100
+    },
+    "residual_sense_high": {
+      "control_mode": "residual",
+      "training_distribution": "domain_randomized",
+      "observation_version": "v2",
+      "sensing_penalty": "log1p",
+      "sensing": 2.0,
+      "max_epochs": 100
+    },
+    "pure_domain": {
+      "control_mode": "pure",
+      "training_distribution": "domain_randomized",
+      "observation_version": "v2",
+      "sensing": 0,
+      "max_epochs": 500
+    },
+    "pure_curriculum": {
+      "control_mode": "pure",
+      "training_distribution": "curriculum",
+      "observation_version": "v2",
+      "sensing": 0,
+      "max_epochs": 500
+    },
+    "pure_goal_bc": {
+      "control_mode": "pure",
+      "training_distribution": "domain_randomized",
+      "observation_version": "v2",
+      "sensing": 0,
+      "initialization": "goal_bc",
+      "demonstration_steps": 8192,
+      "max_epochs": 500
+    }
+  },
+  "protocol": [
+    "All primary comparisons at 204800 total environment interactions, including Goal demonstration interactions for BC.",
+    "Budget scan snapshots taken from uninterrupted runs at 204800/614400/1024000 total interactions.",
+    "No optimizer restarts between budget snapshots; final evaluation does not select a winning checkpoint.",
+    "Navigation success/safety gate reported separately from common-window RMSE and communication.",
+    "Step1/2 use development seeds only; reserve evaluation seeds until implementations/settings are frozen.",
+    "Physics proxy/noise floors unchanged unless diagnostics justify and a separate calibrated scenario can be substantiated.",
+    "Target motion truth/acceleration never enters actor,critic or planning beliefs.",
+    "Legacy and log1p reward shapes are compared at the same low sensing coefficient, public observation schema, training distribution, and interaction budget."
+  ],
+  "base_config": "project/closed_loop_config.json",
+  "suite": "project/next_study_scenarios.json",
+  "rule_methods": [
+    "goal",
+    "mpc",
+    "sa",
+    "sensing_mpc",
+    "sensing_sa"
+  ],
+  "paired_ablations": [
+    {
+      "left": "residual_nav_v1",
+      "right": "residual_nav",
+      "label": "public_observation_v2"
+    },
+    {
+      "left": "residual_nav",
+      "right": "residual_sense_low",
+      "label": "sensing_low"
+    },
+    {
+      "left": "residual_nav",
+      "right": "residual_sense_high",
+      "label": "sensing_high"
+    },
+    {
+      "left": "residual_sense_low",
+      "right": "residual_sense_high",
+      "label": "sensing_coefficient"
+    },
+    {
+      "left": "residual_sense_low",
+      "right": "residual_sense_legacy",
+      "label": "reward_shape"
+    },
+    {
+      "left": "pure_domain",
+      "right": "pure_curriculum",
+      "label": "curriculum"
+    },
+    {
+      "left": "pure_domain",
+      "right": "pure_goal_bc",
+      "label": "goal_initialization"
+    },
+    {
+      "left": "pure_domain",
+      "right": "residual_nav",
+      "label": "residual_control"
+    }
+  ],
+  "development_selection": {
+    "planning_sa": {
+      "sensing_weight": 2.0,
+      "communication_weight": 0.0,
+      "horizon": 4,
+      "iterations": 16
+    },
+    "planning_mpc": {
+      "sensing_weight": 2000.0,
+      "communication_weight": 0.0,
+      "horizon": 3
+    },
+    "reward_reference_m2": 1.0,
+    "reward_coefficients": [
+      0.0,
+      0.2,
+      2.0
+    ],
+    "rationale": "Preserve the existing low coefficient and test a tenfold increase. Planning indicates moderate tracking/communication tradeoffs and failures at extreme weights. Planner native cost units differ; their coefficients are not transferred literally to RL.",
+    "development_episodes": 260,
+    "validation_seeds": [
+      4201,
+      4202,
+      4203,
+      4204,
+      4205
+    ],
+    "validation_policy": "Choices fixed before validation; validation regressions remain reported without retuning.",
+    "validation_completed_episodes": 70,
+    "validation_manifest_sha256": "6790a5a060b514bda09ce49672b86f92eb6d65899c76ca9972d8369e1ddc3018",
+    "validation_interpretation": "Selected MPC shows modest realized RMSE improvement; SA default-budget improvement does not replicate consistently. Navigation/tracking tradeoffs and negative results are retained; no retuning on validation."
+  },
+  "execution_order": "Observation/reward residual comparisons precede pure-policy curriculum/BC runs; long budget snapshots remain uninterrupted."
+}

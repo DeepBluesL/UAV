@@ -21,6 +21,10 @@ def team_reward(
         + .5 * np.sum(accelerations[active] ** 2, axis=1) / env.max_uav_acceleration ** 2
     )
     comm_shortfall = np.maximum(0., 1. - communication_sinrs[active] / env.gamma_min)
+    sensing_ratio = float(rho_pos / weights.rho_ref)
+    sensing_penalty = (sensing_ratio / (1.0 + sensing_ratio)
+                       if weights.sensing_penalty == "legacy"
+                       else np.log1p(sensing_ratio))
 
     # 分母始终是两架 UAV，不能在一架退出后改成活动机数。
     return {
@@ -28,7 +32,7 @@ def team_reward(
         "distance": -weights.distance * float(remaining.sum()) / 2,
         "arrival": weights.arrival * float(np.count_nonzero(newly_arrived)) / 2,
         "completion": weights.completion * float(completed),
-        "sensing": -weights.sensing * float(rho_pos / (rho_pos + weights.rho_ref)),
+        "sensing": -weights.sensing * sensing_penalty,
         "time": -weights.time * float(active.sum()) / 2,
         "energy": -weights.energy * float(energy.sum()) / 2,
         "communication": -weights.communication * float(comm_shortfall.sum()) / 2,

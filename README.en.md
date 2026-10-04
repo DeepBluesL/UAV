@@ -108,3 +108,7 @@ For details, see the [User Guide](project/docs/GUIDE.md), [Physics Formula Migra
 The rogue UAV's ground truth is not an Actor/Critic input. The `proxy` mode retains noisy state estimates and a PCRB proxy; `ekf` uses simulated measurements and recursive fusion. Filter covariance and realized tracking RMSE are reported separately. Measurement noise is not calibrated against physical sensors.
 
 The PPO implementation references OpenAI Spinning Up. The third-party license is retained in [LICENSE-spinningup.txt](project/LICENSE-spinningup.txt). This license applies to the relevant third-party code and does not constitute a licensing statement for the entire repository.
+
+## Sensing Planning and Learning Budgets
+
+The next study adds belief-only sensing SA/MPC, v2 observations, reward ablations, curriculum training, and Goal initialization. See the [English guide](project/docs/NEXT_STUDY_GUIDE.en.md) / [中文指南](project/docs/NEXT_STUDY_GUIDE.md) for single-line CMD commands, budgets, and editing locations.

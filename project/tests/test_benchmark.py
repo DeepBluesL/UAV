@@ -103,7 +103,8 @@ class BenchmarkIntegrationTests(unittest.TestCase):
             np.testing.assert_array_equal(saved[key], value)
         actual = next(row for row in rows if row["method"] == "random" and row["seed"] == 11)
         self.assertEqual(self.without_timing(actual),
-                         {**self.without_timing(expected_row), "scenario": "short", "method": "random"})
+                         {**self.without_timing(expected_row), "scenario": "short", "method": "random",
+                          "prefix_steps": 2})
 
     def test_random_episode_reset_is_reproducible_except_timing(self):
         _, reward, scenarios, _, _, metadata = load_experiment(self.args())

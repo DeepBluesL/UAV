@@ -45,6 +45,13 @@ class MPCController:
     def reset(self, seed=None):
         del seed
 
+    def _trajectory_cost_enabled(self):
+        return False
+
+    def _trajectory_cost(self, positions, velocities, active):
+        del positions, velocities, active
+        return 0.0
+
     def _candidates(self, goal, velocity, is_active):
         if not is_active:
             return [np.zeros(3)]
@@ -122,13 +129,25 @@ class MPCController:
         trial_active = np.broadcast_to(active, (count, 2)).copy()
         trial_goals = np.broadcast_to(goals, (count, 2, 3))
         cost, safe = np.zeros(count), np.ones(count, dtype=bool)
+        collect_trace = self._trajectory_cost_enabled()
+        trace_position, trace_velocity, trace_active = [], [], []
         for step in range(self.horizon):
             active_before = trial_active.copy()
+            previous_position = trial_position.copy() if collect_trace else None
             trial_position, trial_velocity, trial_active, step_safe, executed = self._step(
                 trial_position, trial_velocity, acceleration, trial_active, trial_goals)
             safe &= step_safe
             cost += self._cost(trial_position, trial_velocity, trial_goals, executed,
                                active_before, terminal=step == self.horizon - 1)
+            if collect_trace:
+                trace_position.append(trial_position.copy())
+                trace_velocity.append(
+                    (trial_position - previous_position) / self.config.slot_duration)
+                trace_active.append(active_before)
+        if collect_trace:
+            cost += self._trajectory_cost(
+                np.stack(trace_position, axis=1), np.stack(trace_velocity, axis=1),
+                np.stack(trace_active, axis=1))
         cost[~safe] = np.inf
         if np.isfinite(cost).any():
             best = acceleration[int(np.argmin(cost))]

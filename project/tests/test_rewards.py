@@ -59,6 +59,11 @@ class TestTeamReward(unittest.TestCase):
         self.assertGreater(high, -self.weights.sensing)
         self.assertLessEqual(high, 0.0)
 
+    def test_log1p_sensing_penalty_uses_reward_rho_reference(self):
+        self.weights = RewardConfig(sensing=.2, rho_ref=2., sensing_penalty="log1p")
+        self.base["rho_pos"] = 6.
+        self.assertAlmostEqual(self.parts()["sensing"], -.2 * np.log1p(3.))
+
     def test_two_uav_denominator_does_not_change_with_active_count(self):
         both = self.parts(active_before=np.array([True, True]))["time"]
         one = self.parts(active_before=np.array([True, False]))["time"]

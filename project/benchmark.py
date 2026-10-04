@@ -26,11 +26,18 @@ class TimedPolicy:
         self.seconds += perf_counter() - start
         return result
 
+    def set_belief(self, estimated_target_state, tracking_covariance):
+        if hasattr(self.policy, "set_belief"):
+            self.policy.set_belief(estimated_target_state, tracking_covariance)
+
 
 def evaluate_episode(policy, env, seed, prefix_steps):
     # 预热不进入统计；之后重置随机策略和环境，保证正式轨迹可复现。
     obs, _, info = env.reset(seed=seed)
     if not env.terminated:
+        if hasattr(policy, "set_belief"):
+            policy.set_belief(
+                info["estimated_target_state"], info["tracking_covariance"])
         policy.act(obs, info["active"], deterministic=True)
     if hasattr(policy, "reset"):
         policy.reset(seed)
@@ -65,8 +72,10 @@ def run_benchmark(args):
             env = DualUAVEnv(cfg, reward)
             start = perf_counter()
             for index, seed in enumerate(seeds):
-                row, trace = evaluate_episode(policy, env, seed, metadata["prefix_steps"])
-                row.update(scenario=scenario, method=method)
+                row, trace = evaluate_episode(
+                    policy, env, seed, metadata["scenario_prefix_steps"][scenario])
+                row.update(scenario=scenario, method=method,
+                           prefix_steps=metadata["scenario_prefix_steps"][scenario])
                 rows.append(row)
                 if index == 0:
                     trace_dir = output / "trajectories" / scenario / method

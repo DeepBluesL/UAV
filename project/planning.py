@@ -38,7 +38,8 @@ def swept_distance(start, end):
     return np.linalg.norm(relative + fraction[..., None] * change, axis=-1)
 
 
-def rollout_cost(sequences, position, velocity, goals, active, config, weights):
+def rollout_cost(sequences, position, velocity, goals, active, config, weights,
+                 trajectory_cost=None):
     """批量评估 [B,H,2,3] 控制序列，返回纯导航代价。"""
     sequences = np.asarray(sequences, dtype=float)
     if sequences.ndim == 3:
@@ -50,6 +51,7 @@ def rollout_cost(sequences, position, velocity, goals, active, config, weights):
     goals = np.broadcast_to(goals, (batch, 2, 3))
     cost = np.zeros(batch)
     safe = np.ones(batch, dtype=bool)
+    trace_position, trace_velocity, trace_active = [], [], []
     for step in range(horizon):
         live_before = live.copy()
         acc = executed_acceleration(sequences[:, step], config)
@@ -74,7 +76,16 @@ def rollout_cost(sequences, position, velocity, goals, active, config, weights):
         cost += weights["boundary"] * np.sum(boundary, axis=-1)
         arrived = np.linalg.norm(goals - next_pos, axis=-1) <= config.goal_tolerance
         live &= ~arrived
-        vel = np.where(live[..., None], (next_pos - pos) / config.slot_duration, 0.0)
+        moved_velocity = (next_pos - pos) / config.slot_duration
+        vel = np.where(live[..., None], moved_velocity, 0.0)
         pos = next_pos
+        if trajectory_cost is not None:
+            trace_position.append(pos.copy())
+            trace_velocity.append(moved_velocity.copy())
+            trace_active.append(live_before)
     cost[~safe] += weights["collision"]
+    if trajectory_cost is not None:
+        cost += trajectory_cost(
+            np.stack(trace_position, axis=1), np.stack(trace_velocity, axis=1),
+            np.stack(trace_active, axis=1))
     return cost

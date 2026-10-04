@@ -1,0 +1,20 @@
+{
+  "name": "prespecified_validation_4201_4205",
+  "prefix_steps": 10,
+  "scenarios": ["nominal", "crossing"],
+  "methods": {
+    "goal": {"family": "goal"},
+    "sa_nav_i16": {"family": "sa", "comparison_group": "sa16", "sensing_weight": 0.0, "communication_weight": 0.0, "search": {"horizon": 4, "iterations": 16}},
+    "sa_sense_2_i16": {"family": "sa", "comparison_group": "sa16", "sensing_weight": 2.0, "communication_weight": 0.0, "search": {"horizon": 4, "iterations": 16}},
+    "sa_nav_i64": {"family": "sa", "comparison_group": "sa64", "sensing_weight": 0.0, "communication_weight": 0.0, "search": {"horizon": 4, "iterations": 64}},
+    "sa_sense_2_i64": {"family": "sa", "comparison_group": "sa64", "sensing_weight": 2.0, "communication_weight": 0.0, "search": {"horizon": 4, "iterations": 64}},
+    "mpc_nav": {"family": "mpc", "comparison_group": "mpc", "sensing_weight": 0.0, "communication_weight": 0.0, "search": {"horizon": 3}},
+    "mpc_sense_2000": {"family": "mpc", "comparison_group": "mpc", "sensing_weight": 2000.0, "communication_weight": 0.0, "search": {"horizon": 3}}
+  },
+  "uncertainty_ref": 1.0,
+  "primary_sensing_metric": "tracking_prefix_rmse",
+  "secondary_sensing_metric": "rho_prefix_mean",
+  "family_references": {"sa16": "sa_nav_i16", "sa64": "sa_nav_i64", "mpc": "mpc_nav"},
+  "selection_provenance": "Frozen from development gates before validation seeds were run",
+  "validation_rule": "Retain every regression; no post-validation retuning"
+}

@@ -25,11 +25,15 @@ def rollout_policy(policy, env, seed):
     targets = [info["target_state"][:3]]
     estimates = [info["estimated_target_state"][:3]]
     rhos = [info["rho_pos"]]
+    covariances = [info["tracking_covariance"]]
     active = [info["active"]]
     priors = [info.get("prior_estimated_target_state", info["estimated_target_state"])[:3]]
     measurements = [info.get("measurement_source_mask", np.zeros(3, dtype=bool))]
     rewards, source_masks, communication, reward_parts = [], [], [], {}
     while not env.terminated:
+        if hasattr(policy, "set_belief"):
+            policy.set_belief(
+                info["estimated_target_state"], info["tracking_covariance"])
         # 执行时不调用集中 Critic，只让活动 Actor 前向计算。
         actions, _ = policy.act(obs, env.active, deterministic=True)
         obs, _, reward, terminated, truncated, info = env.step(actions)
@@ -38,6 +42,7 @@ def rollout_policy(policy, env, seed):
         targets.append(info["target_state"][:3])
         estimates.append(info["estimated_target_state"][:3])
         rhos.append(info["rho_pos"])
+        covariances.append(info["tracking_covariance"])
         active.append(info["active"])
         priors.append(info.get("prior_estimated_target_state", info["estimated_target_state"])[:3])
         measurements.append(info.get("measurement_source_mask", np.zeros(3, dtype=bool)))
@@ -56,6 +61,7 @@ def rollout_policy(policy, env, seed):
         "uncertainty_kind": np.asarray(info.get("uncertainty_kind", "proxy_pcrb")),
         "bs_position": env.config.bs_position.copy(),
         "rho_pos": np.asarray(rhos), "active": np.asarray(active),
+        "tracking_covariances": np.asarray(covariances),
         "rewards": np.asarray(rewards),
         "times": np.arange(len(positions)) * env.config.slot_duration,
         "source_mask": np.asarray(source_masks, dtype=bool).reshape(-1, 3),

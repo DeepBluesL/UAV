@@ -5,6 +5,8 @@ from math import sqrt
 
 import numpy as np
 
+from .window_metrics import WINDOW_METRICS, window_metrics
+
 
 METRICS = (
     "episode_return", "restricted_team_time", "success_time",
@@ -12,9 +14,11 @@ METRICS = (
     "communication_rate", "rho_pos_mean", "rho_prefix_mean",
     "safety_interventions", "collisions", "boundary_requests",
     "policy_ms_per_step", "tracking_rmse", "tracking_prefix_rmse",
-    "prior_tracking_rmse", "measurement_updates",
+    "prior_tracking_rmse", "measurement_updates", *WINDOW_METRICS,
 )
-PAIRED_METRICS = ("episode_return", "restricted_team_time", "rho_prefix_mean")
+PAIRED_METRICS = ("episode_return", "restricted_team_time", "rho_prefix_mean",
+                  "tracking_prefix_rmse", "communication_prefix_rate",
+                  "tracking_prefix_late_rmse", "position_nees_prefix_mean")
 
 
 def _number(value):
@@ -53,6 +57,7 @@ def enrich_episode(row, trace, config, prefix_steps=10):
         result["tracking_prefix_rmse"] = (
             float(np.sqrt(np.mean(np.sum(error ** 2, axis=1))))
             if len(error) == prefix_steps else None)
+    result.update(window_metrics(trace, config, prefix_steps))
     return result
 
 

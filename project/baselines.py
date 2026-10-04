@@ -6,8 +6,8 @@ import numpy as np
 def observation_state(obs, config):
     """从公开观测恢复两机的导航量。"""
     obs = np.asarray(obs, dtype=float)
-    if obs.shape != (2, 31):
-        raise ValueError("obs must have shape (2, 31)")
+    if obs.ndim != 2 or obs.shape[0] != 2 or obs.shape[1] < 31:
+        raise ValueError("obs must have shape (2, D) with D >= 31")
     position = obs[:, :3] * config.position_scale
     velocity = obs[:, 3:6] * config.velocity_scale
     goal_delta = obs[:, 6:9] * config.position_scale

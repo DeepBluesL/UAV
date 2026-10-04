@@ -4,6 +4,7 @@ from dataclasses import replace
 
 import numpy as np
 
+from .domain_randomization import domain_randomize
 from .physics import ISACPhysics
 
 
@@ -11,18 +12,51 @@ class TrainingScenarioSampler:
     """Sample continuous tasks without consulting benchmark scenarios or seeds."""
 
     def __init__(self, base, distribution="fixed", seed=7):
-        if distribution not in {"fixed", "randomized"}:
-            raise ValueError("training_distribution must be 'fixed' or 'randomized'")
+        allowed = {"fixed", "randomized", "domain_randomized", "curriculum"}
+        if distribution not in allowed:
+            raise ValueError(f"training_distribution must be one of {sorted(allowed)}")
         self.base = base
         self.distribution = distribution
         # Separate stream: scenario draws never consume sensor/channel randomness.
         self.rng = np.random.default_rng(np.random.SeedSequence([int(seed), 0x53434E]))
         self.current_kind = "fixed"
+        self.interactions = 0
+
+    @property
+    def phase(self):
+        if self.distribution != "curriculum":
+            return self.distribution
+        if self.interactions < 50_000:
+            return "easy"
+        if self.interactions < 150_000:
+            return "geometry"
+        return "domain"
+
+    def advance(self, steps):
+        """Add environment or behavior-cloning interactions to curriculum progress."""
+        if not isinstance(steps, (int, np.integer)) or steps < 0:
+            raise ValueError("steps must be a non-negative integer")
+        self.interactions += int(steps)
 
     def sample(self):
         if self.distribution == "fixed":
             self.current_kind = "fixed"
             return replace(self.base)
+        if self.phase == "easy":
+            self.current_kind = "curriculum_easy"
+            return replace(self.base)
+        sampled = self._sample_randomized()
+        if self.distribution == "randomized" or self.phase == "geometry":
+            if self.distribution == "curriculum":
+                self.current_kind = "curriculum_geometry_" + self.current_kind
+            return sampled
+        geometry_kind = self.current_kind
+        sampled = domain_randomize(sampled, self.rng)
+        self.current_kind = (("curriculum_domain_" if self.distribution == "curriculum"
+                              else "domain_") + geometry_kind)
+        return sampled
+
+    def _sample_randomized(self):
         rng, base = self.rng, self.base
         draw = rng.random()
         if draw < .25:

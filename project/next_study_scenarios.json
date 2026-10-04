@@ -1,0 +1,236 @@
+{
+  "prefix_steps": 10,
+  "protocol": [
+    "Final seeds5101\u20135130 remain untouched until settings are frozen.",
+    "Actor and critic never receive true target motion or acceleration.",
+    "Reverse task uses a prespecified five-step window; other cases use ten.",
+    "Dynamics/geometry and sensor shifts are evaluated separately, then composed.",
+    "Return is configuration-specific; compare physical task and tracking metrics across reward variants."
+  ],
+  "scenarios": {
+    "nominal": {
+      "description": "Training scenario, unchanged.",
+      "environment": {}
+    },
+    "crossing": {
+      "description": "Held-out equal-altitude crossing instance within the randomized crossing geometry family.",
+      "environment": {
+        "uav_initial": [
+          [
+            30,
+            -25,
+            70
+          ],
+          [
+            30,
+            25,
+            70
+          ]
+        ],
+        "uav_goal_positions": [
+          [
+            130,
+            25,
+            70
+          ],
+          [
+            130,
+            -25,
+            70
+          ]
+        ]
+      }
+    },
+    "shifted_goals": {
+      "description": "Unseen, closer goals within the same flight volume.",
+      "environment": {
+        "uav_goal_positions": [
+          [
+            120,
+            55,
+            90
+          ],
+          [
+            100,
+            -40,
+            45
+          ]
+        ]
+      }
+    },
+    "reverse_goals": {
+      "description": "Held-out simultaneous reverse goals; randomized training includes one reverse goal at a time.",
+      "environment": {
+        "uav_goal_positions": [
+          [
+            0,
+            10,
+            70
+          ],
+          [
+            0,
+            -10,
+            70
+          ]
+        ]
+      },
+      "prefix_steps": 5
+    },
+    "wide_fast": {
+      "description": "Both bounds and speed changed; all other task parameters fixed.",
+      "environment": {
+        "world_low": [
+          -50,
+          -110,
+          10
+        ],
+        "world_high": [
+          210,
+          120,
+          150
+        ],
+        "max_uav_speed": 8
+      }
+    },
+    "target_velocity": {
+      "description": "Held-out faster target velocity; navigation unchanged.",
+      "environment": {
+        "target_initial_state": [
+          60,
+          0,
+          60,
+          -2,
+          1.6,
+          -0.4
+        ]
+      }
+    },
+    "target_turn": {
+      "description": "Unseen hidden acceleration change after six steps; CV filter unchanged.",
+      "environment": {
+        "target_turn_step": 6,
+        "target_acceleration_after_turn": [
+          0.15,
+          -0.15,
+          0.1
+        ]
+      }
+    },
+    "noisy_measurements": {
+      "description": "Measurement floors outside the training ranges; filter knows sensor noise.",
+      "environment": {
+        "measurement_range_std_floor": 2.0,
+        "measurement_angle_std_floor": 0.017453292519943295,
+        "measurement_range_rate_std_floor": 1.0
+      }
+    },
+    "strict_upload": {
+      "description": "Known upload SINR threshold above the training range.",
+      "environment": {
+        "gamma_min": 10.0
+      }
+    },
+    "composed_shift": {
+      "description": "Held-out combination of crossing geometry, faster UAV, maneuvering target, noisy CSI and strict upload.",
+      "environment": {
+        "uav_initial": [
+          [
+            30,
+            -25,
+            70
+          ],
+          [
+            30,
+            25,
+            70
+          ]
+        ],
+        "uav_goal_positions": [
+          [
+            130,
+            25,
+            70
+          ],
+          [
+            130,
+            -25,
+            70
+          ]
+        ],
+        "max_uav_speed": 8.0,
+        "imperfect_csi_beta": 0.45,
+        "gamma_min": 10.0,
+        "target_turn_step": 6,
+        "target_acceleration_after_turn": [
+          0.15,
+          -0.15,
+          0.1
+        ]
+      }
+    },
+    "bs_only": {
+      "description": "Nominal geometry, BS updates only: isolate value of UAV measurement fusion.",
+      "environment": {
+        "tracking_use_uav_measurements": false
+      }
+    },
+    "prediction_only": {
+      "description": "Nominal geometry, identical prior, prediction only: no measurement updates.",
+      "environment": {
+        "collect_measurements": false
+      }
+    },
+    "wide_bounds": {
+      "description": "Only enlarge bounds; keep starts, goals, time, and speed fixed.",
+      "environment": {
+        "world_low": [
+          -50,
+          -110,
+          10
+        ],
+        "world_high": [
+          210,
+          120,
+          150
+        ]
+      }
+    },
+    "fast_speed": {
+      "description": "Only increase speed limit from 5 to 8 m/s; acceleration remains 5 m/s\u864f.",
+      "environment": {
+        "max_uav_speed": 8
+      }
+    },
+    "target_position": {
+      "description": "Held-out target initial position; original velocity retained.",
+      "environment": {
+        "target_initial_state": [
+          85,
+          -20,
+          80,
+          -1,
+          1,
+          -1
+        ]
+      }
+    }
+  },
+  "methods": {
+    "goal": {},
+    "mpc": {},
+    "sa": {},
+    "sensing_mpc": {
+      "sensing_weight": 2000.0,
+      "communication_weight": 0.0,
+      "uncertainty_ref": 1.0,
+      "horizon": 3
+    },
+    "sensing_sa": {
+      "sensing_weight": 2.0,
+      "communication_weight": 0.0,
+      "uncertainty_ref": 1.0,
+      "horizon": 4,
+      "iterations": 16
+    }
+  }
+}

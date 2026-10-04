@@ -4,6 +4,8 @@ from dataclasses import dataclass, field
 
 import numpy as np
 
+from .config_validation import validate_ppo
+
 
 @dataclass
 class EnvConfig:
@@ -24,6 +26,8 @@ class EnvConfig:
     target_initial_state: np.ndarray = field(default_factory=lambda: np.array(
         [60., 0., 60., -1., 1., -1.]))
     target_acceleration: np.ndarray = field(default_factory=lambda: np.array([.02, -.02, .02]))
+    target_turn_step: int | None = None
+    target_acceleration_after_turn: np.ndarray = field(default_factory=lambda: np.zeros(3))
 
     # 第一版固定物理难度；波束为确定性规则，没有 BS Actor。
     antenna_x: int = 8
@@ -65,12 +69,17 @@ class EnvConfig:
     sinr_log_scale: float = 10.0
     covariance_position_std: float = 1.0
     covariance_velocity_std: float = 1.0
+    observation_version: str = "v1"
+    observation_rho_ref: float = 1.0
+    observation_velocity_variance_ref: float = 1.0
+    observation_time_scale: float = 100.0
 
     def __post_init__(self):
         shapes = {
             "uav_initial": (2, 3), "uav_initial_velocities": (2, 3),
             "uav_goal_positions": (2, 3), "world_low": (3,), "world_high": (3,),
             "bs_position": (3,), "target_initial_state": (6,), "target_acceleration": (3,),
+            "target_acceleration_after_turn": (3,),
         }
         for name, shape in shapes.items():
             value = np.asarray(getattr(self, name), dtype=float)
@@ -83,6 +92,8 @@ class EnvConfig:
             "antenna_x", "antenna_y", "gamma_min", "initial_covariance",
             "process_noise_intensity", "position_scale", "velocity_scale",
             "sinr_log_scale", "covariance_position_std", "covariance_velocity_std",
+            "observation_rho_ref", "observation_velocity_variance_ref",
+            "observation_time_scale",
             "tracking_initial_position_std", "tracking_initial_velocity_std",
             "measurement_range_std_floor", "measurement_angle_std_floor",
             "measurement_range_rate_std_floor",
@@ -102,6 +113,12 @@ class EnvConfig:
             raise ValueError("imperfect_csi_beta must be in [0, 1]")
         if self.sensing_mode not in ("proxy", "ekf"):
             raise ValueError("sensing_mode must be 'proxy' or 'ekf'")
+        if (self.target_turn_step is not None
+                and (not isinstance(self.target_turn_step, (int, np.integer))
+                     or self.target_turn_step < 0)):
+            raise ValueError("target_turn_step must be a non-negative integer or None")
+        if self.observation_version not in {"v1", "v2"}:
+            raise ValueError("observation_version must be 'v1' or 'v2'")
 
 
 @dataclass
@@ -119,10 +136,13 @@ class RewardConfig:
     boundary: float = 2.0
     distance_ref: float = 100.0
     rho_ref: float = .01             # m²：物理探针给出的候选值，正式比较前固定。
+    sensing_penalty: str = "legacy"
 
     def __post_init__(self):
         if self.distance_ref <= 0 or self.rho_ref <= 0:
             raise ValueError("distance_ref and rho_ref must be positive")
+        if self.sensing_penalty not in {"legacy", "log1p"}:
+            raise ValueError("sensing_penalty must be 'legacy' or 'log1p'")
 
 
 @dataclass
@@ -146,15 +166,12 @@ class PPOConfig:
     control_mode: str = "pure"
     residual_scale: float = .25
     training_distribution: str = "fixed"
+    initialization: str = "random"
+    demonstration_steps: int = 0
+    bc_epochs: int = 20
+    bc_batch_size: int = 256
+    bc_lr: float = 3.e-4
+    checkpoint_epochs: tuple = ()
 
     def __post_init__(self):
-        if min(self.steps_per_epoch, self.epochs, self.train_pi_iters, self.train_v_iters) < 1:
-            raise ValueError("Rollout size, epochs and update counts must be positive")
-        if not (0 <= self.gamma <= 1 and 0 <= self.lam <= 1):
-            raise ValueError("gamma and lam must be in [0, 1]")
-        if self.control_mode not in {"pure", "residual"}:
-            raise ValueError("control_mode must be 'pure' or 'residual'")
-        if not 0 <= self.residual_scale <= 1:
-            raise ValueError("residual_scale must be in [0, 1]")
-        if self.training_distribution not in {"fixed", "randomized"}:
-            raise ValueError("training_distribution must be 'fixed' or 'randomized'")
+        validate_ppo(self)

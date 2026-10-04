@@ -17,6 +17,8 @@ def collect_epoch(env, ac, buffer, obs, state, recorder, scenario_sampler=None):
             actions = raw_actions
         value = ac.value(state)
         next_obs, next_state, reward, terminated, truncated, info = env.step(actions)
+        if scenario_sampler is not None and hasattr(scenario_sampler, "advance"):
+            scenario_sampler.advance(1)
         # PPO must score the original Gaussian sample, not the adapted env action.
         buffer.store(obs, state, raw_actions, reward, value, logp, active_before)
         recorder.add(reward, info)

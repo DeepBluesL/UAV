@@ -16,13 +16,16 @@ from .baselines import PDController, PotentialFieldController, RandomController
 from .config import EnvConfig, PPOConfig, RewardConfig
 from .evaluate import GoalController
 from .mpc import MPCController
+from .sensing_planning import SensingAwareMPCController, SensingAwareSAController
 
 
 CONTROLLERS = {
     "random": RandomController, "goal": GoalController, "pd": PDController,
     "apf": PotentialFieldController, "mpc": MPCController, "sa": SimulatedAnnealingController,
+    "sensing_mpc": SensingAwareMPCController, "sensing_sa": SensingAwareSAController,
 }
 METHODS = (*CONTROLLERS, "mappo")
+DEFAULT_METHODS = ("random", "goal", "pd", "apf", "mpc", "sa")
 PROJECT_DIR = Path(__file__).resolve().parent
 
 
@@ -54,7 +57,7 @@ def load_experiment(args):
             raise ValueError("Scenario names must contain only letters, digits and underscores")
         case = suite["scenarios"][name]
         scenarios[name] = replace(env, **case["environment"])
-    methods = args.methods or list(CONTROLLERS) + (["mappo"] if policy is not None else [])
+    methods = args.methods or list(DEFAULT_METHODS) + (["mappo"] if policy is not None else [])
     if "mappo" in methods and policy is None:
         raise ValueError("The mappo method requires --checkpoint")
     if len(methods) != len(set(methods)) or len(selected) != len(set(selected)):
@@ -65,10 +68,15 @@ def load_experiment(args):
     prefix = int(suite.get("prefix_steps", 10))
     if prefix < 1:
         raise ValueError("prefix_steps must be positive")
+    scenario_prefixes = {name: int(suite["scenarios"][name].get("prefix_steps", prefix))
+                         for name in selected}
+    if min(scenario_prefixes.values()) < 1:
+        raise ValueError("Each scenario prefix_steps must be positive")
     metadata = {
         "status": "running", "base_config": config_dict(env, reward, ppo),
         "checkpoint": checkpoint, "suite": suite, "evaluation_seeds": seeds,
         "methods": methods, "prefix_steps": prefix,
+        "scenario_prefix_steps": scenario_prefixes,
         "scenarios": {name: asdict(cfg) for name, cfg in scenarios.items()},
         "runtime": {"python": platform.python_version(), "numpy": np.__version__,
                     "torch": torch.__version__, "evaluation_device": args.device,
@@ -79,7 +87,7 @@ def load_experiment(args):
             "Same scenarios, constraints, team reward and paired evaluation seeds for all methods.",
             "Environment RNG consumption can diverge after different active-source histories.",
             "No tuning on evaluation outcomes; non-nominal cases are specified stress tests.",
-            "MPC and SA are centralized navigation references with known dynamics, not full ISAC optimizers.",
+            "MPC and SA use known UAV dynamics; sensing variants forecast public belief and nominal links.",
             "Fixed-prefix rho excludes t=0; episodes shorter than the prefix remain missing.",
             "Timing covers warmed policy.act wall time only; environment and plotting are excluded.",
             "Figures use the first listed evaluation seed, without selecting a favorable trajectory.",

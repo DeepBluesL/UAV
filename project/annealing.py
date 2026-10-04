@@ -46,6 +46,10 @@ class SimulatedAnnealingController:
         self.rng = np.random.default_rng(self.seed)
         self._warm = None
 
+    def _rollout_cost(self, sequences, position, velocity, goals, active):
+        return rollout_cost(sequences, position, velocity, goals, active,
+                            self.config, self.weights)
+
     def _references(self, goal, velocity, position, active):
         cfg = self.config
         distance = np.linalg.norm(goal, axis=1, keepdims=True)
@@ -78,8 +82,7 @@ class SimulatedAnnealingController:
                               (velocity[1] + teammate_velocity[0]) / 2))
         goals = position + goal_delta
         references = self._references(goal_delta, velocity, position, active)
-        costs = rollout_cost(references, position, velocity, goals, active,
-                             self.config, self.weights)
+        costs = self._rollout_cost(references, position, velocity, goals, active)
         current = references[int(np.argmin(costs))].copy()
         current_cost = float(np.min(costs))
         best, best_cost = current.copy(), current_cost
@@ -91,8 +94,8 @@ class SimulatedAnnealingController:
             agent = self.rng.integers(2)
             proposal[step, agent] += self.rng.normal(
                 0.0, temperature * self.config.max_uav_acceleration, 3)
-            cost = float(rollout_cost(proposal, position, velocity, goals, active,
-                                      self.config, self.weights)[0])
+            cost = float(self._rollout_cost(
+                proposal, position, velocity, goals, active)[0])
             delta = cost - current_cost
             if delta <= 0 or self.rng.random() < np.exp(-delta / max(temperature, 1e-12)):
                 current, current_cost = proposal, cost

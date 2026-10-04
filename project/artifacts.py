@@ -10,7 +10,7 @@ import torch
 
 from .config import EnvConfig, PPOConfig, RewardConfig
 from .core import MAPPOActorCritic
-from .observations import OBS_DIM, STATE_DIM
+from .observation_specs import observation_spec
 
 
 def json_value(value):
@@ -45,10 +45,16 @@ def config_dict(environment, reward, ppo):
 
 
 def save_policy(path, ac, environment, reward, ppo):
+    obs_dim = ac.pi[0].mu_net[0].in_features
+    state_dim = ac.v.v_net[0].in_features
+    spec = observation_spec(environment)
+    if (obs_dim, state_dim) != (spec.obs_dim, spec.state_dim):
+        raise ValueError("Policy dimensions do not match the environment observation schema")
     torch.save({
         "model": ac.state_dict(),
         "config": config_dict(environment, reward, ppo),
-        "obs_dim": OBS_DIM, "state_dim": STATE_DIM,
+        "obs_dim": obs_dim, "state_dim": state_dim,
+        "observation_version": spec.version,
     }, path)
 
 
@@ -58,6 +64,12 @@ def load_policy(path, device="cpu"):
     environment = EnvConfig(**config["environment"])
     reward = RewardConfig(**config["reward"])
     ppo = PPOConfig(**{**config["ppo"], "device": device})
+    spec = observation_spec(environment)
+    saved_version = saved.get("observation_version", "v1")
+    if saved_version != spec.version:
+        raise ValueError("Checkpoint observation version disagrees with its config")
+    if (saved["obs_dim"], saved["state_dim"]) != (spec.obs_dim, spec.state_dim):
+        raise ValueError("Checkpoint dimensions disagree with its observation schema")
     ac = MAPPOActorCritic(
         saved["obs_dim"], saved["state_dim"], hidden_sizes=ppo.hidden_sizes,
         environment=environment, control_mode=ppo.control_mode,
